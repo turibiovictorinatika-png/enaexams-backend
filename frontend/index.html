@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduDocs — Bibliothèque des Sujets d'Évaluation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0D1B2A;
+      --navy-mid: #1A2E42;
+      --navy-light: #243B55;
+      --gold: #C9A84C;
+      --gold-light: #E8C97A;
+      --cream: #F8F5EE;
+      --cream-dark: #EDE9E0;
+      --white: #FFFFFF;
+      --text-dark: #0D1B2A;
+      --text-mid: #3D5166;
+      --text-light: #6B8299;
+      --border: rgba(13,27,42,0.12);
+      --success: #1B6B45;
+      --danger: #8B1A1A;
+      --radius: 10px;
+      --shadow: 0 4px 24px rgba(13,27,42,0.10);
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text-dark); min-height: 100vh; }
+
+    /* NAV */
+    nav {
+      background: var(--navy);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.25);
+    }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; cursor: pointer; }
+    .logo-icon { width: 36px; height: 36px; background: var(--gold); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 18px; color: var(--navy); font-weight: 700; }
+    .logo-text { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--white); font-weight: 600; }
+    .logo-text span { color: var(--gold); }
+    .nav-links { display: flex; align-items: center; gap: 8px; }
+    .nav-btn { background: none; border: none; color: rgba(255,255,255,0.7); font-family: 'DM Sans', sans-serif; font-size: 14px; padding: 8px 16px; border-radius: 6px; cursor: pointer; transition: all 0.2s; font-weight: 500; }
+    .nav-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
+    .nav-btn.gold { background: var(--gold); color: var(--navy); font-weight: 600; }
+    .nav-btn.gold:hover { background: var(--gold-light); }
+    .nav-user { color: var(--gold-light); font-size: 13px; font-weight: 600; padding: 8px 12px; }
+
+    /* PAGES */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* HERO */
+    .hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%); padding: 80px 2rem 60px; text-align: center; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -60px; right: -60px; width: 300px; height: 300px; border-radius: 50%; background: rgba(201,168,76,0.08); }
+    .hero-tag { display: inline-block; background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.3); color: var(--gold-light); font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 16px; border-radius: 20px; margin-bottom: 24px; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 52px); color: var(--white); line-height: 1.2; margin-bottom: 16px; }
+    .hero h1 em { color: var(--gold); font-style: normal; }
+    .hero p { font-size: 17px; color: rgba(255,255,255,0.65); max-width: 520px; margin: 0 auto 40px; line-height: 1.7; }
+    .hero-stats { display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; }
+    .stat { text-align: center; }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--gold); font-weight: 700; }
+    .stat-label { font-size: 12px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+    .hero-btns { display: flex; gap: 16px; justify-content: center; margin-bottom: 40px; flex-wrap: wrap; }
+    .btn-hero-primary { background: var(--gold); color: var(--navy); border: none; border-radius: 8px; padding: 14px 32px; font-size: 15px; font-weight: 700; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: all 0.2s; }
+    .btn-hero-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .btn-hero-secondary { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; padding: 14px 32px; font-size: 15px; font-weight: 600; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: all 0.2s; }
+    .btn-hero-secondary:hover { background: rgba(255,255,255,0.2); }
+
+    /* SEARCH */
+    .search-section { max-width: 900px; margin: -28px auto 0; padding: 0 1.5rem; position: relative; z-index: 10; }
+    .search-box { background: var(--white); border-radius: 12px; box-shadow: var(--shadow); padding: 1.25rem 1.5rem; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+    .search-input-wrap { flex: 1; min-width: 200px; position: relative; }
+    .search-input-wrap::before { content: '🔍'; position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 15px; }
+    .search-box input[type="text"] { width: 100%; padding: 10px 14px 10px 40px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 14px; font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text-dark); outline: none; transition: border-color 0.2s; }
+    .search-box input[type="text"]:focus { border-color: var(--navy); }
+    .search-box select { padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 13px; font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text-dark); outline: none; cursor: pointer; min-width: 130px; }
+
+    /* SUBJECTS */
+    .subjects-section { max-width: 1100px; margin: 48px auto 80px; padding: 0 1.5rem; }
+    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; flex-wrap: wrap; gap: 12px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--navy); }
+    .results-count { font-size: 13px; color: var(--text-light); }
+    .subjects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+    .subject-card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(13,27,42,0.06); padding: 1.5rem; transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden; }
+    .subject-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); }
+    .subject-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(13,27,42,0.12); }
+    .card-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+    .badge { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; }
+    .badge-filiere { background: #E8F0FE; color: #1A3A6B; }
+    .badge-niveau { background: #FEF3E8; color: #7A3B0C; }
+    .badge-annee { background: #E8F5ED; color: #1A5C35; }
+    .card-title { font-family: 'Playfair Display', serif; font-size: 17px; color: var(--navy); margin-bottom: 8px; line-height: 1.4; }
+    .card-matiere { font-size: 13px; color: var(--text-light); margin-bottom: 16px; }
+    .card-footer { display: flex; align-items: center; justify-content: space-between; }
+    .card-type { font-size: 12px; color: var(--text-light); }
+    .btn-download { display: flex; align-items: center; gap: 6px; background: var(--navy); color: #fff; border: none; border-radius: 6px; padding: 7px 14px; font-size: 12px; font-weight: 600; font-family: 'DM Sans', sans-serif; cursor: pointer; text-decoration: none; transition: background 0.2s; }
+    .btn-download:hover { background: var(--navy-light); }
+    .lock-overlay { position: absolute; inset: 0; background: rgba(13,27,42,0.85); border-radius: var(--radius); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; opacity: 0; transition: opacity 0.2s; }
+    .subject-card:hover .lock-overlay { opacity: 1; }
+    .lock-overlay p { color: #fff; font-size: 13px; text-align: center; padding: 0 16px; }
+    .lock-overlay button { background: var(--gold); color: var(--navy); border: none; border-radius: 6px; padding: 8px 20px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+    .empty-state { text-align: center; padding: 80px 20px; color: var(--text-light); grid-column: 1/-1; }
+    .empty-state-icon { font-size: 48px; margin-bottom: 16px; }
+    .empty-state h3 { font-size: 20px; color: var(--text-mid); margin-bottom: 8px; }
+
+    /* AUTH PAGES */
+    .auth-page { min-height: calc(100vh - 64px); display: flex; align-items: center; justify-content: center; padding: 2rem; background: var(--cream); }
+    .auth-card { background: var(--white); border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); padding: 2.5rem; width: 100%; max-width: 440px; }
+    .auth-logo { text-align: center; margin-bottom: 2rem; }
+    .auth-logo-icon { width: 56px; height: 56px; background: var(--navy); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-family: 'Playfair Display', serif; font-size: 24px; color: var(--gold); }
+    .auth-title { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--navy); text-align: center; margin-bottom: 4px; }
+    .auth-sub { font-size: 13px; color: var(--text-light); text-align: center; margin-bottom: 2rem; }
+    .auth-form { display: flex; flex-direction: column; gap: 14px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .auth-form input, .auth-form select { padding: 12px 16px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 14px; font-family: 'DM Sans', sans-serif; background: var(--cream); outline: none; transition: border-color 0.2s; color: var(--text-dark); }
+    .auth-form input:focus, .auth-form select:focus { border-color: var(--navy); }
+    .auth-error { background: #fef2f2; border: 1px solid #fca5a5; color: var(--danger); padding: 10px 14px; border-radius: 8px; font-size: 13px; display: none; }
+    .auth-success { background: #f0fdf4; border: 1px solid #86efac; color: var(--success); padding: 10px 14px; border-radius: 8px; font-size: 13px; display: none; }
+    .btn-primary { background: var(--navy); color: #fff; border: none; border-radius: 8px; padding: 13px 28px; font-size: 15px; font-weight: 600; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: background 0.2s; width: 100%; }
+    .btn-primary:hover { background: var(--navy-light); }
+    .auth-switch { text-align: center; margin-top: 20px; font-size: 13px; color: var(--text-light); }
+    .auth-switch a { color: var(--navy); font-weight: 600; cursor: pointer; text-decoration: underline; }
+    .auth-divider { text-align: center; color: var(--text-light); font-size: 12px; margin: 8px 0; }
+
+    /* ADMIN */
+    .admin-layout { display: flex; min-height: calc(100vh - 64px); }
+    .admin-sidebar { width: 240px; background: var(--navy); padding: 2rem 1rem; flex-shrink: 0; }
+    .sidebar-title { color: rgba(255,255,255,0.4); font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 0 12px; margin-bottom: 12px; }
+    .sidebar-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; color: rgba(255,255,255,0.65); font-size: 14px; cursor: pointer; transition: all 0.2s; font-weight: 500; border: none; background: none; width: 100%; text-align: left; margin-bottom: 2px; }
+    .sidebar-item:hover, .sidebar-item.active { background: rgba(255,255,255,0.08); color: #fff; }
+    .sidebar-item.active { background: rgba(201,168,76,0.15); color: var(--gold-light); }
+    .admin-content { flex: 1; padding: 2.5rem; background: var(--cream); overflow-y: auto; }
+    .admin-panel { display: none; }
+    .admin-panel.active { display: block; }
+    .admin-title { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--navy); margin-bottom: 28px; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; margin-bottom: 36px; }
+    .stat-card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); padding: 1.25rem; }
+    .stat-card-num { font-family: 'Playfair Display', serif; font-size: 36px; color: var(--navy); font-weight: 700; }
+    .stat-card-label { font-size: 12px; color: var(--text-light); margin-top: 4px; }
+    .form-card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); padding: 2rem; max-width: 700px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label { font-size: 13px; font-weight: 600; color: var(--text-mid); }
+    .form-group input, .form-group select, .form-group textarea { padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 14px; font-family: 'DM Sans', sans-serif; color: var(--text-dark); background: var(--cream); outline: none; transition: border-color 0.2s; }
+    .form-group input:focus, .form-group select:focus { border-color: var(--navy); }
+    .file-upload-area { border: 2px dashed var(--border); border-radius: 8px; padding: 24px; text-align: center; background: var(--cream); cursor: pointer; transition: border-color 0.2s; }
+    .file-upload-area:hover { border-color: var(--navy); }
+    .file-upload-area input { display: none; }
+    .file-upload-icon { font-size: 28px; margin-bottom: 8px; }
+    .file-upload-text { font-size: 13px; color: var(--text-light); }
+    .file-name { font-size: 12px; color: var(--success); margin-top: 6px; font-weight: 500; }
+    .btn-save { background: var(--navy); color: #fff; border: none; border-radius: 8px; padding: 12px 28px; font-size: 15px; font-weight: 600; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: background 0.2s; }
+    .btn-save:hover { background: var(--navy-light); }
+    .btn-cancel { background: none; color: var(--text-mid); border: 1px solid var(--border); border-radius: 8px; padding: 12px 28px; font-size: 15px; font-weight: 600; font-family: 'DM Sans', sans-serif; cursor: pointer; }
+    .btn-danger { background: none; border: 1px solid #fca5a5; color: var(--danger); border-radius: 6px; padding: 5px 12px; font-size: 12px; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: all 0.2s; }
+    .btn-danger:hover { background: #fca5a5; }
+    .btn-edit { background: none; border: 1px solid #93c5fd; color: #1d4ed8; border-radius: 6px; padding: 5px 12px; font-size: 12px; font-family: 'DM Sans', sans-serif; cursor: pointer; margin-right: 6px; }
+    .btn-edit:hover { background: #dbeafe; }
+    .table-wrap { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    thead { background: var(--navy); }
+    thead th { color: rgba(255,255,255,0.75); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; padding: 12px 16px; text-align: left; }
+    tbody tr { border-bottom: 1px solid var(--border); }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--cream); }
+    tbody td { padding: 12px 16px; color: var(--text-dark); vertical-align: middle; }
+    .alert-success { background: #f0fdf4; border: 1px solid #86efac; color: var(--success); padding: 12px 16px; border-radius: 8px; font-size: 14px; margin-bottom: 20px; display: none; }
+
+    /* LOGIN ADMIN */
+    .login-page { min-height: calc(100vh - 64px); display: flex; align-items: center; justify-content: center; background: var(--cream); padding: 2rem; }
+    .login-card { background: var(--white); border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); padding: 2.5rem; width: 100%; max-width: 420px; }
+    .login-logo { text-align: center; margin-bottom: 2rem; }
+    .login-logo-icon { width: 56px; height: 56px; background: var(--navy); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-family: 'Playfair Display', serif; font-size: 24px; color: var(--gold); }
+    .login-title { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--navy); text-align: center; margin-bottom: 4px; }
+    .login-sub { font-size: 13px; color: var(--text-light); text-align: center; margin-bottom: 2rem; }
+    .login-form { display: flex; flex-direction: column; gap: 16px; }
+    .login-form input { padding: 12px 16px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 15px; font-family: 'DM Sans', sans-serif; background: var(--cream); outline: none; transition: border-color 0.2s; }
+    .login-form input:focus { border-color: var(--navy); }
+    .login-error { background: #fef2f2; border: 1px solid #fca5a5; color: var(--danger); padding: 10px 14px; border-radius: 8px; font-size: 13px; display: none; }
+
+    @media (max-width: 768px) {
+      .form-grid, .form-row { grid-template-columns: 1fr; }
+      .admin-layout { flex-direction: column; }
+      .admin-sidebar { width: 100%; display: flex; gap: 8px; flex-wrap: wrap; padding: 1rem; }
+      .sidebar-title { display: none; }
+      .hero-stats { gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo" onclick="goHome()">
+    <div class="logo-icon">E</div>
+    <span class="logo-text">Edu<span>Docs</span></span>
+  </div>
+  <div class="nav-links" id="navLinks">
+    <button class="nav-btn" onclick="showPage('home')">Accueil</button>
+    <button class="nav-btn" onclick="requireAuth('subjects')">Sujets</button>
+    <span id="navUser" class="nav-user" style="display:none"></span>
+    <button id="btnDeconnexion" class="nav-btn" style="display:none;color:#f87171;" onclick="deconnexion()">Déconnexion</button>
+    <button id="btnInscription" class="nav-btn" onclick="showPage('inscription')">S'inscrire</button>
+    <button id="btnConnexion" class="nav-btn gold" onclick="showPage('connexion')">Se connecter</button>
+    <button id="btnAdmin" class="nav-btn gold" style="display:none;" onclick="handleAdminNav()">⚙ Admin</button>
+  </div>
+</nav>
+
+<!-- PAGE ACCUEIL -->
+<div id="page-home" class="page active">
+  <section class="hero">
+    <div class="hero-tag">Bibliothèque Académique</div>
+    <h1>Vos sujets d'évaluation,<br>en un <em>seul endroit</em></h1>
+    <p>Accédez à tous les devoirs, examens et TD de votre filière. Téléchargez, révisez, réussissez.</p>
+    <div class="hero-btns">
+      <button class="btn-hero-primary" onclick="requireAuth('subjects')">Voir les sujets →</button>
+      <button class="btn-hero-secondary" onclick="showPage('inscription')">Créer un compte</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num" id="heroCount">—</div><div class="stat-label">Sujets disponibles</div></div>
+      <div class="stat"><div class="stat-num" id="heroFilieres">—</div><div class="stat-label">Filières couvertes</div></div>
+      <div class="stat"><div class="stat-num">2000+</div><div class="stat-label">Étudiants actifs</div></div>
+    </div>
+  </section>
+
+  <div class="search-section">
+    <div class="search-box">
+      <div class="search-input-wrap">
+        <input type="text" id="homeSearch" placeholder="Rechercher un sujet, une matière…" oninput="renderHomeGrid()" />
+      </div>
+      <select id="homeFiliere" onchange="renderHomeGrid()"><option value="">Toutes les filières</option></select>
+      <select id="homeNiveau" onchange="renderHomeGrid()">
+        <option value="">Tous les niveaux</option>
+        <option>L1</option><option>L2</option><option>L3</option><option>M1</option><option>M2</option>
+      </select>
+      <button class="btn-save" style="padding:10px 20px;font-size:14px;" onclick="requireAuth('subjects')">Voir tous →</button>
+    </div>
+  </div>
+
+  <section class="subjects-section">
+    <div class="section-header">
+      <h2 class="section-title">Aperçu des sujets</h2>
+      <span class="results-count" id="homeCount"></span>
+    </div>
+    <div class="subjects-grid" id="homeGrid"></div>
+  </section>
+</div>
+
+<!-- PAGE SUJETS (connectés) -->
+<div id="page-subjects" class="page">
+  <section class="subjects-section" style="margin-top:36px">
+    <div class="section-header">
+      <h2 class="section-title">Tous les sujets</h2>
+      <span class="results-count" id="allCount"></span>
+    </div>
+    <div class="search-box" style="margin-bottom:28px;background:var(--white);border-radius:12px;box-shadow:var(--shadow);">
+      <div class="search-input-wrap" style="flex:1;min-width:180px;">
+        <input type="text" id="allSearch" placeholder="Rechercher…" oninput="renderAllGrid()" />
+      </div>
+      <select id="allFiliere" onchange="renderAllGrid()"><option value="">Filière</option></select>
+      <select id="allNiveau" onchange="renderAllGrid()">
+        <option value="">Niveau</option>
+        <option>L1</option><option>L2</option><option>L3</option><option>M1</option><option>M2</option>
+      </select>
+      <select id="allAnnee" onchange="renderAllGrid()"><option value="">Année</option></select>
+      <select id="allMatiere" onchange="renderAllGrid()"><option value="">Matière</option></select>
+    </div>
+    <div class="subjects-grid" id="allGrid"></div>
+  </section>
+</div>
+
+<!-- PAGE INSCRIPTION -->
+<div id="page-inscription" class="page">
+  <div class="auth-page">
+    <div class="auth-card">
+      <div class="auth-logo">
+        <div class="auth-logo-icon">E</div>
+        <div class="auth-title">Créer un compte</div>
+        <div class="auth-sub">Rejoignez la bibliothèque académique</div>
+      </div>
+      <div class="auth-form">
+        <div id="inscriptionError" class="auth-error"></div>
+        <div id="inscriptionSuccess" class="auth-success"></div>
+        <div class="form-row">
+          <input type="text" id="regNom" placeholder="Nom *" />
+          <input type="text" id="regPrenom" placeholder="Prénom *" />
+        </div>
+        <input type="email" id="regEmail" placeholder="Adresse email *" />
+        <input type="password" id="regPassword" placeholder="Mot de passe *" />
+        <input type="password" id="regPassword2" placeholder="Confirmer le mot de passe *" />
+        <select id="regFiliere">
+          <option value="">Filière (optionnel)</option>
+          <option>Informatique</option>
+          <option>Mathématiques</option>
+          <option>Physique</option>
+          <option>Économie</option>
+          <option>Droit</option>
+          <option>Médecine</option>
+          <option>Autre</option>
+        </select>
+        <select id="regNiveau">
+          <option value="">Niveau (optionnel)</option>
+          <option>L1</option><option>L2</option><option>L3</option><option>M1</option><option>M2</option>
+        </select>
+        <button class="btn-primary" onclick="doInscription()">Créer mon compte</button>
+      </div>
+      <div class="auth-switch">Déjà inscrit ? <a onclick="showPage('connexion')">Se connecter</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE CONNEXION ÉTUDIANT -->
+<div id="page-connexion" class="page">
+  <div class="auth-page">
+    <div class="auth-card">
+      <div class="auth-logo">
+        <div class="auth-logo-icon">E</div>
+        <div class="auth-title">Se connecter</div>
+        <div class="auth-sub">Accédez à votre bibliothèque</div>
+      </div>
+      <div class="auth-form">
+        <div id="connexionError" class="auth-error"></div>
+        <input type="email" id="loginEmail" placeholder="Adresse email" />
+        <input type="password" id="loginPassword" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')doConnexion()" />
+        <button class="btn-primary" onclick="doConnexion()">Se connecter</button>
+      </div>
+      <div class="auth-switch">Pas encore de compte ? <a onclick="showPage('inscription')">S'inscrire gratuitement</a></div>
+      <div class="auth-divider">─────── ou ───────</div>
+      <div class="auth-switch"><a onclick="showPage('login')">Accès administrateur</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE LOGIN ADMIN -->
+<div id="page-login" class="page">
+  <div class="login-page">
+    <div class="login-card">
+      <div class="login-logo">
+        <div class="login-logo-icon">⚙</div>
+        <div class="login-title">Espace Administrateur</div>
+        <div class="login-sub">Réservé à l'administration</div>
+      </div>
+      <div class="login-form">
+        <div id="loginError" class="login-error">Identifiants incorrects.</div>
+        <input type="text" id="adminUser" placeholder="Identifiant" />
+        <input type="password" id="adminPass" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')doAdminLogin()" />
+        <button class="btn-primary" onclick="doAdminLogin()">Se connecter</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE ADMIN -->
+<div id="page-admin" class="page">
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="sidebar-title">Menu Admin</div>
+      <button class="sidebar-item active" onclick="showAdminPanel('dashboard', this)">📊 Tableau de bord</button>
+      <button class="sidebar-item" onclick="showAdminPanel('add', this)">➕ Ajouter un sujet</button>
+      <button class="sidebar-item" onclick="showAdminPanel('manage', this)">📋 Gérer les sujets</button>
+      <button class="sidebar-item" onclick="showAdminPanel('etudiants', this)">👥 Étudiants</button>
+      <div style="margin-top:2rem;">
+        <button class="sidebar-item" onclick="doAdminLogout()" style="color:#f87171;">⬅ Déconnexion</button>
+      </div>
+    </aside>
+    <main class="admin-content">
+
+      <!-- Dashboard -->
+      <div id="panel-dashboard" class="admin-panel active">
+        <h2 class="admin-title">Tableau de bord</h2>
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-card-num" id="dashTotal">—</div><div class="stat-card-label">Total sujets</div></div>
+          <div class="stat-card"><div class="stat-card-num" id="dashFilieres">—</div><div class="stat-card-label">Filières</div></div>
+          <div class="stat-card"><div class="stat-card-num" id="dashMatieres">—</div><div class="stat-card-label">Matières</div></div>
+          <div class="stat-card"><div class="stat-card-num" id="dashEtudiants">—</div><div class="stat-card-label">Étudiants inscrits</div></div>
+        </div>
+        <div class="table-wrap">
+          <table><thead><tr><th>Titre</th><th>Filière</th><th>Niveau</th><th>Matière</th><th>Année</th></tr></thead>
+          <tbody id="dashTable"></tbody></table>
+        </div>
+      </div>
+
+      <!-- Ajouter -->
+      <div id="panel-add" class="admin-panel">
+        <h2 class="admin-title" id="addPanelTitle">Ajouter un sujet</h2>
+        <div id="addSuccess" class="alert-success">✅ Sujet enregistré avec succès !</div>
+        <div class="form-card">
+          <input type="hidden" id="editId" value="" />
+          <div class="form-grid">
+            <div class="form-group full">
+              <label>Titre du sujet *</label>
+              <input type="text" id="fTitre" placeholder="Ex : Examen final Analyse 1 — Session janvier" />
+            </div>
+            <div class="form-group">
+              <label>Filière *</label>
+              <input type="text" id="fFiliere" placeholder="Ex : Informatique" list="filiereList" />
+              <datalist id="filiereList"></datalist>
+            </div>
+            <div class="form-group">
+              <label>Niveau *</label>
+              <select id="fNiveau">
+                <option value="">Choisir</option>
+                <option>L1</option><option>L2</option><option>L3</option><option>M1</option><option>M2</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Matière *</label>
+              <input type="text" id="fMatiere" placeholder="Ex : Analyse mathématique" list="matiereList" />
+              <datalist id="matiereList"></datalist>
+            </div>
+            <div class="form-group">
+              <label>Année académique *</label>
+              <input type="text" id="fAnnee" placeholder="Ex : 2023-2024" />
+            </div>
+            <div class="form-group">
+              <label>Type d'évaluation</label>
+              <select id="fType">
+                <option>Examen</option><option>Devoir</option><option>TD</option><option>TP</option><option>Rattrapage</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label>Fichier PDF</label>
+              <label class="file-upload-area" for="fFile">
+                <input type="file" id="fFile" accept=".pdf" onchange="updateFileName(this)" />
+                <div class="file-upload-icon">📄</div>
+                <div class="file-upload-text">Cliquez pour choisir un fichier PDF</div>
+                <div class="file-name" id="fileNameDisplay"></div>
+              </label>
+            </div>
+          </div>
+          <div style="margin-top:24px;display:flex;gap:12px;">
+            <button class="btn-save" onclick="saveSubject()">Enregistrer</button>
+            <button class="btn-cancel" onclick="cancelEdit()">Annuler</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gérer -->
+      <div id="panel-manage" class="admin-panel">
+        <h2 class="admin-title">Gérer les sujets</h2>
+        <div class="table-wrap">
+          <table><thead><tr><th>Titre</th><th>Filière</th><th>Niveau</th><th>Matière</th><th>Année</th><th>Actions</th></tr></thead>
+          <tbody id="manageTable"></tbody></table>
+        </div>
+      </div>
+
+      <!-- Étudiants -->
+      <div id="panel-etudiants" class="admin-panel">
+        <h2 class="admin-title">Étudiants inscrits</h2>
+        <div class="table-wrap">
+          <table><thead><tr><th>Nom</th><th>Prénom</th><th>Email</th><th>Filière</th><th>Niveau</th><th>Date</th></tr></thead>
+          <tbody id="etudiantsTable"></tbody></table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script>
+// ─────────────── CONFIG ───────────────
+const API = '';  // vide = même serveur
+let subjects = [];
+let etudiantToken = localStorage.getItem('etudiant_token');
+let etudiantInfo = JSON.parse(localStorage.getItem('etudiant_info') || 'null');
+let adminToken = localStorage.getItem('admin_token');
+
+// ─────────────── INIT ───────────────
+window.onload = async () => {
+  updateNav();
+  await loadSubjects();
+  renderHomeGrid();
+};
+
+// ─────────────── NAVIGATION ───────────────
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  if (name === 'subjects') renderAllGrid();
+}
+
+function goHome() { showPage('home'); }
+
+function requireAuth(page) {
+  if (etudiantToken || adminToken) showPage(page);
+  else showPage('connexion');
+}
+
+function handleAdminNav() {
+  if (adminToken) showPage('admin');
+  else showPage('login');
+}
+
+function updateNav() {
+  const isEtudiant = !!etudiantToken;
+  const isAdmin = !!adminToken;
+
+  document.getElementById('btnInscription').style.display = (isEtudiant || isAdmin) ? 'none' : '';
+  document.getElementById('btnConnexion').style.display = (isEtudiant || isAdmin) ? 'none' : '';
+  document.getElementById('btnDeconnexion').style.display = (isEtudiant || isAdmin) ? '' : 'none';
+  document.getElementById('btnAdmin').style.display = isAdmin ? '' : 'none';
+
+  const navUser = document.getElementById('navUser');
+  if (isEtudiant && etudiantInfo) {
+    navUser.style.display = '';
+    navUser.textContent = '👤 ' + etudiantInfo.prenom + ' ' + etudiantInfo.nom;
+  } else if (isAdmin) {
+    navUser.style.display = '';
+    navUser.textContent = '⚙ Administrateur';
+  } else {
+    navUser.style.display = 'none';
+  }
+}
+
+// ─────────────── LOAD SUBJECTS ───────────────
+async function loadSubjects() {
+  try {
+    const res = await fetch(API + '/api/subjects?limit=200');
+    const data = await res.json();
+    subjects = data.subjects || [];
+    updateHeroStats();
+    populateFilters();
+  } catch {
+    subjects = [];
+  }
+}
+
+function updateHeroStats() {
+  document.getElementById('heroCount').textContent = subjects.length;
+  const filieres = [...new Set(subjects.map(s => s.filiere))];
+  document.getElementById('heroFilieres').textContent = filieres.length;
+}
+
+function populateFilters() {
+  const filieres = [...new Set(subjects.map(s => s.filiere))].sort();
+  const annees = [...new Set(subjects.map(s => s.annee))].sort().reverse();
+  const matieres = [...new Set(subjects.map(s => s.matiere))].sort();
+
+  ['homeFiliere', 'allFiliere'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const val = el.value;
+    el.innerHTML = `<option value="">${id === 'homeFiliere' ? 'Toutes les filières' : 'Filière'}</option>` +
+      filieres.map(f => `<option ${f === val ? 'selected' : ''}>${f}</option>`).join('');
+  });
+
+  const anneeEl = document.getElementById('allAnnee');
+  if (anneeEl) {
+    const v = anneeEl.value;
+    anneeEl.innerHTML = `<option value="">Année</option>` + annees.map(a => `<option ${a === v ? 'selected' : ''}>${a}</option>`).join('');
+  }
+
+  const matEl = document.getElementById('allMatiere');
+  if (matEl) {
+    const v = matEl.value;
+    matEl.innerHTML = `<option value="">Matière</option>` + matieres.map(m => `<option ${m === v ? 'selected' : ''}>${m}</option>`).join('');
+  }
+
+  const fl = document.getElementById('filiereList');
+  const ml = document.getElementById('matiereList');
+  if (fl) fl.innerHTML = filieres.map(f => `<option value="${f}">`).join('');
+  if (ml) ml.innerHTML = matieres.map(m => `<option value="${m}">`).join('');
+}
+
+// ─────────────── RENDER GRIDS ───────────────
+function getFiltered(prefix) {
+  const q = (document.getElementById(prefix + 'Search')?.value || '').toLowerCase();
+  const fil = document.getElementById(prefix + 'Filiere')?.value || '';
+  const niv = document.getElementById(prefix + 'Niveau')?.value || '';
+  const ann = document.getElementById('allAnnee')?.value || '';
+  const mat = document.getElementById('allMatiere')?.value || '';
+
+  return subjects.filter(s => {
+    if (q && !s.titre.toLowerCase().includes(q) && !s.matiere.toLowerCase().includes(q) && !s.filiere.toLowerCase().includes(q)) return false;
+    if (fil && s.filiere !== fil) return false;
+    if (niv && s.niveau !== niv) return false;
+    if (ann && s.annee !== ann) return false;
+    if (mat && s.matiere !== mat) return false;
+    return true;
+  });
+}
+
+function renderHomeGrid() {
+  const filtered = getFiltered('home');
+  document.getElementById('homeCount').textContent = filtered.length + ' sujet(s)';
+  const isAuth = !!(etudiantToken || adminToken);
+  document.getElementById('homeGrid').innerHTML = renderCards(filtered.slice(0, 6), isAuth);
+}
+
+function renderAllGrid() {
+  const filtered = getFiltered('all');
+  document.getElementById('allCount').textContent = filtered.length + ' sujet(s) trouvé(s)';
+  document.getElementById('allGrid').innerHTML = renderCards(filtered, true);
+}
+
+function renderCards(list, isAuth) {
+  if (!list.length) return `<div class="empty-state"><div class="empty-state-icon">📭</div><h3>Aucun sujet trouvé</h3><p>Modifiez vos critères de recherche.</p></div>`;
+
+  return list.map(s => `
+    <div class="subject-card">
+      <div class="card-badges">
+        <span class="badge badge-filiere">${s.filiere}</span>
+        <span class="badge badge-niveau">${s.niveau}</span>
+        <span class="badge badge-annee">${s.annee}</span>
+      </div>
+      <div class="card-title">${s.titre}</div>
+      <div class="card-matiere">📚 ${s.matiere}</div>
+      <div class="card-footer">
+        <span class="card-type">📝 ${s.type}</span>
+        ${isAuth
+          ? `<a class="btn-download" href="${s.fichier ? '/uploads/' + s.fichier : '#'}" ${s.fichier ? 'download' : 'onclick="alert(\'Fichier PDF non disponible\');return false;"'}>⬇ PDF</a>`
+          : `<button class="btn-download" onclick="showPage('connexion')">🔒 Connexion</button>`
+        }
+      </div>
+      ${!isAuth ? `<div class="lock-overlay"><p>Connectez-vous pour télécharger ce sujet</p><button onclick="showPage('connexion')">Se connecter</button></div>` : ''}
+    </div>`).join('');
+}
+
+// ─────────────── AUTH ÉTUDIANT ───────────────
+async function doInscription() {
+  const nom = document.getElementById('regNom').value.trim();
+  const prenom = document.getElementById('regPrenom').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  const password = document.getElementById('regPassword').value;
+  const password2 = document.getElementById('regPassword2').value;
+  const filiere = document.getElementById('regFiliere').value;
+  const niveau = document.getElementById('regNiveau').value;
+  const errEl = document.getElementById('inscriptionError');
+  const sucEl = document.getElementById('inscriptionSuccess');
+
+  errEl.style.display = 'none';
+  sucEl.style.display = 'none';
+
+  if (!nom || !prenom || !email || !password) { errEl.textContent = 'Tous les champs obligatoires (*) doivent être remplis.'; errEl.style.display = 'block'; return; }
+  if (password !== password2) { errEl.textContent = 'Les mots de passe ne correspondent pas.'; errEl.style.display = 'block'; return; }
+  if (password.length < 6) { errEl.textContent = 'Le mot de passe doit contenir au moins 6 caractères.'; errEl.style.display = 'block'; return; }
+
+  try {
+    const res = await fetch(API + '/api/etudiants/inscription', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nom, prenom, email, password, filiere, niveau }),
+    });
+    const data = await res.json();
+    if (!res.ok) { errEl.textContent = data.message; errEl.style.display = 'block'; return; }
+
+    etudiantToken = data.token;
+    etudiantInfo = { nom: data.nom, prenom: data.prenom, email: data.email };
+    localStorage.setItem('etudiant_token', etudiantToken);
+    localStorage.setItem('etudiant_info', JSON.stringify(etudiantInfo));
+    updateNav();
+    sucEl.textContent = '✅ Compte créé ! Bienvenue ' + data.prenom + ' !';
+    sucEl.style.display = 'block';
+    setTimeout(() => { showPage('subjects'); renderAllGrid(); }, 1500);
+  } catch { errEl.textContent = 'Erreur de connexion au serveur.'; errEl.style.display = 'block'; }
+}
+
+async function doConnexion() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  const errEl = document.getElementById('connexionError');
+  errEl.style.display = 'none';
+
+  if (!email || !password) { errEl.textContent = 'Veuillez remplir tous les champs.'; errEl.style.display = 'block'; return; }
+
+  try {
+    const res = await fetch(API + '/api/etudiants/connexion', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
+    const data = await res.json();
+    if (!res.ok) { errEl.textContent = data.message; errEl.style.display = 'block'; return; }
+
+    etudiantToken = data.token;
+    etudiantInfo = { nom: data.nom, prenom: data.prenom, email: data.email };
+    localStorage.setItem('etudiant_token', etudiantToken);
+    localStorage.setItem('etudiant_info', JSON.stringify(etudiantInfo));
+    updateNav();
+    showPage('subjects');
+    renderAllGrid();
+  } catch { errEl.textContent = 'Erreur de connexion au serveur.'; errEl.style.display = 'block'; }
+}
+
+function deconnexion() {
+  etudiantToken = null; etudiantInfo = null; adminToken = null;
+  localStorage.removeItem('etudiant_token');
+  localStorage.removeItem('etudiant_info');
+  localStorage.removeItem('admin_token');
+  updateNav();
+  showPage('home');
+  renderHomeGrid();
+}
+
+// ─────────────── AUTH ADMIN ───────────────
+async function doAdminLogin() {
+  const username = document.getElementById('adminUser').value;
+  const password = document.getElementById('adminPass').value;
+  const errEl = document.getElementById('loginError');
+  errEl.style.display = 'none';
+
+  try {
+    const res = await fetch(API + '/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password }),
+    });
+    const data = await res.json();
+    if (!res.ok) { errEl.style.display = 'block'; return; }
+
+    adminToken = data.token;
+    localStorage.setItem('admin_token', adminToken);
+    updateNav();
+    showPage('admin');
+    refreshAdmin();
+  } catch { errEl.style.display = 'block'; }
+}
+
+function doAdminLogout() {
+  adminToken = null;
+  localStorage.removeItem('admin_token');
+  updateNav();
+  showPage('home');
+}
+
+// ─────────────── ADMIN PANELS ───────────────
+function showAdminPanel(name, btn) {
+  document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.sidebar-item').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  if (btn) btn.classList.add('active');
+  refreshAdmin();
+}
+
+async function refreshAdmin() {
+  if (!adminToken) return;
+  const headers = { 'Authorization': 'Bearer ' + adminToken };
+
+  try {
+    const [subjRes, statsRes] = await Promise.all([
+      fetch(API + '/api/subjects?limit=200'),
+      fetch(API + '/api/stats', { headers }),
+    ]);
+    const subjData = await subjRes.json();
+    const stats = await statsRes.json();
+    subjects = subjData.subjects || [];
+
+    document.getElementById('dashTotal').textContent = stats.total || 0;
+    document.getElementById('dashFilieres').textContent = stats.filieres || 0;
+    document.getElementById('dashMatieres').textContent = stats.matieres || 0;
+    document.getElementById('dashEtudiants').textContent = stats.etudiants || '—';
+
+    document.getElementById('dashTable').innerHTML = subjects.slice(0, 10).map(s => `
+      <tr><td>${s.titre}</td><td>${s.filiere}</td><td>${s.niveau}</td><td>${s.matiere}</td><td>${s.annee}</td></tr>`).join('');
+
+    document.getElementById('manageTable').innerHTML = subjects.map(s => `
+      <tr>
+        <td>${s.titre}</td><td>${s.filiere}</td><td>${s.niveau}</td><td>${s.matiere}</td><td>${s.annee}</td>
+        <td>
+          <button class="btn-edit" onclick="editSubject('${s._id}')">Modifier</button>
+          <button class="btn-danger" onclick="deleteSubject('${s._id}')">Supprimer</button>
+        </td>
+      </tr>`).join('');
+
+    populateFilters();
+    renderHomeGrid();
+  } catch(e) { console.error(e); }
+
+  // Charger étudiants
+  try {
+    const etRes = await fetch(API + '/api/etudiants/liste', { headers });
+    if (etRes.ok) {
+      const ets = await etRes.json();
+      document.getElementById('etudiantsTable').innerHTML = ets.map(e => `
+        <tr>
+          <td>${e.nom}</td><td>${e.prenom}</td><td>${e.email}</td>
+          <td>${e.filiere||'—'}</td><td>${e.niveau||'—'}</td>
+          <td>${new Date(e.createdAt).toLocaleDateString('fr-FR')}</td>
+        </tr>`).join('');
+      document.getElementById('dashEtudiants').textContent = ets.length;
+    }
+  } catch {}
+}
+
+function updateFileName(input) {
+  document.getElementById('fileNameDisplay').textContent = input.files[0] ? '✓ ' + input.files[0].name : '';
+}
+
+async function saveSubject() {
+  const id = document.getElementById('editId').value;
+  const titre = document.getElementById('fTitre').value.trim();
+  const filiere = document.getElementById('fFiliere').value.trim();
+  const niveau = document.getElementById('fNiveau').value;
+  const matiere = document.getElementById('fMatiere').value.trim();
+  const annee = document.getElementById('fAnnee').value.trim();
+  const type = document.getElementById('fType').value;
+
+  if (!titre || !filiere || !niveau || !matiere || !annee) { alert('Veuillez remplir tous les champs obligatoires.'); return; }
+
+  const formData = new FormData();
+  formData.append('titre', titre); formData.append('filiere', filiere);
+  formData.append('niveau', niveau); formData.append('matiere', matiere);
+  formData.append('annee', annee); formData.append('type', type);
+  const file = document.getElementById('fFile').files[0];
+  if (file) formData.append('fichier', file);
+
+  try {
+    const url = id ? API + '/api/subjects/' + id : API + '/api/subjects';
+    const method = id ? 'PUT' : 'POST';
+    const res = await fetch(url, { method, headers: { 'Authorization': 'Bearer ' + adminToken }, body: formData });
+    if (!res.ok) { alert('Erreur lors de l\'enregistrement.'); return; }
+    resetForm();
+    document.getElementById('addSuccess').style.display = 'block';
+    setTimeout(() => document.getElementById('addSuccess').style.display = 'none', 3000);
+    await refreshAdmin();
+  } catch { alert('Erreur serveur.'); }
+}
+
+function editSubject(id) {
+  const s = subjects.find(x => x._id === id);
+  if (!s) return;
+  document.getElementById('editId').value = id;
+  document.getElementById('fTitre').value = s.titre;
+  document.getElementById('fFiliere').value = s.filiere;
+  document.getElementById('fNiveau').value = s.niveau;
+  document.getElementById('fMatiere').value = s.matiere;
+  document.getElementById('fAnnee').value = s.annee;
+  document.getElementById('fType').value = s.type;
+  document.getElementById('addPanelTitle').textContent = 'Modifier le sujet';
+  document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.sidebar-item').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-add').classList.add('active');
+  document.querySelectorAll('.sidebar-item')[1].classList.add('active');
+}
+
+async function deleteSubject(id) {
+  if (!confirm('Supprimer ce sujet définitivement ?')) return;
+  await fetch(API + '/api/subjects/' + id, { method: 'DELETE', headers: { 'Authorization': 'Bearer ' + adminToken } });
+  await refreshAdmin();
+}
+
+function cancelEdit() {
+  resetForm();
+  document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.sidebar-item').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-dashboard').classList.add('active');
+  document.querySelectorAll('.sidebar-item')[0].classList.add('active');
+}
+
+function resetForm() {
+  document.getElementById('editId').value = '';
+  document.getElementById('fTitre').value = '';
+  document.getElementById('fFiliere').value = '';
+  document.getElementById('fNiveau').value = '';
+  document.getElementById('fMatiere').value = '';
+  document.getElementById('fAnnee').value = '';
+  document.getElementById('fType').value = 'Examen';
+  document.getElementById('fFile').value = '';
+  document.getElementById('fileNameDisplay').textContent = '';
+  document.getElementById('addPanelTitle').textContent = 'Ajouter un sujet';
+}
+</script>
+</body>
+</html>
