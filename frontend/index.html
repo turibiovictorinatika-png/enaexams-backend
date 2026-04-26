@@ -8,23 +8,33 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --navy: #0f4b21;
-      --navy-mid: #1a6b32;
-      --navy-light: #1d9454;
-      --gold: #d73637;
-      --gold-light: #e86667;
-      --cream: #fcfbfa;
-      --cream-dark: #f0eeeb;
-      --white: #FFFFFF;
-      --text-dark: #0f4b21;
-      --text-mid: #1a6b32;
-      --text-light: #1d9454;
-      --border: rgba(15,75,33,0.12);
-      --success: #1d9454;
-      --danger: #d73637;
-      --radius: 10px;
-      --shadow: 0 4px 24px rgba(15,75,33,0.10);
-    }
+  /* Couleurs principales */
+  --primary: #0f4b21;        /* vert foncé */
+  --primary-hover: #0c3a1a;
+  --secondary: #1d9454;      /* vert clair */
+  --secondary-hover: #187a45;
+  --accent: #d73637;         /* rouge */
+
+  /* Fonds */
+  --background: #fcfbfa;     /* fond global */
+  --card-bg: #ffffff;
+  --soft-bg: #e6f4ec;        /* vert très léger */
+
+  /* Texte */
+  --text-dark: #1a1a1a;
+  --text-mid: #555555;
+  --text-light: #888888;
+
+  /* États */
+  --danger: #d73637;
+  --danger-soft: #fbe3e3;
+  --success: #1d9454;
+
+  /* UI */
+  --border: #e0e0e0;
+  --radius: 10px;
+  --shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
     body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text-dark); min-height: 100vh; }
 
     /* NAV */
