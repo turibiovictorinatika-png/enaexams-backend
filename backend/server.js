@@ -33,7 +33,7 @@ if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     console.log('✅ MongoDB connecté');
-    const PORT = process.env.PORT || 5000;
+    const PORT = process.env.PORT || 10000;
     app.listen(PORT, () => console.log(`🚀 Serveur démarré sur http://localhost:${PORT}`));
   })
   .catch(err => { console.error('❌ Erreur MongoDB:', err); process.exit(1); });
