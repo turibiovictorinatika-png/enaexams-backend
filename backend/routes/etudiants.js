@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
 const Etudiant = require('../models/Etudiant');
+const { envoyerCodeReinitialisation } = require('../utils/email');
 
 // POST /api/etudiants/inscription
 router.post('/inscription', async (req, res) => {
@@ -73,6 +74,53 @@ router.get('/liste', async (req, res) => {
     res.json(etudiants);
   } catch {
     res.status(401).json({ message: 'Non autorisé' });
+  }
+});
+
+// POST /api/etudiants/mot-de-passe-oublie
+router.post('/mot-de-passe-oublie', async (req, res) => {
+  try {
+    const { email } = req.body;
+    const etudiant = await Etudiant.findOne({ email });
+    if (!etudiant) return res.status(404).json({ message: 'Aucun compte avec cet email.' });
+
+    const code = Math.floor(100000 + Math.random() * 900000).toString();
+    const expiration = new Date(Date.now() + 15 * 60 * 1000);
+
+    etudiant.resetCode = code;
+    etudiant.resetExpire = expiration;
+    await etudiant.save();
+
+    const envoye = await envoyerCodeReinitialisation(email, etudiant.prenom, code);
+    if (!envoye) return res.status(500).json({ message: 'Erreur lors de l\'envoi de l\'email.' });
+
+    res.json({ message: 'Code envoyé par email.' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// POST /api/etudiants/reinitialiser-mot-de-passe
+router.post('/reinitialiser-mot-de-passe', async (req, res) => {
+  try {
+    const { email, code, nouveauMotDePasse } = req.body;
+    const etudiant = await Etudiant.findOne({ email });
+    if (!etudiant) return res.status(404).json({ message: 'Compte introuvable.' });
+    if (!etudiant.resetCode || etudiant.resetCode !== code)
+      return res.status(400).json({ message: 'Code incorrect.' });
+    if (new Date() > etudiant.resetExpire)
+      return res.status(400).json({ message: 'Code expiré. Demandez un nouveau code.' });
+    if (nouveauMotDePasse.length < 6)
+      return res.status(400).json({ message: 'Mot de passe trop court (6 caractères min).' });
+
+    etudiant.password = nouveauMotDePasse;
+    etudiant.resetCode = null;
+    etudiant.resetExpire = null;
+    await etudiant.save();
+
+    res.json({ message: 'Mot de passe mis à jour avec succès.' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
 

@@ -9,6 +9,8 @@ const EtudiantSchema = new mongoose.Schema({
   filiere:  { type: String, default: '' },
   niveau:   { type: String, default: '' },
   createdAt:{ type: Date, default: Date.now },
+resetCode:   { type: String, default: null },
+  resetExpire: { type: Date, default: null },
 });
 
 EtudiantSchema.pre('save', async function(next) {
