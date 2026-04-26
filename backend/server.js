@@ -23,6 +23,7 @@ app.use('/api/etudiants', require('./routes/etudiants'));
 
 // ─── Serve frontend in production ───
 app.use(express.static(path.join(__dirname, '../frontend')));
+app.use('/images', express.static(path.join(__dirname, '../frontend/images')));
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../frontend/index.html')));
 
 // ─── Create uploads dir ───
