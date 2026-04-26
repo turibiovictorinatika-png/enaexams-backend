@@ -31,6 +31,27 @@
   --radius: 10px;
   --shadow: 0 4px 16px rgba(0,0,0,0.08);
 }
+
+a {
+  color: var(--navy-light);
+  text-decoration: underline;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--navy-mid);
+}
+
+nav a,
+.dark-section a {
+  color: var(--white);
+}
+
+nav a:hover,
+.dark-section a:hover {
+  color: var(--gold-light);
+}
     body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text-dark); min-height: 100vh; }
 
     /* NAV */
