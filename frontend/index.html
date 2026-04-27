@@ -4,526 +4,956 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ENAExams — École Nationale d'Administration du Bénin</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --navy: #6B1A2A;
-      --navy-mid: #8B2A3A;
-      --navy-light: #A83A4A;
+      --green: #0f4b21;
+      --green-mid: #1a6b32;
+      --green-light: #1d9454;
+      --green-pale: #e8f5ed;
+      --red: #c0392b;
+      --red-light: #fdecea;
       --gold: #C4952A;
-      --gold-light: #D4A84A;
-      --cream: #F2F2F0;
-      --cream-dark: #E8E8E4;
-      --white: #FFFFFF;
-      --text-dark: #2A1015;
-      --text-mid: #4A2020;
-      --text-light: #7A5040;
-      --border: rgba(107,26,42,0.12);
-      --success: #2A6B3A;
-      --danger: #C4952A;
+      --white: #ffffff;
+      --cream: #f8f9fa;
+      --gray-light: #f1f3f5;
+      --gray: #dee2e6;
+      --text-dark: #1a1a2e;
+      --text-mid: #444;
+      --text-light: #888;
+      --border: #e0e0e0;
+      --shadow-sm: 0 1px 4px rgba(0,0,0,0.08);
+      --shadow: 0 4px 16px rgba(0,0,0,0.10);
+      --shadow-lg: 0 8px 32px rgba(0,0,0,0.13);
       --radius: 10px;
-      --shadow: 0 4px 24px rgba(107,26,42,0.12);
+      --radius-lg: 16px;
     }
-    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text-dark); min-height: 100vh; }
+    body { font-family: 'Sora', sans-serif; background: var(--cream); color: var(--text-dark); min-height: 100vh; }
 
-    /* ── NAV ── */
-    nav { background: var(--navy); padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; height: 64px; position: sticky; top: 0; z-index: 200; box-shadow: 0 2px 16px rgba(0,0,0,0.25); }
-    .logo { display: flex; align-items: center; cursor: pointer; }
-    .logo-text { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--white); font-weight: 600; }
-    .logo-text span { color: var(--gold); }
-    .nav-links { display: flex; align-items: center; gap: 6px; }
-    .nav-btn { background: none; border: none; color: rgba(255,255,255,0.7); font-family: 'DM Sans', sans-serif; font-size: 14px; padding: 8px 14px; border-radius: 6px; cursor: pointer; transition: all 0.2s; font-weight: 500; white-space: nowrap; }
-    .nav-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
-    .nav-btn.gold { background: var(--gold); color: var(--navy); font-weight: 600; }
-    .nav-btn.gold:hover { background: var(--gold-light); }
-    .nav-user { color: var(--gold-light); font-size: 13px; font-weight: 600; padding: 8px 10px; white-space: nowrap; overflow: hidden; max-width: 150px; text-overflow: ellipsis; }
+    /* ══════════════════════════════
+       HEADER / NAV
+    ══════════════════════════════ */
+    header {
+      background: var(--green);
+      position: sticky; top: 0; z-index: 300;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+    }
+    .header-inner {
+      max-width: 1280px; margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px; gap: 1rem;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; cursor: pointer; flex-shrink: 0; }
+    .brand-icon {
+      width: 40px; height: 40px; background: var(--white);
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+    }
+    .brand-name { font-size: 18px; font-weight: 800; color: var(--white); line-height: 1.1; }
+    .brand-tagline { font-size: 10px; color: rgba(255,255,255,0.6); font-weight: 400; }
+
+    .nav-center { display: flex; align-items: center; gap: 2px; flex: 1; justify-content: center; }
+    .nav-link {
+      color: rgba(255,255,255,0.8); font-size: 14px; font-weight: 500;
+      padding: 8px 14px; border-radius: 6px; cursor: pointer;
+      border: none; background: none; transition: all 0.2s; white-space: nowrap;
+    }
+    .nav-link:hover, .nav-link.active { background: rgba(255,255,255,0.12); color: #fff; }
+
+    .nav-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .btn-connect {
+      background: var(--white); color: var(--green); font-size: 13px; font-weight: 700;
+      padding: 8px 20px; border-radius: 8px; border: none; cursor: pointer;
+      font-family: 'Sora', sans-serif; transition: all 0.2s; white-space: nowrap;
+    }
+    .btn-connect:hover { background: var(--green-pale); }
+    .btn-connect.outline {
+      background: transparent; color: rgba(255,255,255,0.85);
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    .btn-connect.outline:hover { background: rgba(255,255,255,0.1); color: #fff; }
+    .nav-user-badge {
+      background: rgba(255,255,255,0.15); color: #fff;
+      font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 20px;
+      white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;
+    }
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; }
-    .hamburger span { display: block; width: 24px; height: 2px; background: #fff; border-radius: 2px; transition: all 0.3s; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; transition: all 0.3s; }
     .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-    .mobile-menu { display: none; position: fixed; top: 64px; left: 0; right: 0; background: var(--navy); padding: 1rem; z-index: 199; box-shadow: 0 8px 24px rgba(0,0,0,0.3); flex-direction: column; gap: 6px; }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu .nav-btn { text-align: left; padding: 12px 16px; font-size: 15px; border-radius: 8px; }
-    .mobile-menu .nav-user { padding: 12px 16px; font-size: 14px; }
 
-    /* ── PAGES ── */
+    /* Mobile drawer */
+    .mobile-drawer {
+      display: none; position: fixed; top: 64px; left: 0; right: 0; bottom: 0;
+      background: var(--green); z-index: 299; flex-direction: column;
+      padding: 1.5rem; gap: 4px; overflow-y: auto;
+    }
+    .mobile-drawer.open { display: flex; }
+    .drawer-link {
+      color: rgba(255,255,255,0.85); font-size: 16px; font-weight: 500;
+      padding: 14px 16px; border-radius: 10px; cursor: pointer;
+      border: none; background: none; text-align: left; transition: all 0.2s;
+      font-family: 'Sora', sans-serif;
+    }
+    .drawer-link:hover { background: rgba(255,255,255,0.1); color: #fff; }
+    .drawer-link.gold-btn {
+      background: var(--white); color: var(--green); font-weight: 700;
+      margin-top: 8px; text-align: center;
+    }
+    .drawer-divider { height: 1px; background: rgba(255,255,255,0.1); margin: 8px 0; }
+
+    /* ══════════════════════════════
+       PAGES
+    ══════════════════════════════ */
     .page { display: none; }
     .page.active { display: block; }
 
+    /* ══════════════════════════════
+       HOME LAYOUT (2 colonnes)
+    ══════════════════════════════ */
+    .home-layout {
+      max-width: 1280px; margin: 0 auto; padding: 2rem 1.5rem;
+      display: grid; grid-template-columns: 1fr 320px; gap: 2rem;
+      align-items: start;
+    }
+
     /* ── HERO ── */
-    .hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%); padding: 60px 1.5rem 50px; text-align: center; position: relative; overflow: hidden; }
-    .hero::before { content: ''; position: absolute; top: -60px; right: -60px; width: 300px; height: 300px; border-radius: 50%; background: rgba(201,168,76,0.08); }
-    .hero-tag { display: inline-block; background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.3); color: var(--gold-light); font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; margin-bottom: 20px; }
-    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(26px, 6vw, 52px); color: var(--white); line-height: 1.2; margin-bottom: 14px; }
-    .hero h1 em { color: var(--gold); font-style: normal; }
-    .hero p { font-size: 15px; color: rgba(255,255,255,0.65); max-width: 480px; margin: 0 auto 32px; line-height: 1.7; }
-    .hero-stats { display: flex; justify-content: center; gap: 32px; flex-wrap: wrap; }
-    .stat { text-align: center; }
-    .stat-num { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--gold); font-weight: 700; }
-    .stat-label { font-size: 11px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
-    .hero-btns { display: flex; gap: 12px; justify-content: center; margin-bottom: 36px; flex-wrap: wrap; }
-    .btn-hero-primary { background: var(--gold); color: var(--navy); border: none; border-radius: 8px; padding: 12px 28px; font-size: 14px; font-weight: 700; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: all 0.2s; }
-    .btn-hero-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
-    .btn-hero-secondary { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; padding: 12px 28px; font-size: 14px; font-weight: 600; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: all 0.2s; }
-    .btn-hero-secondary:hover { background: rgba(255,255,255,0.2); }
+    .hero-section { margin-bottom: 2rem; }
+    .hero-content { display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; margin-bottom: 2rem; }
+    .hero-text h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(28px, 4vw, 44px); line-height: 1.15;
+      color: var(--text-dark); margin-bottom: 12px;
+    }
+    .hero-text h1 em { color: var(--green-light); font-style: normal; }
+    .hero-text p { font-size: 15px; color: var(--text-mid); line-height: 1.7; margin-bottom: 1.5rem; max-width: 460px; }
+    .hero-img {
+      width: 180px; height: 160px; flex-shrink: 0;
+      background: var(--green-pale); border-radius: var(--radius-lg);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 80px;
+    }
 
-    /* ── SEARCH ── */
-    .search-section { max-width: 900px; margin: -24px auto 0; padding: 0 1rem; position: relative; z-index: 10; }
-    .search-box { background: var(--white); border-radius: 12px; box-shadow: var(--shadow); padding: 1rem 1.25rem; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-    .search-input-wrap { flex: 1; min-width: 180px; position: relative; }
-    .search-input-wrap::before { content: '🔍'; position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 14px; }
-    .search-box input[type="text"] { width: 100%; padding: 10px 12px 10px 36px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 14px; font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text-dark); outline: none; transition: border-color 0.2s; }
-    .search-box input[type="text"]:focus { border-color: var(--navy); }
-    .search-box select { padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 13px; font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text-dark); outline: none; cursor: pointer; flex: 1; min-width: 120px; }
+    /* Search bar */
+    .search-bar {
+      display: flex; gap: 0; background: var(--white);
+      border: 2px solid var(--border); border-radius: var(--radius);
+      overflow: hidden; box-shadow: var(--shadow-sm);
+      margin-bottom: 1.25rem;
+    }
+    .search-bar input {
+      flex: 1; padding: 13px 16px; border: none; outline: none;
+      font-size: 14px; font-family: 'Sora', sans-serif; color: var(--text-dark);
+      background: transparent;
+    }
+    .search-bar input::placeholder { color: var(--text-light); }
+    .search-bar button {
+      background: var(--green); color: #fff; border: none;
+      padding: 13px 20px; cursor: pointer; font-size: 16px;
+      transition: background 0.2s;
+    }
+    .search-bar button:hover { background: var(--green-mid); }
 
-    /* ── SUBJECTS ── */
-    .subjects-section { max-width: 1100px; margin: 40px auto 60px; padding: 0 1rem; }
-    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 10px; }
-    .section-title { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--navy); }
-    .results-count { font-size: 13px; color: var(--text-light); }
-    .subjects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-    .subject-card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(13,27,42,0.06); padding: 1.25rem; transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden; }
-    .subject-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); }
-    .subject-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(13,27,42,0.12); }
-    .card-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
-    .badge { font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 20px; }
-    .badge-filiere { background: #E8F0FE; color: #1A3A6B; }
-    .badge-niveau { background: #FEF3E8; color: #7A3B0C; }
-    .badge-annee { background: #E8F5ED; color: #1A5C35; }
-    .card-title { font-family: 'Playfair Display', serif; font-size: 15px; color: var(--navy); margin-bottom: 6px; line-height: 1.4; }
-    .card-matiere { font-size: 12px; color: var(--text-light); margin-bottom: 14px; }
-    .card-footer { display: flex; align-items: center; justify-content: space-between; }
-    .card-type { font-size: 11px; color: var(--text-light); }
-    .btn-download { display: flex; align-items: center; gap: 5px; background: var(--navy); color: #fff; border: none; border-radius: 6px; padding: 7px 12px; font-size: 12px; font-weight: 600; font-family: 'DM Sans', sans-serif; cursor: pointer; text-decoration: none; transition: background 0.2s; }
-    .btn-download:hover { background: var(--navy-light); }
-    .lock-overlay { position: absolute; inset: 0; background: rgba(13,27,42,0.85); border-radius: var(--radius); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; opacity: 0; transition: opacity 0.2s; }
-    .subject-card:hover .lock-overlay { opacity: 1; }
-    .lock-overlay p { color: #fff; font-size: 12px; text-align: center; padding: 0 14px; }
-    .lock-overlay button { background: var(--gold); color: var(--navy); border: none; border-radius: 6px; padding: 7px 16px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; }
-    .empty-state { text-align: center; padding: 60px 20px; color: var(--text-light); grid-column: 1/-1; }
-    .empty-state-icon { font-size: 40px; margin-bottom: 14px; }
-    .empty-state h3 { font-size: 18px; color: var(--text-mid); margin-bottom: 8px; }
+    /* Hero buttons */
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-main {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--green); color: #fff;
+      border: none; border-radius: var(--radius); padding: 11px 22px;
+      font-size: 14px; font-weight: 600; font-family: 'Sora', sans-serif;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .btn-main:hover { background: var(--green-mid); transform: translateY(-1px); }
+    .btn-outline {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--white); color: var(--text-dark);
+      border: 1.5px solid var(--border); border-radius: var(--radius); padding: 11px 22px;
+      font-size: 14px; font-weight: 600; font-family: 'Sora', sans-serif;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--green); color: var(--green); }
 
-    /* ── AUTH ── */
-    .auth-page { min-height: calc(100vh - 64px); display: flex; align-items: center; justify-content: center; padding: 1.5rem; background: var(--cream); }
-    .auth-card { background: var(--white); border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); padding: 2rem; width: 100%; max-width: 420px; }
-    .auth-logo { text-align: center; margin-bottom: 1.5rem; }
-    .auth-title { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--navy); text-align: center; margin-bottom: 4px; }
-    .auth-sub { font-size: 13px; color: var(--text-light); text-align: center; margin-bottom: 1.5rem; line-height: 1.5; }
+    /* Stats bar */
+    .stats-bar {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      overflow: hidden; margin-bottom: 2rem;
+    }
+    .stat-item {
+      background: var(--white); padding: 1rem;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .stat-icon {
+      width: 38px; height: 38px; background: var(--green-pale);
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+    .stat-num { font-size: 18px; font-weight: 700; color: var(--text-dark); }
+    .stat-lbl { font-size: 11px; color: var(--text-light); }
+
+    /* Section titre */
+    .section-head {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    .section-head h2 { font-size: 18px; font-weight: 700; color: var(--text-dark); }
+    .see-all {
+      color: var(--green-light); font-size: 13px; font-weight: 600;
+      cursor: pointer; display: flex; align-items: center; gap: 4px;
+      background: none; border: none; font-family: 'Sora', sans-serif;
+    }
+    .see-all:hover { text-decoration: underline; }
+
+    /* Subject cards grid */
+    .cards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .subject-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.1rem;
+      transition: all 0.2s; cursor: pointer; position: relative;
+    }
+    .subject-card:hover { border-color: var(--green-light); box-shadow: var(--shadow); transform: translateY(-2px); }
+    .card-new {
+      position: absolute; top: 10px; left: 10px;
+      background: var(--red); color: #fff; font-size: 9px; font-weight: 700;
+      padding: 2px 7px; border-radius: 4px; letter-spacing: 0.5px;
+    }
+    .card-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; margin-bottom: 10px; margin-top: 16px;
+    }
+    .card-icon.math { background: #fff3cd; }
+    .card-icon.sci { background: #d1f2eb; }
+    .card-icon.lit { background: #fce4ec; }
+    .card-icon.eco { background: #e8eaf6; }
+    .card-icon.droit { background: #fff8e1; }
+    .card-icon.info { background: #e3f2fd; }
+    .card-title { font-size: 14px; font-weight: 700; color: var(--text-dark); margin-bottom: 3px; }
+    .card-sub { font-size: 12px; color: var(--text-light); margin-bottom: 2px; }
+    .card-year { font-size: 11px; color: var(--text-light); }
+    .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
+    .btn-dl {
+      display: flex; align-items: center; gap: 5px;
+      color: var(--green-light); font-size: 12px; font-weight: 600;
+      background: none; border: none; cursor: pointer; font-family: 'Sora', sans-serif;
+      transition: color 0.2s;
+    }
+    .btn-dl:hover { color: var(--green); }
+    .btn-dl-lock { color: var(--text-light); cursor: pointer; }
+    .card-type-badge {
+      font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 20px;
+      background: var(--green-pale); color: var(--green);
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar { display: flex; flex-direction: column; gap: 1rem; }
+
+    .sidebar-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+    }
+    .sidebar-card-head {
+      padding: 12px 16px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 8px;
+      font-size: 14px; font-weight: 700; color: var(--text-dark);
+    }
+    .sidebar-card-head span { font-size: 16px; }
+
+    /* Annonces */
+    .annonce-item { padding: 12px 16px; border-bottom: 1px solid var(--border); }
+    .annonce-item:last-child { border-bottom: none; }
+    .annonce-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--red); display: inline-block; margin-right: 6px; }
+    .annonce-dot.green { background: var(--green-light); }
+    .annonce-title { font-size: 13px; font-weight: 600; color: var(--text-dark); margin-bottom: 3px; }
+    .annonce-text { font-size: 11px; color: var(--text-light); line-height: 1.5; }
+    .annonce-date { font-size: 10px; color: var(--text-light); margin-top: 4px; }
+    .annonce-see-all {
+      padding: 10px 16px; color: var(--red); font-size: 12px; font-weight: 600;
+      cursor: pointer; display: flex; align-items: center; justify-content: flex-end; gap: 4px;
+      background: none; border: none; width: 100%; font-family: 'Sora', sans-serif;
+    }
+
+    /* Accès rapide */
+    .quick-item {
+      padding: 11px 16px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      cursor: pointer; transition: background 0.15s;
+    }
+    .quick-item:last-child { border-bottom: none; }
+    .quick-item:hover { background: var(--cream); }
+    .quick-left { display: flex; align-items: center; gap: 10px; }
+    .quick-icon { font-size: 18px; }
+    .quick-label { font-size: 13px; font-weight: 500; color: var(--text-dark); }
+    .quick-arrow { color: var(--text-light); font-size: 14px; }
+
+    /* Citation */
+    .quote-card {
+      background: var(--green-pale); border: 1px solid rgba(29,148,84,0.2);
+      border-radius: var(--radius); padding: 1rem 1.25rem;
+    }
+    .quote-text {
+      font-family: 'DM Serif Display', serif; font-style: italic;
+      font-size: 14px; color: var(--green); line-height: 1.6;
+    }
+
+    /* ══════════════════════════════
+       PAGE SUJETS (liste complète)
+    ══════════════════════════════ */
+    .subjects-page { max-width: 1280px; margin: 0 auto; padding: 2rem 1.5rem; }
+    .subjects-page-head { margin-bottom: 1.5rem; }
+    .subjects-page-head h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+    .subjects-page-head p { font-size: 14px; color: var(--text-light); }
+
+    /* Filtres */
+    .filters-bar {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1rem;
+      display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 1.5rem;
+      align-items: center;
+    }
+    .filter-search { flex: 1; min-width: 200px; position: relative; }
+    .filter-search input {
+      width: 100%; padding: 9px 12px 9px 36px;
+      border: 1.5px solid var(--border); border-radius: 8px;
+      font-size: 13px; font-family: 'Sora', sans-serif; outline: none;
+      transition: border-color 0.2s;
+    }
+    .filter-search input:focus { border-color: var(--green); }
+    .filter-search::before { content: ''; position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 13px; }
+    .filter-select {
+      padding: 9px 12px; border: 1.5px solid var(--border); border-radius: 8px;
+      font-size: 13px; font-family: 'Sora', sans-serif; outline: none; cursor: pointer;
+      background: var(--cream); color: var(--text-dark); min-width: 120px;
+      transition: border-color 0.2s;
+    }
+    .filter-select:focus { border-color: var(--green); }
+
+    .subjects-full-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+
+    /* ══════════════════════════════
+       AUTH PAGES
+    ══════════════════════════════ */
+    .auth-page { min-height: calc(100vh - 64px); display: flex; align-items: center; justify-content: center; padding: 2rem; background: var(--cream); }
+    .auth-box {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
+      padding: 2.5rem; width: 100%; max-width: 420px;
+    }
+    .auth-header { text-align: center; margin-bottom: 2rem; }
+    .auth-icon { font-size: 40px; margin-bottom: 12px; }
+    .auth-header h2 { font-size: 22px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
+    .auth-header p { font-size: 13px; color: var(--text-light); line-height: 1.5; }
     .auth-form { display: flex; flex-direction: column; gap: 12px; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .auth-form input, .auth-form select { padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 14px; font-family: 'DM Sans', sans-serif; background: var(--cream); outline: none; transition: border-color 0.2s; color: var(--text-dark); width: 100%; }
-    .auth-form input:focus, .auth-form select:focus { border-color: var(--navy); }
-    .auth-error { background: #fef2f2; border: 1px solid #fca5a5; color: #8B1A1A; padding: 10px 14px; border-radius: 8px; font-size: 13px; display: none; }
-    .auth-success { background: #f0fdf4; border: 1px solid #86efac; color: var(--success); padding: 10px 14px; border-radius: 8px; font-size: 13px; display: none; }
-    .btn-primary { background: var(--navy); color: #fff; border: none; border-radius: 8px; padding: 13px 28px; font-size: 15px; font-weight: 600; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: background 0.2s; width: 100%; }
-    .btn-primary:hover { background: var(--navy-light); }
-    .auth-switch { text-align: center; margin-top: 18px; font-size: 13px; color: var(--text-light); }
-    .auth-switch a { color: var(--navy); font-weight: 600; cursor: pointer; text-decoration: underline; }
-    .auth-divider { text-align: center; color: var(--text-light); font-size: 12px; margin: 8px 0; }
+    .auth-input {
+      width: 100%; padding: 12px 14px; border: 1.5px solid var(--border);
+      border-radius: 8px; font-size: 14px; font-family: 'Sora', sans-serif;
+      color: var(--text-dark); background: var(--cream); outline: none;
+      transition: border-color 0.2s;
+    }
+    .auth-input:focus { border-color: var(--green); }
+    .auth-input.code-input { font-size: 26px; font-weight: 700; letter-spacing: 10px; text-align: center; }
+    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .auth-btn {
+      width: 100%; padding: 13px; background: var(--green); color: #fff;
+      border: none; border-radius: 8px; font-size: 15px; font-weight: 700;
+      font-family: 'Sora', sans-serif; cursor: pointer; transition: background 0.2s;
+      margin-top: 4px;
+    }
+    .auth-btn:hover { background: var(--green-mid); }
+    .auth-error { background: #fdecea; border: 1px solid #f5c6cb; color: #c0392b; padding: 10px 14px; border-radius: 8px; font-size: 13px; display: none; }
+    .auth-success { background: #d4edda; border: 1px solid #c3e6cb; color: #155724; padding: 10px 14px; border-radius: 8px; font-size: 13px; display: none; }
+    .auth-links { margin-top: 16px; text-align: center; font-size: 13px; color: var(--text-light); display: flex; flex-direction: column; gap: 8px; }
+    .auth-links a { color: var(--green); font-weight: 600; cursor: pointer; text-decoration: none; }
+    .auth-links a:hover { text-decoration: underline; }
+    .auth-divider { display: flex; align-items: center; gap: 10px; color: var(--text-light); font-size: 12px; }
+    .auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-    /* Code input spécial */
-    .code-input { font-size: 28px !important; font-weight: 700 !important; letter-spacing: 12px !important; text-align: center !important; font-family: 'Playfair Display', serif !important; color: var(--navy) !important; }
+    /* ══════════════════════════════
+       ADMIN
+    ══════════════════════════════ */
+    .admin-wrap { display: flex; min-height: calc(100vh - 64px); }
+    .admin-nav {
+      width: 220px; background: var(--green); padding: 1.5rem 0.75rem;
+      flex-shrink: 0; display: flex; flex-direction: column; gap: 3px;
+    }
+    .admin-nav-title { color: rgba(255,255,255,0.4); font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 0 12px; margin-bottom: 8px; }
+    .admin-nav-item {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 12px; border-radius: 8px;
+      color: rgba(255,255,255,0.7); font-size: 13px; font-weight: 500;
+      cursor: pointer; border: none; background: none; width: 100%; text-align: left;
+      transition: all 0.2s; font-family: 'Sora', sans-serif;
+    }
+    .admin-nav-item:hover { background: rgba(255,255,255,0.1); color: #fff; }
+    .admin-nav-item.active { background: rgba(255,255,255,0.15); color: #fff; }
+    .admin-nav-sep { height: 1px; background: rgba(255,255,255,0.1); margin: 8px 0; }
 
-    /* ── ADMIN ── */
-    .admin-layout { display: flex; min-height: calc(100vh - 64px); }
-    .admin-sidebar { width: 220px; background: var(--navy); padding: 1.5rem 0.75rem; flex-shrink: 0; }
-    .sidebar-title { color: rgba(255,255,255,0.4); font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 0 12px; margin-bottom: 10px; }
-    .sidebar-item { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 8px; color: rgba(255,255,255,0.65); font-size: 13px; cursor: pointer; transition: all 0.2s; font-weight: 500; border: none; background: none; width: 100%; text-align: left; margin-bottom: 2px; }
-    .sidebar-item:hover, .sidebar-item.active { background: rgba(255,255,255,0.08); color: #fff; }
-    .sidebar-item.active { background: rgba(201,168,76,0.15); color: var(--gold-light); }
-    .admin-content { flex: 1; padding: 2rem 1.5rem; background: var(--cream); overflow-y: auto; min-width: 0; }
+    .admin-main { flex: 1; padding: 2rem 1.5rem; background: var(--cream); overflow-y: auto; min-width: 0; }
     .admin-panel { display: none; }
     .admin-panel.active { display: block; }
-    .admin-title { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--navy); margin-bottom: 24px; }
-    .stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 14px; margin-bottom: 28px; }
-    .stat-card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); padding: 1rem; }
-    .stat-card-num { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--navy); font-weight: 700; }
-    .stat-card-label { font-size: 11px; color: var(--text-light); margin-top: 4px; }
-    .form-card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); padding: 1.5rem; max-width: 700px; }
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .form-group { display: flex; flex-direction: column; gap: 5px; }
-    .form-group.full { grid-column: 1 / -1; }
-    .form-group label { font-size: 12px; font-weight: 600; color: var(--text-mid); }
-    .form-group input, .form-group select, .form-group textarea { padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 14px; font-family: 'DM Sans', sans-serif; color: var(--text-dark); background: var(--cream); outline: none; transition: border-color 0.2s; width: 100%; }
-    .form-group input:focus, .form-group select:focus { border-color: var(--navy); }
-    .file-upload-area { border: 2px dashed var(--border); border-radius: 8px; padding: 20px; text-align: center; background: var(--cream); cursor: pointer; transition: border-color 0.2s; }
-    .file-upload-area:hover { border-color: var(--navy); }
-    .file-upload-area input { display: none; }
-    .file-upload-icon { font-size: 24px; margin-bottom: 6px; }
-    .file-upload-text { font-size: 12px; color: var(--text-light); }
-    .file-name { font-size: 11px; color: var(--success); margin-top: 4px; font-weight: 500; }
-    .btn-save { background: var(--navy); color: #fff; border: none; border-radius: 8px; padding: 11px 24px; font-size: 14px; font-weight: 600; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: background 0.2s; }
-    .btn-save:hover { background: var(--navy-light); }
-    .btn-cancel { background: none; color: var(--text-mid); border: 1px solid var(--border); border-radius: 8px; padding: 11px 24px; font-size: 14px; font-weight: 600; font-family: 'DM Sans', sans-serif; cursor: pointer; }
-    .btn-danger { background: none; border: 1px solid #fca5a5; color: #8B1A1A; border-radius: 6px; padding: 5px 10px; font-size: 12px; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: all 0.2s; }
-    .btn-danger:hover { background: #fca5a5; }
-    .btn-edit { background: none; border: 1px solid #93c5fd; color: #1d4ed8; border-radius: 6px; padding: 5px 10px; font-size: 12px; font-family: 'DM Sans', sans-serif; cursor: pointer; margin-right: 4px; }
-    .btn-edit:hover { background: #dbeafe; }
-    .table-wrap { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); overflow-x: auto; }
+    .admin-panel-title { font-size: 22px; font-weight: 700; color: var(--text-dark); margin-bottom: 1.5rem; }
+
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 14px; margin-bottom: 1.5rem; }
+    .kpi-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; }
+    .kpi-num { font-size: 32px; font-weight: 800; color: var(--green); }
+    .kpi-label { font-size: 11px; color: var(--text-light); margin-top: 2px; }
+
+    .table-box { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); overflow-x: auto; }
     table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 500px; }
-    thead { background: var(--navy); }
-    thead th { color: rgba(255,255,255,0.75); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; padding: 10px 14px; text-align: left; white-space: nowrap; }
-    tbody tr { border-bottom: 1px solid var(--border); }
+    thead { background: var(--green); }
+    thead th { color: rgba(255,255,255,0.85); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; padding: 11px 14px; text-align: left; white-space: nowrap; }
+    tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
     tbody tr:last-child { border-bottom: none; }
     tbody tr:hover { background: var(--cream); }
     tbody td { padding: 10px 14px; color: var(--text-dark); vertical-align: middle; }
-    .alert-success { background: #f0fdf4; border: 1px solid #86efac; color: var(--success); padding: 12px 16px; border-radius: 8px; font-size: 14px; margin-bottom: 18px; display: none; }
 
-    /* ── LOGIN ADMIN ── */
-    .login-page { min-height: calc(100vh - 64px); display: flex; align-items: center; justify-content: center; background: var(--cream); padding: 1.5rem; }
-    .login-card { background: var(--white); border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); padding: 2rem; width: 100%; max-width: 400px; }
-    .login-logo { text-align: center; margin-bottom: 1.5rem; }
-    .login-title { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); text-align: center; margin-bottom: 4px; }
-    .login-sub { font-size: 13px; color: var(--text-light); text-align: center; margin-bottom: 1.5rem; }
+    .form-box { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; max-width: 680px; }
+    .form-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-field { display: flex; flex-direction: column; gap: 5px; }
+    .form-field.full { grid-column: 1/-1; }
+    .form-field label { font-size: 12px; font-weight: 600; color: var(--text-mid); }
+    .form-field input, .form-field select, .form-field textarea {
+      padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px;
+      font-size: 14px; font-family: 'Sora', sans-serif; color: var(--text-dark);
+      background: var(--cream); outline: none; width: 100%; transition: border-color 0.2s;
+    }
+    .form-field input:focus, .form-field select:focus { border-color: var(--green); }
+
+    .upload-area {
+      border: 2px dashed var(--border); border-radius: 8px; padding: 20px;
+      text-align: center; cursor: pointer; transition: border-color 0.2s;
+      background: var(--cream);
+    }
+    .upload-area:hover { border-color: var(--green); }
+    .upload-area input { display: none; }
+    .upload-icon { font-size: 28px; margin-bottom: 6px; }
+    .upload-text { font-size: 12px; color: var(--text-light); }
+    .upload-name { font-size: 12px; color: var(--green); margin-top: 4px; font-weight: 600; }
+
+    .btn-green { background: var(--green); color: #fff; border: none; border-radius: 8px; padding: 11px 24px; font-size: 14px; font-weight: 600; font-family: 'Sora', sans-serif; cursor: pointer; transition: background 0.2s; }
+    .btn-green:hover { background: var(--green-mid); }
+    .btn-ghost { background: none; color: var(--text-mid); border: 1px solid var(--border); border-radius: 8px; padding: 11px 24px; font-size: 14px; font-weight: 600; font-family: 'Sora', sans-serif; cursor: pointer; }
+    .btn-red-outline { background: none; border: 1px solid #f5c6cb; color: #c0392b; border-radius: 6px; padding: 5px 10px; font-size: 12px; font-family: 'Sora', sans-serif; cursor: pointer; transition: all 0.2s; }
+    .btn-red-outline:hover { background: #fdecea; }
+    .btn-blue-outline { background: none; border: 1px solid #bee3f8; color: #2b6cb0; border-radius: 6px; padding: 5px 10px; font-size: 12px; font-family: 'Sora', sans-serif; cursor: pointer; margin-right: 4px; }
+    .btn-blue-outline:hover { background: #ebf8ff; }
+    .alert-ok { background: #d4edda; border: 1px solid #c3e6cb; color: #155724; padding: 12px 16px; border-radius: 8px; font-size: 14px; margin-bottom: 16px; display: none; }
+
+    /* LOGIN ADMIN */
+    .login-wrap { min-height: calc(100vh - 64px); display: flex; align-items: center; justify-content: center; padding: 2rem; background: var(--cream); }
+    .login-box { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); padding: 2.5rem; width: 100%; max-width: 380px; }
+    .login-head { text-align: center; margin-bottom: 2rem; }
+    .login-head h2 { font-size: 20px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
+    .login-head p { font-size: 13px; color: var(--text-light); }
     .login-form { display: flex; flex-direction: column; gap: 14px; }
-    .login-form input { padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 15px; font-family: 'DM Sans', sans-serif; background: var(--cream); outline: none; transition: border-color 0.2s; width: 100%; }
-    .login-form input:focus { border-color: var(--navy); }
-    .login-error { background: #fef2f2; border: 1px solid #fca5a5; color: #8B1A1A; padding: 10px 14px; border-radius: 8px; font-size: 13px; display: none; }
+    .login-input { width: 100%; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 14px; font-family: 'Sora', sans-serif; background: var(--cream); outline: none; transition: border-color 0.2s; }
+    .login-input:focus { border-color: var(--green); }
+    .login-error { background: #fdecea; border: 1px solid #f5c6cb; color: #c0392b; padding: 10px 14px; border-radius: 8px; font-size: 13px; display: none; }
 
-    /* ── RESPONSIVE ── */
+    /* FOOTER */
+    footer {
+      background: var(--green); color: rgba(255,255,255,0.8);
+      padding: 2.5rem 1.5rem 1.5rem;
+    }
+    .footer-inner { max-width: 1280px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr 1.5fr; gap: 2rem; margin-bottom: 2rem; }
+    .footer-brand h3 { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 6px; }
+    .footer-brand p { font-size: 12px; line-height: 1.6; color: rgba(255,255,255,0.6); }
+    .footer-col h4 { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .footer-col a { display: block; font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 6px; cursor: pointer; transition: color 0.2s; text-decoration: none; }
+    .footer-col a:hover { color: #fff; }
+    .footer-contact-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 8px; }
+    .footer-newsletter p { font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 10px; line-height: 1.5; }
+    .newsletter-form { display: flex; gap: 0; border-radius: 8px; overflow: hidden; }
+    .newsletter-form input { flex: 1; padding: 10px 12px; border: none; font-size: 13px; font-family: 'Sora', sans-serif; outline: none; }
+    .newsletter-form button { background: var(--white); color: var(--green); border: none; padding: 10px 14px; cursor: pointer; font-size: 16px; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; display: flex; align-items: center; justify-content: space-between; font-size: 11px; color: rgba(255,255,255,0.4); flex-wrap: wrap; gap: 8px; }
+    .footer-bottom-links { display: flex; gap: 16px; }
+    .footer-bottom-links a { color: rgba(255,255,255,0.4); cursor: pointer; text-decoration: none; }
+    .footer-bottom-links a:hover { color: rgba(255,255,255,0.7); }
+
+    /* Empty state */
+    .empty-state { text-align: center; padding: 60px 20px; color: var(--text-light); grid-column: 1/-1; }
+    .empty-icon { font-size: 40px; margin-bottom: 12px; }
+    .empty-state h3 { font-size: 16px; color: var(--text-mid); margin-bottom: 6px; }
+
+    /* ══════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════ */
+    @media (max-width: 1024px) {
+      .home-layout { grid-template-columns: 1fr; }
+      .sidebar { display: grid; grid-template-columns: 1fr 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
     @media (max-width: 768px) {
-      .nav-links { display: none; }
+      .nav-center, .nav-right { display: none; }
       .hamburger { display: flex; }
-      .hero { padding: 48px 1rem 40px; }
-      .hero p { font-size: 14px; }
-      .hero-btns { flex-direction: column; align-items: center; }
-      .btn-hero-primary, .btn-hero-secondary { width: 100%; max-width: 280px; text-align: center; }
-      .hero-stats { gap: 20px; }
-      .stat-num { font-size: 24px; }
-      .search-section { margin: -20px auto 0; padding: 0 0.75rem; }
-      .search-box { flex-direction: column; gap: 8px; padding: 1rem; }
-      .search-input-wrap { width: 100%; min-width: unset; }
-      .search-box select { width: 100%; min-width: unset; }
-      .search-box input[type="text"] { font-size: 16px; }
-      .subjects-section { margin: 32px auto 48px; padding: 0 0.75rem; }
-      .subjects-grid { grid-template-columns: 1fr; gap: 14px; }
-      .auth-page { padding: 1rem; align-items: flex-start; padding-top: 2rem; }
-      .auth-card { padding: 1.5rem; }
-      .form-row { grid-template-columns: 1fr; }
-      .admin-layout { flex-direction: column; }
-      .admin-sidebar { width: 100%; padding: 0.75rem; display: flex; flex-direction: column; gap: 4px; }
-      .sidebar-title { display: none; }
-      .admin-content { padding: 1.25rem 0.75rem; }
-      .admin-title { font-size: 20px; margin-bottom: 16px; }
-      .stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
-      .stat-card-num { font-size: 26px; }
-      .form-grid { grid-template-columns: 1fr; }
-      .form-card { padding: 1rem; }
-      .login-card { padding: 1.5rem; }
+      .home-layout { padding: 1rem; gap: 1rem; }
+      .hero-content { grid-template-columns: 1fr; }
+      .hero-img { display: none; }
+      .stats-bar { grid-template-columns: 1fr 1fr; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .sidebar { grid-template-columns: 1fr; }
+      .subjects-full-grid { grid-template-columns: 1fr; }
+      .filters-bar { flex-direction: column; }
+      .filter-search, .filter-select { width: 100%; }
+      .admin-wrap { flex-direction: column; }
+      .admin-nav { width: 100%; flex-direction: row; flex-wrap: wrap; padding: 0.75rem; gap: 4px; }
+      .admin-nav-title, .admin-nav-sep { display: none; }
+      .admin-nav-item { font-size: 12px; padding: 8px 10px; }
+      .form-2col { grid-template-columns: 1fr; }
+      .form-row-2 { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .kpi-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 480px) {
-      nav { padding: 0 1rem; }
-      .logo-text { font-size: 17px; }
-      .hero h1 { font-size: 24px; }
+      .stats-bar { grid-template-columns: 1fr 1fr; }
+      .auth-box { padding: 1.5rem; }
+      .hero-text h1 { font-size: 24px; }
     }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="logo" onclick="goHome()">
-    <span class="logo-text">ENA<span>Exams</span></span>
-  </div>
-  <div class="nav-links" id="navLinks">
-    <button class="nav-btn" onclick="showPage('home')">Accueil</button>
-    <button class="nav-btn" onclick="requireAuth('subjects')">Sujets</button>
-    <span id="navUser" class="nav-user" style="display:none"></span>
-    <button id="btnDeconnexion" class="nav-btn" style="display:none;color:#f87171;" onclick="deconnexion()">Déconnexion</button>
-    <button id="btnInscription" class="nav-btn" onclick="showPage('inscription')">S'inscrire</button>
-    <button id="btnConnexion" class="nav-btn gold" onclick="showPage('connexion')">Se connecter</button>
-    <button id="btnAdmin" class="nav-btn gold" style="display:none;" onclick="handleAdminNav()">⚙ Admin</button>
-  </div>
-  <button class="hamburger" id="hamburger" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
+<!-- ══════════ HEADER ══════════ -->
+<header>
+  <div class="header-inner">
+    <div class="brand" onclick="goHome()">
+      <div class="brand-icon">🎓</div>
+      <div>
+        <div class="brand-name">ENAExams</div>
+        <div class="brand-tagline">Vivier d'expertise</div>
+      </div>
+    </div>
 
-<!-- Mobile Menu -->
-<div class="mobile-menu" id="mobileMenu">
-  <button class="nav-btn" onclick="mobileNav('home')">🏠 Accueil</button>
-  <button class="nav-btn" onclick="mobileNav('subjects')">📚 Sujets</button>
-  <span id="mobileNavUser" class="nav-user" style="display:none"></span>
-  <button id="mBtnDeconnexion" class="nav-btn" style="display:none;color:#f87171;" onclick="deconnexion();closeMenu()">⬅ Déconnexion</button>
-  <button id="mBtnInscription" class="nav-btn" onclick="mobileNav('inscription')">✏️ S'inscrire</button>
-  <button id="mBtnConnexion" class="nav-btn gold" onclick="mobileNav('connexion')">🔑 Se connecter</button>
-  <button id="mBtnAdmin" class="nav-btn gold" style="display:none;" onclick="mobileNav('admin')">⚙ Admin</button>
+    <nav class="nav-center">
+      <button class="nav-link active" onclick="goHome()">Accueil</button>
+      <button class="nav-link" onclick="requireAuth('subjects')">Sujets d'examen</button>
+      <button class="nav-link" onclick="requireAuth('subjects')">Annales</button>
+      <button class="nav-link">À propos</button>
+      <button class="nav-link">Contact</button>
+    </nav>
+
+    <div class="nav-right" id="navRight">
+      <span id="navUserBadge" class="nav-user-badge" style="display:none"></span>
+      <button id="navBtnLogout" class="btn-connect outline" style="display:none" onclick="deconnexion()">Déconnexion</button>
+      <button id="navBtnInscription" class="btn-connect outline" onclick="showPage('inscription')">S'inscrire</button>
+      <button id="navBtnConnexion" class="btn-connect" onclick="showPage('connexion')">Se connecter</button>
+      <button id="navBtnAdmin" class="btn-connect" style="display:none;background:var(--gold);color:#fff;" onclick="handleAdminNav()"> Admin</button>
+    </div>
+
+    <button class="hamburger" id="hamburger" onclick="toggleDrawer()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile Drawer -->
+<div class="mobile-drawer" id="mobileDrawer">
+  <button class="drawer-link" onclick="drawerNav('home')"> Accueil</button>
+  <button class="drawer-link" onclick="drawerNav('subjects')"> Sujets d'examen</button>
+  <button class="drawer-link"> À propos</button>
+  <button class="drawer-link"> Contact</button>
+  <div class="drawer-divider"></div>
+  <span id="drawerUserBadge" class="nav-user-badge" style="display:none;margin-bottom:4px;"></span>
+  <button id="drawerBtnLogout" class="drawer-link" style="display:none;color:#f87171;" onclick="deconnexion();closeDrawer()"> Déconnexion</button>
+  <button id="drawerBtnInscription" class="drawer-link" onclick="drawerNav('inscription')"> S'inscrire</button>
+  <button id="drawerBtnConnexion" class="drawer-link gold-btn" onclick="drawerNav('connexion')"> Se connecter</button>
+  <button id="drawerBtnAdmin" class="drawer-link gold-btn" style="display:none;" onclick="drawerNav('admin')"> Admin</button>
 </div>
 
-<!-- PAGE ACCUEIL -->
+<!-- ══════════ PAGE ACCUEIL ══════════ -->
 <div id="page-home" class="page active">
-  <section class="hero">
-    <div class="hero-tag">École Nationale d'Administration du Bénin</div>
-    <h1>Vos sujets d'évaluation,<br>en un <em>seul endroit</em></h1>
-    <p>Accédez à tous les devoirs, examens et TD de votre filière. Téléchargez, révisez, réussissez.</p>
-    <div class="hero-btns">
-      <button class="btn-hero-primary" onclick="requireAuth('subjects')">Voir les sujets →</button>
-      <button class="btn-hero-secondary" onclick="showPage('inscription')">Créer un compte</button>
-    </div>
-    <div class="hero-stats">
-      <div class="stat"><div class="stat-num" id="heroCount">—</div><div class="stat-label">Sujets</div></div>
-      <div class="stat"><div class="stat-num" id="heroFilieres">—</div><div class="stat-label">Filières</div></div>
-      <div class="stat"><div class="stat-num">2000+</div><div class="stat-label">Étudiants</div></div>
-    </div>
-  </section>
-  <div class="search-section">
-    <div class="search-box">
-      <div class="search-input-wrap">
-        <input type="text" id="homeSearch" placeholder="Rechercher un sujet, une matière…" oninput="renderHomeGrid()" />
+  <div class="home-layout">
+
+    <!-- COLONNE PRINCIPALE -->
+    <main>
+      <!-- HERO -->
+      <section class="hero-section">
+        <div class="hero-content">
+          <div class="hero-text">
+            <h1>Tous les sujets d'examen,<br><em>en un seul endroit.</em></h1>
+            <p>Accédez facilement aux sujets classés par année, par matière et par niveau. Révisez, préparez-vous, réussissez.</p>
+            <div class="search-bar">
+              <input type="text" id="homeSearch" placeholder="Rechercher un sujet, une matière, une classe…" oninput="renderHomeCards()" />
+              <button onclick="requireAuth('subjects')">🔍</button>
+            </div>
+            <div class="hero-actions">
+              <button class="btn-main" onclick="requireAuth('subjects')"> Parcourir les sujets</button>
+              <button class="btn-outline" onclick="showPage('inscription')">⬆ Créer un compte</button>
+            </div>
+          </div>
+          <div class="hero-img">🎓</div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-bar">
+          <div class="stat-item">
+            <div class="stat-icon"></div>
+            <div><div class="stat-num" id="statSujets">0</div><div class="stat-lbl">Sujets disponibles</div></div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-icon"></div>
+            <div><div class="stat-num" id="statFilieres">0</div><div class="stat-lbl">Filières couvertes</div></div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-icon"></div>
+            <div><div class="stat-num" id="statMatieres">0</div><div class="stat-lbl">Matières</div></div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-icon"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SUJETS RÉCENTS -->
+      <div class="section-head">
+        <h2>Sujets récents</h2>
+        <button class="see-all" onclick="requireAuth('subjects')">Voir tous les sujets →</button>
       </div>
-      <select id="homeFiliere" onchange="renderHomeGrid()"><option value="">Toutes les filières</option></select>
-      <select id="homeNiveau" onchange="renderHomeGrid()">
+      <div class="cards-grid" id="homeCardsGrid"></div>
+    </main>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <!-- Accès rapide -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-head"><span></span> Accès rapide</div>
+        <div class="quick-item" onclick="requireAuth('subjects')">
+          <div class="quick-left"><span class="quick-icon"></span><span class="quick-label">Sujets par filière</span></div>
+          <span class="quick-arrow">›</span>
+        </div>
+        <div class="quick-item" onclick="requireAuth('subjects')">
+          <div class="quick-left"><span class="quick-icon"></span><span class="quick-label">Sujets par matière</span></div>
+          <span class="quick-arrow">›</span>
+        </div>
+        <div class="quick-item" onclick="requireAuth('subjects')">
+          <div class="quick-left"><span class="quick-icon"></span><span class="quick-label">Annales par année</span></div>
+          <span class="quick-arrow">›</span>
+        </div>
+        <div class="quick-item" onclick="requireAuth('subjects')">
+          <div class="quick-left"><span class="quick-icon"></span><span class="quick-label">Sujets populaires</span></div>
+          <span class="quick-arrow">›</span>
+        </div>
+        <div class="quick-item" onclick="requireAuth('subjects')">
+          <div class="quick-left"><span class="quick-icon"></span><span class="quick-label">Derniers ajouts</span></div>
+          <span class="quick-arrow">›</span>
+        </div>
+      </div>
+
+      <!-- Citation -->
+      <div class="quote-card">
+        <div class="quote-text">" La préparation d'aujourd'hui détermine la réussite de demain. Bon courage à tous ! "</div>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h3>ENAExams</h3>
+          <p>Plateforme dédiée au partage et à l'accès aux sujets d'examen pour tous les niveaux.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Liens utiles</h4>
+          <a onclick="goHome()">Accueil</a>
+          <a onclick="requireAuth('subjects')">Sujets d'examen</a>
+          <a onclick="requireAuth('subjects')">Annales</a>
+          <a onclick="goAbout()">À propos</a>
+          <a onclick="gocall()">Nous contacter</a>
+        </div>
+        <div class="footer-col">
+          <h4>Ressources</h4>
+          <a onclick="goAdvise()">Conseils de révision</a>
+          <a onclick="goMethodology()">Méthodologie</a>
+          <a onclick="goHelp()">Aide / FAQ</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <div class="footer-contact-item"> contact@ena.bj</div>
+          <div class="footer-contact-item"> +229 00 00 00 00</div>
+          <div class="footer-contact-item"> Abomey-Calavi, Bénin</div>
+        </div>
+        <div class="footer-col footer-newsletter">
+          <h4>Restez informé</h4>
+          <p>Abonnez-vous pour recevoir les derniers sujets et annonces.</p>
+          <div class="newsletter-form">
+            <input type="email" placeholder="Votre email" />
+            <button>➤</button>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 ENAExams. Tous droits réservés.</span>
+        <div class="footer-bottom-links">
+          <a>Conditions d'utilisation</a>
+          <a>Politique de confidentialité</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════ PAGE SUJETS ══════════ -->
+<div id="page-subjects" class="page">
+  <div class="subjects-page">
+    <div class="subjects-page-head">
+      <h1>Tous les sujets d'examen</h1>
+      <p>Consultez et téléchargez les sujets de votre filière</p>
+    </div>
+    <div class="filters-bar">
+      <div class="filter-search">
+        <input type="text" id="allSearch" placeholder="Rechercher un sujet…" oninput="renderAllCards()" />
+      </div>
+      <select class="filter-select" id="allFiliere" onchange="renderAllCards()"><option value="">Toutes les filières</option></select>
+      <select class="filter-select" id="allNiveau" onchange="renderAllCards()">
         <option value="">Tous les niveaux</option>
         <option>L1</option><option>L2</option><option>L3</option><option>M1</option><option>M2</option>
       </select>
-      <button class="btn-save" style="padding:10px 18px;font-size:14px;width:100%;" onclick="requireAuth('subjects')">Voir tous les sujets →</button>
+      <select class="filter-select" id="allAnnee" onchange="renderAllCards()"><option value="">Toutes les années</option></select>
+      <select class="filter-select" id="allMatiere" onchange="renderAllCards()"><option value="">Toutes les matières</option></select>
     </div>
+    <div class="section-head">
+      <h2 id="allCountLabel">Tous les sujets</h2>
+    </div>
+    <div class="subjects-full-grid" id="allCardsGrid"></div>
   </div>
-  <section class="subjects-section">
-    <div class="section-header">
-      <h2 class="section-title">Aperçu des sujets</h2>
-      <span class="results-count" id="homeCount"></span>
-    </div>
-    <div class="subjects-grid" id="homeGrid"></div>
-  </section>
 </div>
 
-<!-- PAGE SUJETS -->
-<div id="page-subjects" class="page">
-  <section class="subjects-section" style="margin-top:28px">
-    <div class="section-header">
-      <h2 class="section-title">Tous les sujets</h2>
-      <span class="results-count" id="allCount"></span>
-    </div>
-    <div class="search-box" style="margin-bottom:24px;background:var(--white);border-radius:12px;box-shadow:var(--shadow);flex-direction:column;gap:8px;">
-      <div class="search-input-wrap" style="width:100%;">
-        <input type="text" id="allSearch" placeholder="Rechercher…" oninput="renderAllGrid()" />
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;width:100%;">
-        <select id="allFiliere" onchange="renderAllGrid()" style="flex:1;min-width:120px;"><option value="">Filière</option></select>
-        <select id="allNiveau" onchange="renderAllGrid()" style="flex:1;min-width:100px;">
-          <option value="">Niveau</option>
-          <option>L1</option><option>L2</option><option>L3</option><option>M1</option><option>M2</option>
-        </select>
-        <select id="allAnnee" onchange="renderAllGrid()" style="flex:1;min-width:100px;"><option value="">Année</option></select>
-        <select id="allMatiere" onchange="renderAllGrid()" style="flex:1;min-width:120px;"><option value="">Matière</option></select>
-      </div>
-    </div>
-    <div class="subjects-grid" id="allGrid"></div>
-  </section>
-</div>
-
-<!-- PAGE INSCRIPTION -->
+<!-- ══════════ PAGE INSCRIPTION ══════════ -->
 <div id="page-inscription" class="page">
   <div class="auth-page">
-    <div class="auth-card">
-      <div class="auth-logo">
-        <div class="auth-title">Créer un compte</div>
-        <div class="auth-sub">Rejoignez l'École Nationale d'Administration du Bénin</div>
+    <div class="auth-box">
+      <div class="auth-header">
+        <div class="auth-icon"></div>
+        <h2>Créer un compte</h2>
+        <p>Rejoignez l'École Nationale d'Administration du Bénin</p>
       </div>
       <div class="auth-form">
         <div id="inscriptionError" class="auth-error"></div>
         <div id="inscriptionSuccess" class="auth-success"></div>
-        <div class="form-row">
-          <input type="text" id="regNom" placeholder="Nom *" />
-          <input type="text" id="regPrenom" placeholder="Prénom *" />
+        <div class="form-row-2">
+          <input type="text" class="auth-input" id="regNom" placeholder="Nom *" />
+          <input type="text" class="auth-input" id="regPrenom" placeholder="Prénom *" />
         </div>
-        <input type="email" id="regEmail" placeholder="Adresse email *" />
-        <input type="password" id="regPassword" placeholder="Mot de passe *" />
-        <input type="password" id="regPassword2" placeholder="Confirmer le mot de passe *" />
-        <select id="regFiliere">
+        <input type="email" class="auth-input" id="regEmail" placeholder="Adresse email *" />
+        <input type="password" class="auth-input" id="regPassword" placeholder="Mot de passe *" />
+        <input type="password" class="auth-input" id="regPassword2" placeholder="Confirmer le mot de passe *" />
+        <select class="auth-input" id="regFiliere">
           <option value="">Filière (optionnel)</option>
-          <option>Informatique</option><option>Mathématiques</option><option>Physique</option>
-          <option>Économie</option><option>Droit</option><option>Médecine</option><option>Autre</option>
+          <option>AG</option><option>AF</option><option>SG</option>
+          <option>STID</option><option>AGT</option><option>ATSS</option><option>DRI</option><option>AAS</option><option>AFT</option><option>AI</option><option>AHUI</option><option>GMP</option><option>PDL</option><option>GFCL</option><option>ARCHI</option><option>MSP</option><option>EPP</option><option>GRH</option><option>GP</option><option>Autre</option>
         </select>
-        <select id="regNiveau">
+        <select class="auth-input" id="regNiveau">
           <option value="">Niveau (optionnel)</option>
           <option>L1</option><option>L2</option><option>L3</option><option>M1</option><option>M2</option>
         </select>
-        <button class="btn-primary" onclick="doInscription()">Créer mon compte</button>
+        <button class="auth-btn" onclick="doInscription()">Créer mon compte</button>
       </div>
-      <div class="auth-switch">Déjà inscrit ? <a onclick="showPage('connexion')">Se connecter</a></div>
+      <div class="auth-links">
+        <span>Déjà inscrit ? <a onclick="showPage('connexion')">Se connecter</a></span>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- PAGE CONNEXION -->
+<!-- ══════════ PAGE CONNEXION ══════════ -->
 <div id="page-connexion" class="page">
   <div class="auth-page">
-    <div class="auth-card">
-      <div class="auth-logo">
-        <div class="auth-title">Se connecter</div>
-        <div class="auth-sub">Accédez à votre bibliothèque de sujets</div>
+    <div class="auth-box">
+      <div class="auth-header">
+        <div class="auth-icon"></div>
+        <h2>Se connecter</h2>
+        <p>Accédez à votre bibliothèque de sujets</p>
       </div>
       <div class="auth-form">
         <div id="connexionError" class="auth-error"></div>
-        <input type="email" id="loginEmail" placeholder="Adresse email" />
-        <input type="password" id="loginPassword" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')doConnexion()" />
-        <button class="btn-primary" onclick="doConnexion()">Se connecter</button>
+        <input type="email" class="auth-input" id="loginEmail" placeholder="Adresse email" />
+        <input type="password" class="auth-input" id="loginPassword" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')doConnexion()" />
+        <button class="auth-btn" onclick="doConnexion()">Se connecter</button>
       </div>
-      <div class="auth-switch">Mot de passe oublié ? <a onclick="showPage('oublie')">Réinitialiser</a></div>
-      <div class="auth-divider">─────── ou ───────</div>
-      <div class="auth-switch">Pas encore de compte ? <a onclick="showPage('inscription')">S'inscrire gratuitement</a></div>
-      <div class="auth-divider">─────── ou ───────</div>
-      <div class="auth-switch"><a onclick="showPage('login')">Accès administrateur</a></div>
+      <div class="auth-links">
+        <span>Mot de passe oublié ? <a onclick="showPage('oublie')">Réinitialiser</a></span>
+        <div class="auth-divider">ou</div>
+        <span>Pas encore de compte ? <a onclick="showPage('inscription')">S'inscrire gratuitement</a></span>
+        <div class="auth-divider">ou</div>
+        <span><a onclick="showPage('login')">Accès administrateur</a></span>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- PAGE MOT DE PASSE OUBLIÉ — Étape 1 : Email -->
+<!-- ══════════ PAGE MOT DE PASSE OUBLIÉ ══════════ -->
 <div id="page-oublie" class="page">
   <div class="auth-page">
-    <div class="auth-card">
-      <div class="auth-logo">
-        <div class="auth-title">Mot de passe oublié</div>
-        <div class="auth-sub">Entrez votre email pour recevoir un code de vérification à 6 chiffres</div>
+    <div class="auth-box">
+      <div class="auth-header">
+        <div class="auth-icon"></div>
+        <h2>Mot de passe oublié</h2>
+        <p>Entrez votre email pour recevoir un code à 6 chiffres</p>
       </div>
       <div class="auth-form">
         <div id="oublieError" class="auth-error"></div>
         <div id="oublieSuccess" class="auth-success"></div>
-        <input type="email" id="oublieEmail" placeholder="Votre adresse email" />
-        <button class="btn-primary" onclick="demanderCode()">Envoyer le code</button>
+        <input type="email" class="auth-input" id="oublieEmail" placeholder="Votre adresse email" />
+        <button class="auth-btn" onclick="demanderCode()">Envoyer le code</button>
       </div>
-      <div class="auth-switch"><a onclick="showPage('connexion')">← Retour à la connexion</a></div>
+      <div class="auth-links">
+        <span><a onclick="showPage('connexion')">← Retour à la connexion</a></span>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- PAGE MOT DE PASSE OUBLIÉ — Étape 2 : Code + Nouveau mot de passe -->
+<!-- ══════════ PAGE RÉINITIALISER MOT DE PASSE ══════════ -->
 <div id="page-reinitialiser" class="page">
   <div class="auth-page">
-    <div class="auth-card">
-      <div class="auth-logo">
-        <div class="auth-title">Nouveau mot de passe</div>
-        <div class="auth-sub" id="reinitSub">Entrez le code reçu par email et choisissez un nouveau mot de passe</div>
+    <div class="auth-box">
+      <div class="auth-header">
+        <div class="auth-icon"></div>
+        <h2>Nouveau mot de passe</h2>
+        <p id="reinitSub">Entrez le code reçu par email et choisissez un nouveau mot de passe</p>
       </div>
       <div class="auth-form">
         <div id="reinitError" class="auth-error"></div>
         <div id="reinitSuccess" class="auth-success"></div>
-        <input type="text" id="reinitCode" placeholder="Code à 6 chiffres" maxlength="6" class="code-input" />
-        <input type="password" id="reinitPassword" placeholder="Nouveau mot de passe *" />
-        <input type="password" id="reinitPassword2" placeholder="Confirmer le mot de passe *" />
-        <button class="btn-primary" onclick="reinitialiserMotDePasse()">Changer le mot de passe</button>
+        <input type="text" class="auth-input code-input" id="reinitCode" placeholder="000000" maxlength="6" />
+        <input type="password" class="auth-input" id="reinitPassword" placeholder="Nouveau mot de passe *" />
+        <input type="password" class="auth-input" id="reinitPassword2" placeholder="Confirmer le mot de passe *" />
+        <button class="auth-btn" onclick="reinitialiserMotDePasse()">Changer le mot de passe</button>
       </div>
-      <div class="auth-switch"><a onclick="showPage('oublie')">← Renvoyer le code</a></div>
+      <div class="auth-links">
+        <span><a onclick="showPage('oublie')">← Renvoyer le code</a></span>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- PAGE LOGIN ADMIN -->
+<!-- ══════════ PAGE LOGIN ADMIN ══════════ -->
 <div id="page-login" class="page">
-  <div class="login-page">
-    <div class="login-card">
-      <div class="login-logo">
-        <div class="login-title">Espace Administrateur</div>
-        <div class="login-sub">Réservé à l'administration</div>
+  <div class="login-wrap">
+    <div class="login-box">
+      <div class="login-head">
+        <h2>⚙ Espace Administrateur</h2>
+        <p>Réservé à l'administration de l'école</p>
       </div>
       <div class="login-form">
         <div id="loginError" class="login-error">Identifiants incorrects.</div>
-        <input type="text" id="adminUser" placeholder="Identifiant" />
-        <input type="password" id="adminPass" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')doAdminLogin()" />
-        <button class="btn-primary" onclick="doAdminLogin()">Se connecter</button>
+        <input type="text" class="login-input" id="adminUser" placeholder="Identifiant" />
+        <input type="password" class="login-input" id="adminPass" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')doAdminLogin()" />
+        <button class="auth-btn" onclick="doAdminLogin()">Se connecter</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- PAGE ADMIN -->
+<!-- ══════════ PAGE ADMIN ══════════ -->
 <div id="page-admin" class="page">
-  <div class="admin-layout">
-    <aside class="admin-sidebar">
-      <div class="sidebar-title">Menu Admin</div>
-      <button class="sidebar-item active" onclick="showAdminPanel('dashboard', this)">📊 Tableau de bord</button>
-      <button class="sidebar-item" onclick="showAdminPanel('add', this)">➕ Ajouter un sujet</button>
-      <button class="sidebar-item" onclick="showAdminPanel('manage', this)">📋 Gérer les sujets</button>
-      <button class="sidebar-item" onclick="showAdminPanel('etudiants', this)">👥 Étudiants</button>
-      <button class="sidebar-item" onclick="doAdminLogout()" style="color:#f87171;margin-top:1rem;">⬅ Déconnexion</button>
-    </aside>
-    <main class="admin-content">
+  <div class="admin-wrap">
+    <nav class="admin-nav">
+      <div class="admin-nav-title">Navigation</div>
+      <button class="admin-nav-item active" onclick="showPanel('dashboard',this)"> Tableau de bord</button>
+      <button class="admin-nav-item" onclick="showPanel('add',this)"> Ajouter un sujet</button>
+      <button class="admin-nav-item" onclick="showPanel('manage',this)"> Gérer les sujets</button>
+      <button class="admin-nav-item" onclick="showPanel('etudiants',this)"> Étudiants</button>
+      <div class="admin-nav-sep"></div>
+      <button class="admin-nav-item" onclick="doAdminLogout()" style="color:#f87171;">⬅ Déconnexion</button>
+    </nav>
 
+    <main class="admin-main">
+
+      <!-- Dashboard -->
       <div id="panel-dashboard" class="admin-panel active">
-        <h2 class="admin-title">Tableau de bord</h2>
-        <div class="stats-grid">
-          <div class="stat-card"><div class="stat-card-num" id="dashTotal">—</div><div class="stat-card-label">Total sujets</div></div>
-          <div class="stat-card"><div class="stat-card-num" id="dashFilieres">—</div><div class="stat-card-label">Filières</div></div>
-          <div class="stat-card"><div class="stat-card-num" id="dashMatieres">—</div><div class="stat-card-label">Matières</div></div>
-          <div class="stat-card"><div class="stat-card-num" id="dashEtudiants">—</div><div class="stat-card-label">Étudiants</div></div>
+        <h2 class="admin-panel-title">Tableau de bord</h2>
+        <div class="kpi-grid">
+          <div class="kpi-card"><div class="kpi-num" id="dashTotal">—</div><div class="kpi-label">Total sujets</div></div>
+          <div class="kpi-card"><div class="kpi-num" id="dashFilieres">—</div><div class="kpi-label">Filières</div></div>
+          <div class="kpi-card"><div class="kpi-num" id="dashMatieres">—</div><div class="kpi-label">Matières</div></div>
+          <div class="kpi-card"><div class="kpi-num" id="dashEtudiants">—</div><div class="kpi-label">Étudiants inscrits</div></div>
         </div>
-        <div class="table-wrap">
+        <div class="table-box">
           <table><thead><tr><th>Titre</th><th>Filière</th><th>Niveau</th><th>Matière</th><th>Année</th></tr></thead>
           <tbody id="dashTable"></tbody></table>
         </div>
       </div>
 
+      <!-- Ajouter -->
       <div id="panel-add" class="admin-panel">
-        <h2 class="admin-title" id="addPanelTitle">Ajouter un sujet</h2>
-        <div id="addSuccess" class="alert-success">✅ Sujet enregistré avec succès !</div>
-        <div class="form-card">
-          <input type="hidden" id="editId" value="" />
-          <div class="form-grid">
-            <div class="form-group full">
+        <h2 class="admin-panel-title" id="addTitle">Ajouter un sujet</h2>
+        <div id="addOk" class="alert-ok"> Sujet enregistré avec succès !</div>
+        <div class="form-box">
+          <input type="hidden" id="editId" />
+          <div class="form-2col">
+            <div class="form-field full">
               <label>Titre du sujet *</label>
-              <input type="text" id="fTitre" placeholder="Ex : Examen final Analyse 1 — Session janvier" />
+              <input type="text" id="fTitre" placeholder="Ex : Examen final — STID 1" />
             </div>
-            <div class="form-group">
+            <div class="form-field">
               <label>Filière *</label>
-              <input type="text" id="fFiliere" placeholder="Ex : Informatique" list="filiereList" />
+              <input type="text" id="fFiliere" placeholder="Ex : SG" list="filiereList" />
               <datalist id="filiereList"></datalist>
             </div>
-            <div class="form-group">
+            <div class="form-field">
               <label>Niveau *</label>
               <select id="fNiveau">
                 <option value="">Choisir</option>
                 <option>L1</option><option>L2</option><option>L3</option><option>M1</option><option>M2</option>
               </select>
             </div>
-            <div class="form-group">
+            <div class="form-field">
               <label>Matière *</label>
               <input type="text" id="fMatiere" placeholder="Ex : Analyse mathématique" list="matiereList" />
               <datalist id="matiereList"></datalist>
             </div>
-            <div class="form-group">
+            <div class="form-field">
               <label>Année académique *</label>
               <input type="text" id="fAnnee" placeholder="Ex : 2023-2024" />
             </div>
-            <div class="form-group">
+            <div class="form-field">
               <label>Type d'évaluation</label>
               <select id="fType">
                 <option>Examen</option><option>Devoir</option><option>TD</option><option>TP</option><option>Rattrapage</option>
               </select>
             </div>
-            <div class="form-group full">
+            <div class="form-field full">
               <label>Fichier PDF</label>
-              <label class="file-upload-area" for="fFile">
-                <input type="file" id="fFile" accept=".pdf" onchange="updateFileName(this)" />
-                <div class="file-upload-icon">📄</div>
-                <div class="file-upload-text">Appuyez pour choisir un fichier PDF</div>
-                <div class="file-name" id="fileNameDisplay"></div>
+              <label class="upload-area" for="fFile">
+                <input type="file" id="fFile" accept=".pdf" onchange="onFileChange(this)" />
+                <div class="upload-icon"></div>
+                <div class="upload-text">Cliquez pour choisir un fichier PDF</div>
+                <div class="upload-name" id="fileName"></div>
               </label>
             </div>
           </div>
           <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;">
-            <button class="btn-save" onclick="saveSubject()">Enregistrer</button>
-            <button class="btn-cancel" onclick="cancelEdit()">Annuler</button>
+            <button class="btn-green" onclick="saveSubject()">Enregistrer</button>
+            <button class="btn-ghost" onclick="cancelEdit()">Annuler</button>
           </div>
         </div>
       </div>
 
+      <!-- Gérer -->
       <div id="panel-manage" class="admin-panel">
-        <h2 class="admin-title">Gérer les sujets</h2>
-        <div class="table-wrap">
+        <h2 class="admin-panel-title">Gérer les sujets</h2>
+        <div class="table-box">
           <table><thead><tr><th>Titre</th><th>Filière</th><th>Niveau</th><th>Année</th><th>Actions</th></tr></thead>
           <tbody id="manageTable"></tbody></table>
         </div>
       </div>
 
-      <!-- Panel Étudiants avec bouton Supprimer -->
+      <!-- Étudiants -->
       <div id="panel-etudiants" class="admin-panel">
-        <h2 class="admin-title">Étudiants inscrits</h2>
-        <div class="table-wrap">
+        <h2 class="admin-panel-title">Étudiants inscrits</h2>
+        <div class="table-box">
           <table><thead><tr><th>Nom</th><th>Prénom</th><th>Email</th><th>Filière</th><th>Niveau</th><th>Date</th><th>Action</th></tr></thead>
           <tbody id="etudiantsTable"></tbody></table>
         </div>
@@ -539,25 +969,28 @@ let subjects = [];
 let etudiantToken = localStorage.getItem('etudiant_token');
 let etudiantInfo = JSON.parse(localStorage.getItem('etudiant_info') || 'null');
 let adminToken = localStorage.getItem('admin_token');
-let emailReinit = ''; // stocke l'email pendant la réinitialisation
+let emailReinit = '';
+
+const ICONS = { 'AG':'', 'AF':'', 'SG':'', 'STID':'', 'AGT':'', 'STID':'', 'default':'' };
+const ICON_CLASSES = { 'Administration Générale':'AG', 'Administration des Finance':'AF', 'Secrétariat de Gestion':'SG', 'Sciences et Tchniques de l'Information et de la Documentation':'STID', 'default':'AG' };
 
 window.onload = async () => {
   updateNav();
   await loadSubjects();
-  renderHomeGrid();
+  renderHomeCards();
 };
 
-// ── MENU MOBILE ──
-function toggleMenu() {
-  document.getElementById('mobileMenu').classList.toggle('open');
+// ── DRAWER MOBILE ──
+function toggleDrawer() {
+  document.getElementById('mobileDrawer').classList.toggle('open');
   document.getElementById('hamburger').classList.toggle('open');
 }
-function closeMenu() {
-  document.getElementById('mobileMenu').classList.remove('open');
+function closeDrawer() {
+  document.getElementById('mobileDrawer').classList.remove('open');
   document.getElementById('hamburger').classList.remove('open');
 }
-function mobileNav(page) {
-  closeMenu();
+function drawerNav(page) {
+  closeDrawer();
   if (page === 'subjects' || page === 'admin') requireAuth(page);
   else showPage(page);
 }
@@ -567,7 +1000,7 @@ function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + name).classList.add('active');
   window.scrollTo(0, 0);
-  if (name === 'subjects') renderAllGrid();
+  if (name === 'subjects') renderAllCards();
 }
 function goHome() { showPage('home'); }
 function requireAuth(page) {
@@ -580,66 +1013,73 @@ function handleAdminNav() {
 }
 
 function updateNav() {
-  const isEtudiant = !!etudiantToken;
-  const isAdmin = !!adminToken;
-  document.getElementById('btnInscription').style.display = (isEtudiant || isAdmin) ? 'none' : '';
-  document.getElementById('btnConnexion').style.display = (isEtudiant || isAdmin) ? 'none' : '';
-  document.getElementById('btnDeconnexion').style.display = (isEtudiant || isAdmin) ? '' : 'none';
-  document.getElementById('btnAdmin').style.display = isAdmin ? '' : 'none';
-  document.getElementById('mBtnInscription').style.display = (isEtudiant || isAdmin) ? 'none' : '';
-  document.getElementById('mBtnConnexion').style.display = (isEtudiant || isAdmin) ? 'none' : '';
-  document.getElementById('mBtnDeconnexion').style.display = (isEtudiant || isAdmin) ? '' : 'none';
-  document.getElementById('mBtnAdmin').style.display = isAdmin ? '' : 'none';
-  const name = isEtudiant && etudiantInfo ? '👤 ' + etudiantInfo.prenom : isAdmin ? '⚙ Admin' : '';
-  document.getElementById('navUser').style.display = name ? '' : 'none';
-  document.getElementById('navUser').textContent = name;
-  document.getElementById('mobileNavUser').style.display = name ? '' : 'none';
-  document.getElementById('mobileNavUser').textContent = name;
+  const isEtu = !!etudiantToken;
+  const isAdm = !!adminToken;
+  const show = (id, v) => document.getElementById(id).style.display = v ? '' : 'none';
+
+  show('navBtnInscription', !isEtu && !isAdm);
+  show('navBtnConnexion', !isEtu && !isAdm);
+  show('navBtnLogout', isEtu || isAdm);
+  show('navBtnAdmin', isAdm);
+  show('drawerBtnInscription', !isEtu && !isAdm);
+  show('drawerBtnConnexion', !isEtu && !isAdm);
+  show('drawerBtnLogout', isEtu || isAdm);
+  show('drawerBtnAdmin', isAdm);
+
+  const label = isEtu && etudiantInfo ? ' ' + etudiantInfo.prenom : isAdm ? ' Admin' : '';
+  ['navUserBadge','drawerUserBadge'].forEach(id => {
+    const el = document.getElementById(id);
+    el.style.display = label ? '' : 'none';
+    el.textContent = label;
+  });
 }
 
-// ── SUBJECTS ──
+// ── LOAD SUBJECTS ──
 async function loadSubjects() {
   try {
     const res = await fetch(API + '/api/subjects?limit=200');
     const data = await res.json();
     subjects = data.subjects || [];
-    updateHeroStats();
+    updateStats();
     populateFilters();
   } catch { subjects = []; }
 }
 
-function updateHeroStats() {
-  document.getElementById('heroCount').textContent = subjects.length;
-  document.getElementById('heroFilieres').textContent = [...new Set(subjects.map(s => s.filiere))].length;
+function updateStats() {
+  const filieres = [...new Set(subjects.map(s => s.filiere))];
+  const matieres = [...new Set(subjects.map(s => s.matiere))];
+  document.getElementById('statSujets').textContent = subjects.length;
+  document.getElementById('statFilieres').textContent = filieres.length;
+  document.getElementById('statMatieres').textContent = matieres.length;
 }
 
 function populateFilters() {
   const filieres = [...new Set(subjects.map(s => s.filiere))].sort();
   const annees = [...new Set(subjects.map(s => s.annee))].sort().reverse();
   const matieres = [...new Set(subjects.map(s => s.matiere))].sort();
-  ['homeFiliere', 'allFiliere'].forEach(id => {
-    const el = document.getElementById(id); if (!el) return;
-    const val = el.value;
-    el.innerHTML = `<option value="">${id === 'homeFiliere' ? 'Toutes les filières' : 'Filière'}</option>` + filieres.map(f => `<option ${f===val?'selected':''}>${f}</option>`).join('');
-  });
+
+  const fe = document.getElementById('allFiliere');
+  if (fe) { const v=fe.value; fe.innerHTML=`<option value="">Toutes les filières</option>`+filieres.map(f=>`<option ${f===v?'selected':''}>${f}</option>`).join(''); }
   const ae = document.getElementById('allAnnee');
-  if (ae) { const v=ae.value; ae.innerHTML = `<option value="">Année</option>` + annees.map(a=>`<option ${a===v?'selected':''}>${a}</option>`).join(''); }
+  if (ae) { const v=ae.value; ae.innerHTML=`<option value="">Toutes les années</option>`+annees.map(a=>`<option ${a===v?'selected':''}>${a}</option>`).join(''); }
   const me = document.getElementById('allMatiere');
-  if (me) { const v=me.value; me.innerHTML = `<option value="">Matière</option>` + matieres.map(m=>`<option ${m===v?'selected':''}>${m}</option>`).join(''); }
+  if (me) { const v=me.value; me.innerHTML=`<option value="">Toutes les matières</option>`+matieres.map(m=>`<option ${m===v?'selected':''}>${m}</option>`).join(''); }
+
   const fl = document.getElementById('filiereList'); const ml = document.getElementById('matiereList');
   if (fl) fl.innerHTML = filieres.map(f=>`<option value="${f}">`).join('');
   if (ml) ml.innerHTML = matieres.map(m=>`<option value="${m}">`).join('');
 }
 
+// ── RENDER CARDS ──
 function getFiltered(prefix) {
   const q = (document.getElementById(prefix+'Search')?.value||'').toLowerCase();
-  const fil = document.getElementById(prefix+'Filiere')?.value||'';
-  const niv = document.getElementById(prefix+'Niveau')?.value||'';
+  const fil = document.getElementById(prefix === 'home' ? 'homeSearch' : 'allFiliere')?.value||'';
+  const niv = document.getElementById('allNiveau')?.value||'';
   const ann = document.getElementById('allAnnee')?.value||'';
   const mat = document.getElementById('allMatiere')?.value||'';
   return subjects.filter(s => {
     if (q && !s.titre.toLowerCase().includes(q) && !s.matiere.toLowerCase().includes(q) && !s.filiere.toLowerCase().includes(q)) return false;
-    if (fil && s.filiere !== fil) return false;
+    if (prefix !== 'home' && fil && s.filiere !== fil) return false;
     if (niv && s.niveau !== niv) return false;
     if (ann && s.annee !== ann) return false;
     if (mat && s.matiere !== mat) return false;
@@ -647,36 +1087,41 @@ function getFiltered(prefix) {
   });
 }
 
-function renderHomeGrid() {
-  const f = getFiltered('home');
-  document.getElementById('homeCount').textContent = f.length + ' sujet(s)';
-  document.getElementById('homeGrid').innerHTML = renderCards(f.slice(0,6), !!(etudiantToken||adminToken));
+function renderHomeCards() {
+  const q = (document.getElementById('homeSearch')?.value||'').toLowerCase();
+  const filtered = q ? subjects.filter(s => s.titre.toLowerCase().includes(q) || s.matiere.toLowerCase().includes(q) || s.filiere.toLowerCase().includes(q)) : subjects;
+  document.getElementById('homeCardsGrid').innerHTML = renderCards(filtered.slice(0,6), !!(etudiantToken||adminToken));
 }
-function renderAllGrid() {
-  const f = getFiltered('all');
-  document.getElementById('allCount').textContent = f.length + ' sujet(s) trouvé(s)';
-  document.getElementById('allGrid').innerHTML = renderCards(f, true);
+
+function renderAllCards() {
+  const filtered = getFiltered('all');
+  document.getElementById('allCountLabel').textContent = filtered.length + ' sujet(s) trouvé(s)';
+  document.getElementById('allCardsGrid').innerHTML = renderCards(filtered, true);
 }
 
 function renderCards(list, isAuth) {
-  if (!list.length) return `<div class="empty-state"><div class="empty-state-icon">📭</div><h3>Aucun sujet trouvé</h3><p>Modifiez vos critères.</p></div>`;
-  return list.map(s => `
+  if (!list.length) return `<div class="empty-state" style="grid-column:1/-1;"><div class="empty-icon"></div><h3>Aucun sujet trouvé</h3><p>Modifiez vos critères de recherche.</p></div>`;
+  const isNew = (s) => {
+    const d = new Date(s.createdAt);
+    return (Date.now() - d.getTime()) < 30 * 24 * 3600 * 1000;
+  };
+  return list.map(s => {
+    const icon = ICONS[s.filiere] || ICONS.default;
+    const cls = ICON_CLASSES[s.filiere] || ICON_CLASSES.default;
+    return `
     <div class="subject-card">
-      <div class="card-badges">
-        <span class="badge badge-filiere">${s.filiere}</span>
-        <span class="badge badge-niveau">${s.niveau}</span>
-        <span class="badge badge-annee">${s.annee}</span>
-      </div>
+      ${isNew(s) ? `<div class="card-new">NOUVEAU</div>` : ''}
+      <div class="card-icon ${cls}">${icon}</div>
       <div class="card-title">${s.titre}</div>
-      <div class="card-matiere">📚 ${s.matiere}</div>
+      <div class="card-sub">${s.filiere} — ${s.niveau}</div>
+      <div class="card-year">Session ${s.annee}</div>
       <div class="card-footer">
-        <span class="card-type">📝 ${s.type}</span>
+        <span class="card-type-badge">${s.type}</span>
         ${isAuth
-          ? `<a class="btn-download" href="${s.fichier?'/uploads/'+s.fichier:'#'}" ${s.fichier?'download':'onclick="alert(\'PDF non disponible\');return false;"'}>⬇ PDF</a>`
-          : `<button class="btn-download" onclick="showPage('connexion')">🔒 Connexion</button>`}
+          ? `<button class="btn-dl" onclick="window.location='${s.fichier?'/uploads/'+s.fichier:'#'}'">⬇ Télécharger</button>`
+          : `<button class="btn-dl btn-dl-lock" onclick="showPage('connexion')"> Connexion</button>`}
       </div>
-      ${!isAuth?`<div class="lock-overlay"><p>Connectez-vous pour télécharger</p><button onclick="showPage('connexion')">Se connecter</button></div>`:''}
-    </div>`).join('');
+    </div>`}).join('');
 }
 
 // ── AUTH ÉTUDIANT ──
@@ -696,8 +1141,8 @@ async function doInscription() {
     if (!res.ok){errEl.textContent=data.message;errEl.style.display='block';return;}
     etudiantToken=data.token; etudiantInfo={nom:data.nom,prenom:data.prenom,email:data.email};
     localStorage.setItem('etudiant_token',etudiantToken); localStorage.setItem('etudiant_info',JSON.stringify(etudiantInfo));
-    updateNav(); sucEl.textContent='✅ Bienvenue '+data.prenom+' !'; sucEl.style.display='block';
-    setTimeout(()=>{showPage('subjects');renderAllGrid();},1500);
+    updateNav(); sucEl.textContent=' Bienvenue '+data.prenom+' !'; sucEl.style.display='block';
+    setTimeout(()=>{showPage('subjects');renderAllCards();},1500);
   } catch {errEl.textContent='Erreur de connexion.';errEl.style.display='block';}
 }
 
@@ -711,67 +1156,50 @@ async function doConnexion() {
     if (!res.ok){errEl.textContent=data.message;errEl.style.display='block';return;}
     etudiantToken=data.token; etudiantInfo={nom:data.nom,prenom:data.prenom,email:data.email};
     localStorage.setItem('etudiant_token',etudiantToken); localStorage.setItem('etudiant_info',JSON.stringify(etudiantInfo));
-    updateNav(); showPage('subjects'); renderAllGrid();
+    updateNav(); showPage('subjects'); renderAllCards();
   } catch {errEl.textContent='Erreur de connexion.';errEl.style.display='block';}
 }
 
 function deconnexion() {
   etudiantToken=null; etudiantInfo=null; adminToken=null;
   localStorage.removeItem('etudiant_token'); localStorage.removeItem('etudiant_info'); localStorage.removeItem('admin_token');
-  updateNav(); showPage('home'); renderHomeGrid();
+  updateNav(); showPage('home'); renderHomeCards();
 }
 
 // ── MOT DE PASSE OUBLIÉ ──
 async function demanderCode() {
-  const email = document.getElementById('oublieEmail').value.trim();
-  const errEl = document.getElementById('oublieError');
-  const sucEl = document.getElementById('oublieSuccess');
+  const email=document.getElementById('oublieEmail').value.trim();
+  const errEl=document.getElementById('oublieError'), sucEl=document.getElementById('oublieSuccess');
   errEl.style.display='none'; sucEl.style.display='none';
-
-  if (!email) { errEl.textContent='Veuillez entrer votre adresse email.'; errEl.style.display='block'; return; }
-
+  if (!email){errEl.textContent='Veuillez entrer votre adresse email.';errEl.style.display='block';return;}
   try {
-    const res = await fetch(API+'/api/etudiants/mot-de-passe-oublie', {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ email })
-    });
-    const data = await res.json();
-    if (!res.ok) { errEl.textContent=data.message; errEl.style.display='block'; return; }
-
-    emailReinit = email;
-    sucEl.textContent = '✅ Code envoyé ! Vérifiez votre boîte email.';
-    sucEl.style.display = 'block';
-    document.getElementById('reinitSub').textContent = `Code envoyé à ${email}. Entrez-le ci-dessous.`;
-    setTimeout(() => showPage('reinitialiser'), 2000);
-  } catch { errEl.textContent='Erreur de connexion.'; errEl.style.display='block'; }
+    const res=await fetch(API+'/api/etudiants/mot-de-passe-oublie',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email})});
+    const data=await res.json();
+    if (!res.ok){errEl.textContent=data.message;errEl.style.display='block';return;}
+    emailReinit=email;
+    sucEl.textContent=' Code envoyé ! Vérifiez votre boîte email.'; sucEl.style.display='block';
+    document.getElementById('reinitSub').textContent=`Code envoyé à ${email}. Entrez-le ci-dessous.`;
+    setTimeout(()=>showPage('reinitialiser'),2000);
+  } catch {errEl.textContent='Erreur de connexion.';errEl.style.display='block';}
 }
 
 async function reinitialiserMotDePasse() {
-  const code = document.getElementById('reinitCode').value.trim();
-  const password = document.getElementById('reinitPassword').value;
-  const password2 = document.getElementById('reinitPassword2').value;
-  const errEl = document.getElementById('reinitError');
-  const sucEl = document.getElementById('reinitSuccess');
+  const code=document.getElementById('reinitCode').value.trim();
+  const password=document.getElementById('reinitPassword').value;
+  const password2=document.getElementById('reinitPassword2').value;
+  const errEl=document.getElementById('reinitError'), sucEl=document.getElementById('reinitSuccess');
   errEl.style.display='none'; sucEl.style.display='none';
-
-  if (!code || code.length !== 6) { errEl.textContent='Entrez le code à 6 chiffres reçu par email.'; errEl.style.display='block'; return; }
-  if (!password) { errEl.textContent='Entrez un nouveau mot de passe.'; errEl.style.display='block'; return; }
-  if (password !== password2) { errEl.textContent='Les mots de passe ne correspondent pas.'; errEl.style.display='block'; return; }
-  if (password.length < 6) { errEl.textContent='Mot de passe trop court (6 caractères min).'; errEl.style.display='block'; return; }
-
+  if (!code||code.length!==6){errEl.textContent='Entrez le code à 6 chiffres.';errEl.style.display='block';return;}
+  if (!password){errEl.textContent='Entrez un nouveau mot de passe.';errEl.style.display='block';return;}
+  if (password!==password2){errEl.textContent='Les mots de passe ne correspondent pas.';errEl.style.display='block';return;}
+  if (password.length<6){errEl.textContent='Mot de passe trop court.';errEl.style.display='block';return;}
   try {
-    const res = await fetch(API+'/api/etudiants/reinitialiser-mot-de-passe', {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ email: emailReinit, code, nouveauMotDePasse: password })
-    });
-    const data = await res.json();
-    if (!res.ok) { errEl.textContent=data.message; errEl.style.display='block'; return; }
-
-    sucEl.textContent = '✅ Mot de passe changé ! Vous pouvez vous connecter.';
-    sucEl.style.display = 'block';
-    emailReinit = '';
-    setTimeout(() => showPage('connexion'), 2000);
-  } catch { errEl.textContent='Erreur de connexion.'; errEl.style.display='block'; }
+    const res=await fetch(API+'/api/etudiants/reinitialiser-mot-de-passe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:emailReinit,code,nouveauMotDePasse:password})});
+    const data=await res.json();
+    if (!res.ok){errEl.textContent=data.message;errEl.style.display='block';return;}
+    sucEl.textContent=' Mot de passe changé ! Vous pouvez vous connecter.'; sucEl.style.display='block';
+    emailReinit=''; setTimeout(()=>showPage('connexion'),2000);
+  } catch {errEl.textContent='Erreur de connexion.';errEl.style.display='block';}
 }
 
 // ── AUTH ADMIN ──
@@ -790,18 +1218,18 @@ function doAdminLogout() {
   adminToken=null; localStorage.removeItem('admin_token'); updateNav(); showPage('home');
 }
 
-// ── ADMIN PANELS ──
-function showAdminPanel(name,btn) {
+// ── ADMIN ──
+function showPanel(name, btn) {
   document.querySelectorAll('.admin-panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.sidebar-item').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.admin-nav-item').forEach(b=>b.classList.remove('active'));
   document.getElementById('panel-'+name).classList.add('active');
-  if(btn)btn.classList.add('active');
+  if (btn) btn.classList.add('active');
   refreshAdmin();
 }
 
 async function refreshAdmin() {
   if (!adminToken) return;
-  const headers={'Authorization':'Bearer '+adminToken};
+  const headers = {'Authorization':'Bearer '+adminToken};
   try {
     const [sr,str]=await Promise.all([fetch(API+'/api/subjects?limit=200'),fetch(API+'/api/stats',{headers})]);
     const sd=await sr.json(), stats=await str.json();
@@ -811,76 +1239,73 @@ async function refreshAdmin() {
     document.getElementById('dashMatieres').textContent=stats.matieres||0;
     document.getElementById('dashEtudiants').textContent=stats.etudiants||'—';
     document.getElementById('dashTable').innerHTML=subjects.slice(0,10).map(s=>`<tr><td>${s.titre}</td><td>${s.filiere}</td><td>${s.niveau}</td><td>${s.matiere}</td><td>${s.annee}</td></tr>`).join('');
-    document.getElementById('manageTable').innerHTML=subjects.map(s=>`<tr><td>${s.titre}</td><td>${s.filiere}</td><td>${s.niveau}</td><td>${s.annee}</td><td><button class="btn-edit" onclick="editSubject('${s._id}')">Modifier</button><button class="btn-danger" onclick="deleteSubject('${s._id}')">Supprimer</button></td></tr>`).join('');
-    populateFilters(); renderHomeGrid();
+    document.getElementById('manageTable').innerHTML=subjects.map(s=>`<tr><td>${s.titre}</td><td>${s.filiere}</td><td>${s.niveau}</td><td>${s.annee}</td><td><button class="btn-blue-outline" onclick="editSubject('${s._id}')">Modifier</button><button class="btn-red-outline" onclick="deleteSubject('${s._id}')">Supprimer</button></td></tr>`).join('');
+    populateFilters(); renderHomeCards();
   } catch(e){console.error(e);}
   try {
     const er=await fetch(API+'/api/etudiants/liste',{headers});
-    if(er.ok){
+    if (er.ok){
       const ets=await er.json();
       document.getElementById('etudiantsTable').innerHTML=ets.map(e=>`
         <tr>
-          <td>${e.nom}</td>
-          <td>${e.prenom}</td>
-          <td>${e.email}</td>
-          <td>${e.filiere||'—'}</td>
-          <td>${e.niveau||'—'}</td>
+          <td>${e.nom}</td><td>${e.prenom}</td><td>${e.email}</td>
+          <td>${e.filiere||'—'}</td><td>${e.niveau||'—'}</td>
           <td>${new Date(e.createdAt).toLocaleDateString('fr-FR')}</td>
-          <td><button class="btn-danger" onclick="deleteEtudiant('${e._id}','${e.nom} ${e.prenom}')">Supprimer</button></td>
+          <td><button class="btn-red-outline" onclick="deleteEtudiant('${e._id}','${e.nom} ${e.prenom}')">Supprimer</button></td>
         </tr>`).join('');
       document.getElementById('dashEtudiants').textContent=ets.length;
     }
   } catch{}
 }
 
-// ── SUPPRIMER ÉTUDIANT ──
 async function deleteEtudiant(id, nom) {
-  if (!confirm(`Supprimer le compte de ${nom} définitivement ?`)) return;
+  if (!confirm(`Supprimer le compte de ${nom} ?`)) return;
   try {
-    const res = await fetch(API+'/api/etudiants/'+id, {
-      method: 'DELETE',
-      headers: {'Authorization':'Bearer '+adminToken}
-    });
-    if (res.ok) { await refreshAdmin(); }
-    else { alert('Erreur lors de la suppression.'); }
-  } catch { alert('Erreur serveur.'); }
+    await fetch(API+'/api/etudiants/'+id,{method:'DELETE',headers:{'Authorization':'Bearer '+adminToken}});
+    await refreshAdmin();
+  } catch {alert('Erreur serveur.');}
 }
 
-function updateFileName(input){document.getElementById('fileNameDisplay').textContent=input.files[0]?'✓ '+input.files[0].name:'';}
+function onFileChange(input) {
+  document.getElementById('fileName').textContent = input.files[0] ? '✓ '+input.files[0].name : '';
+}
 
 async function saveSubject() {
   const id=document.getElementById('editId').value;
   const titre=document.getElementById('fTitre').value.trim(), filiere=document.getElementById('fFiliere').value.trim();
   const niveau=document.getElementById('fNiveau').value, matiere=document.getElementById('fMatiere').value.trim();
   const annee=document.getElementById('fAnnee').value.trim(), type=document.getElementById('fType').value;
-  if (!titre||!filiere||!niveau||!matiere||!annee){alert('Veuillez remplir tous les champs obligatoires.');return;}
+  if (!titre||!filiere||!niveau||!matiere||!annee){alert('Remplissez tous les champs obligatoires.');return;}
   const fd=new FormData();
-  fd.append('titre',titre);fd.append('filiere',filiere);fd.append('niveau',niveau);fd.append('matiere',matiere);fd.append('annee',annee);fd.append('type',type);
+  fd.append('titre',titre);fd.append('filiere',filiere);fd.append('niveau',niveau);
+  fd.append('matiere',matiere);fd.append('annee',annee);fd.append('type',type);
   const file=document.getElementById('fFile').files[0]; if(file)fd.append('fichier',file);
   try {
     const url=id?API+'/api/subjects/'+id:API+'/api/subjects', method=id?'PUT':'POST';
     const res=await fetch(url,{method,headers:{'Authorization':'Bearer '+adminToken},body:fd});
-    if(!res.ok){alert('Erreur lors de l\'enregistrement.');return;}
-    resetForm(); document.getElementById('addSuccess').style.display='block';
-    setTimeout(()=>document.getElementById('addSuccess').style.display='none',3000);
+    if (!res.ok){alert('Erreur lors de l\'enregistrement.');return;}
+    resetForm();
+    document.getElementById('addOk').style.display='block';
+    setTimeout(()=>document.getElementById('addOk').style.display='none',3000);
     await refreshAdmin();
-  } catch{alert('Erreur serveur.');}
+  } catch {alert('Erreur serveur.');}
 }
 
 function editSubject(id) {
   const s=subjects.find(x=>x._id===id); if(!s)return;
-  document.getElementById('editId').value=id; document.getElementById('fTitre').value=s.titre;
-  document.getElementById('fFiliere').value=s.filiere; document.getElementById('fNiveau').value=s.niveau;
-  document.getElementById('fMatiere').value=s.matiere; document.getElementById('fAnnee').value=s.annee;
-  document.getElementById('fType').value=s.type; document.getElementById('addPanelTitle').textContent='Modifier le sujet';
+  document.getElementById('editId').value=id;
+  document.getElementById('fTitre').value=s.titre; document.getElementById('fFiliere').value=s.filiere;
+  document.getElementById('fNiveau').value=s.niveau; document.getElementById('fMatiere').value=s.matiere;
+  document.getElementById('fAnnee').value=s.annee; document.getElementById('fType').value=s.type;
+  document.getElementById('addTitle').textContent='Modifier le sujet';
   document.querySelectorAll('.admin-panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.sidebar-item').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.admin-nav-item').forEach(b=>b.classList.remove('active'));
   document.getElementById('panel-add').classList.add('active');
-  document.querySelectorAll('.sidebar-item')[1].classList.add('active');
+  document.querySelectorAll('.admin-nav-item')[1].classList.add('active');
 }
 
 async function deleteSubject(id) {
-  if(!confirm('Supprimer ce sujet définitivement ?'))return;
+  if (!confirm('Supprimer ce sujet définitivement ?')) return;
   await fetch(API+'/api/subjects/'+id,{method:'DELETE',headers:{'Authorization':'Bearer '+adminToken}});
   await refreshAdmin();
 }
@@ -888,16 +1313,16 @@ async function deleteSubject(id) {
 function cancelEdit() {
   resetForm();
   document.querySelectorAll('.admin-panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.sidebar-item').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.admin-nav-item').forEach(b=>b.classList.remove('active'));
   document.getElementById('panel-dashboard').classList.add('active');
-  document.querySelectorAll('.sidebar-item')[0].classList.add('active');
+  document.querySelectorAll('.admin-nav-item')[0].classList.add('active');
 }
 
 function resetForm() {
   ['editId','fTitre','fFiliere','fMatiere','fAnnee'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('fNiveau').value=''; document.getElementById('fType').value='Examen';
-  document.getElementById('fFile').value=''; document.getElementById('fileNameDisplay').textContent='';
-  document.getElementById('addPanelTitle').textContent='Ajouter un sujet';
+  document.getElementById('fFile').value=''; document.getElementById('fileName').textContent='';
+  document.getElementById('addTitle').textContent='Ajouter un sujet';
 }
 </script>
 </body>
