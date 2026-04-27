@@ -124,4 +124,17 @@ router.post('/reinitialiser-mot-de-passe', async (req, res) => {
   }
 });
 
+// DELETE /api/etudiants/:id — admin seulement
+router.delete('/:id', async (req, res) => {
+  try {
+    const header = req.headers.authorization;
+    if (!header) return res.status(401).json({ message: 'Non autorisé' });
+    jwt.verify(header.split(' ')[1], process.env.JWT_SECRET);
+    await Etudiant.findByIdAndDelete(req.params.id);
+    res.json({ message: 'Étudiant supprimé' });
+  } catch {
+    res.status(500).json({ message: 'Erreur serveur' });
+  }
+});
+
 module.exports = router;
