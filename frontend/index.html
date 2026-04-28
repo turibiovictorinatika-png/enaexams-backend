@@ -13,12 +13,9 @@
       --green-light: #1d9454;
       --green-pale: #e8f5ed;
       --red: #c0392b;
-      --red-light: #fdecea;
-      --gold: #C4952A;
       --white: #ffffff;
       --cream: #f8f9fa;
-      --gray-light: #f1f3f5;
-      --gray: #dee2e6;
+      --gold: #C4952A;
       --text-dark: #1a1a2e;
       --text-mid: #444;
       --text-light: #888;
@@ -31,377 +28,186 @@
     }
     body { font-family: 'Sora', sans-serif; background: var(--cream); color: var(--text-dark); min-height: 100vh; }
 
-    /* ══════════════════════════════
-       HEADER / NAV
-    ══════════════════════════════ */
-    header {
-      background: var(--green);
-      position: sticky; top: 0; z-index: 300;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.18);
-    }
-    .header-inner {
-      max-width: 1280px; margin: 0 auto;
-      padding: 0 1.5rem;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 64px; gap: 1rem;
-    }
+    /* ── HEADER ── */
+    header { background: var(--green); position: sticky; top: 0; z-index: 300; box-shadow: 0 2px 12px rgba(0,0,0,0.18); }
+    .header-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 1rem; }
     .brand { display: flex; align-items: center; gap: 10px; cursor: pointer; flex-shrink: 0; }
-    .brand-icon {
-      width: 40px; height: 40px; background: var(--white);
-      border-radius: 8px; display: flex; align-items: center; justify-content: center;
-      font-size: 20px;
-    }
+    .brand-icon { width: 40px; height: 40px; background: var(--white); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
     .brand-name { font-size: 18px; font-weight: 800; color: var(--white); line-height: 1.1; }
     .brand-tagline { font-size: 10px; color: rgba(255,255,255,0.6); font-weight: 400; }
-
     .nav-center { display: flex; align-items: center; gap: 2px; flex: 1; justify-content: center; }
-    .nav-link {
-      color: rgba(255,255,255,0.8); font-size: 14px; font-weight: 500;
-      padding: 8px 14px; border-radius: 6px; cursor: pointer;
-      border: none; background: none; transition: all 0.2s; white-space: nowrap;
-    }
-    .nav-link:hover, .nav-link.active { background: rgba(255,255,255,0.12); color: #fff; }
-
+    .nav-link { color: rgba(255,255,255,0.8); font-size: 14px; font-weight: 500; padding: 8px 14px; border-radius: 6px; cursor: pointer; border: none; background: none; transition: all 0.2s; white-space: nowrap; font-family: 'Sora', sans-serif; }
+    .nav-link:hover { background: rgba(255,255,255,0.12); color: #fff; }
     .nav-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-    .btn-connect {
-      background: var(--white); color: var(--green); font-size: 13px; font-weight: 700;
-      padding: 8px 20px; border-radius: 8px; border: none; cursor: pointer;
-      font-family: 'Sora', sans-serif; transition: all 0.2s; white-space: nowrap;
-    }
+    .btn-connect { background: var(--white); color: var(--green); font-size: 13px; font-weight: 700; padding: 8px 20px; border-radius: 8px; border: none; cursor: pointer; font-family: 'Sora', sans-serif; transition: all 0.2s; white-space: nowrap; }
     .btn-connect:hover { background: var(--green-pale); }
-    .btn-connect.outline {
-      background: transparent; color: rgba(255,255,255,0.85);
-      border: 1px solid rgba(255,255,255,0.3);
-    }
+    .btn-connect.outline { background: transparent; color: rgba(255,255,255,0.85); border: 1px solid rgba(255,255,255,0.3); }
     .btn-connect.outline:hover { background: rgba(255,255,255,0.1); color: #fff; }
-    .nav-user-badge {
-      background: rgba(255,255,255,0.15); color: #fff;
-      font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 20px;
-      white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;
-    }
+    .nav-user-badge { background: rgba(255,255,255,0.15); color: #fff; font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 20px; white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis; }
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; }
     .hamburger span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; transition: all 0.3s; }
     .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-    /* Mobile drawer */
-    .mobile-drawer {
-      display: none; position: fixed; top: 64px; left: 0; right: 0; bottom: 0;
-      background: var(--green); z-index: 299; flex-direction: column;
-      padding: 1.5rem; gap: 4px; overflow-y: auto;
-    }
+    .mobile-drawer { display: none; position: fixed; top: 64px; left: 0; right: 0; bottom: 0; background: var(--green); z-index: 299; flex-direction: column; padding: 1.5rem; gap: 4px; overflow-y: auto; }
     .mobile-drawer.open { display: flex; }
-    .drawer-link {
-      color: rgba(255,255,255,0.85); font-size: 16px; font-weight: 500;
-      padding: 14px 16px; border-radius: 10px; cursor: pointer;
-      border: none; background: none; text-align: left; transition: all 0.2s;
-      font-family: 'Sora', sans-serif;
-    }
+    .drawer-link { color: rgba(255,255,255,0.85); font-size: 16px; font-weight: 500; padding: 14px 16px; border-radius: 10px; cursor: pointer; border: none; background: none; text-align: left; transition: all 0.2s; font-family: 'Sora', sans-serif; }
     .drawer-link:hover { background: rgba(255,255,255,0.1); color: #fff; }
-    .drawer-link.gold-btn {
-      background: var(--white); color: var(--green); font-weight: 700;
-      margin-top: 8px; text-align: center;
-    }
+    .drawer-link.white-btn { background: var(--white); color: var(--green); font-weight: 700; margin-top: 8px; text-align: center; border-radius: 10px; }
     .drawer-divider { height: 1px; background: rgba(255,255,255,0.1); margin: 8px 0; }
 
-    /* ══════════════════════════════
-       PAGES
-    ══════════════════════════════ */
+    /* ── PAGES ── */
     .page { display: none; }
     .page.active { display: block; }
 
-    /* ══════════════════════════════
-       HOME LAYOUT (2 colonnes)
-    ══════════════════════════════ */
-    .home-layout {
-      max-width: 1280px; margin: 0 auto; padding: 2rem 1.5rem;
-      display: grid; grid-template-columns: 1fr 320px; gap: 2rem;
-      align-items: start;
-    }
-
-    /* ── HERO ── */
+    /* ── HOME ── */
+    .home-layout { max-width: 1280px; margin: 0 auto; padding: 2rem 1.5rem; display: grid; grid-template-columns: 1fr 300px; gap: 2rem; align-items: start; }
     .hero-section { margin-bottom: 2rem; }
     .hero-content { display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; margin-bottom: 2rem; }
-    .hero-text h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(28px, 4vw, 44px); line-height: 1.15;
-      color: var(--text-dark); margin-bottom: 12px;
-    }
+    .hero-text h1 { font-family: 'DM Serif Display', serif; font-size: clamp(26px, 4vw, 42px); line-height: 1.15; color: var(--text-dark); margin-bottom: 12px; }
     .hero-text h1 em { color: var(--green-light); font-style: normal; }
     .hero-text p { font-size: 15px; color: var(--text-mid); line-height: 1.7; margin-bottom: 1.5rem; max-width: 460px; }
-    .hero-img {
-      width: 180px; height: 160px; flex-shrink: 0;
-      background: var(--green-pale); border-radius: var(--radius-lg);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 80px;
-    }
-
-    /* Search bar */
-    .search-bar {
-      display: flex; gap: 0; background: var(--white);
-      border: 2px solid var(--border); border-radius: var(--radius);
-      overflow: hidden; box-shadow: var(--shadow-sm);
-      margin-bottom: 1.25rem;
-    }
-    .search-bar input {
-      flex: 1; padding: 13px 16px; border: none; outline: none;
-      font-size: 14px; font-family: 'Sora', sans-serif; color: var(--text-dark);
-      background: transparent;
-    }
+    .hero-img { width: 160px; height: 150px; flex-shrink: 0; background: var(--green-pale); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-size: 72px; }
+    .search-bar { display: flex; background: var(--white); border: 2px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); margin-bottom: 1.25rem; }
+    .search-bar input { flex: 1; padding: 13px 16px; border: none; outline: none; font-size: 14px; font-family: 'Sora', sans-serif; color: var(--text-dark); background: transparent; }
     .search-bar input::placeholder { color: var(--text-light); }
-    .search-bar button {
-      background: var(--green); color: #fff; border: none;
-      padding: 13px 20px; cursor: pointer; font-size: 16px;
-      transition: background 0.2s;
-    }
+    .search-bar button { background: var(--green); color: #fff; border: none; padding: 13px 20px; cursor: pointer; font-size: 16px; transition: background 0.2s; }
     .search-bar button:hover { background: var(--green-mid); }
-
-    /* Hero buttons */
     .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-    .btn-main {
-      display: flex; align-items: center; gap: 8px;
-      background: var(--green); color: #fff;
-      border: none; border-radius: var(--radius); padding: 11px 22px;
-      font-size: 14px; font-weight: 600; font-family: 'Sora', sans-serif;
-      cursor: pointer; transition: all 0.2s;
-    }
+    .btn-main { display: flex; align-items: center; gap: 8px; background: var(--green); color: #fff; border: none; border-radius: var(--radius); padding: 11px 22px; font-size: 14px; font-weight: 600; font-family: 'Sora', sans-serif; cursor: pointer; transition: all 0.2s; }
     .btn-main:hover { background: var(--green-mid); transform: translateY(-1px); }
-    .btn-outline {
-      display: flex; align-items: center; gap: 8px;
-      background: var(--white); color: var(--text-dark);
-      border: 1.5px solid var(--border); border-radius: var(--radius); padding: 11px 22px;
-      font-size: 14px; font-weight: 600; font-family: 'Sora', sans-serif;
-      cursor: pointer; transition: all 0.2s;
-    }
+    .btn-outline { display: flex; align-items: center; gap: 8px; background: var(--white); color: var(--text-dark); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 11px 22px; font-size: 14px; font-weight: 600; font-family: 'Sora', sans-serif; cursor: pointer; transition: all 0.2s; }
     .btn-outline:hover { border-color: var(--green); color: var(--green); }
 
-    /* Stats bar */
-    .stats-bar {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: 1px; background: var(--border);
-      border: 1px solid var(--border); border-radius: var(--radius);
-      overflow: hidden; margin-bottom: 2rem;
-    }
-    .stat-item {
-      background: var(--white); padding: 1rem;
-      display: flex; align-items: center; gap: 10px;
-    }
-    .stat-icon {
-      width: 38px; height: 38px; background: var(--green-pale);
-      border-radius: 8px; display: flex; align-items: center; justify-content: center;
-      font-size: 18px; flex-shrink: 0;
-    }
+    /* Stats bar — 3 colonnes */
+    .stats-bar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 2rem; }
+    .stat-item { background: var(--white); padding: 1rem; display: flex; align-items: center; gap: 10px; }
+    .stat-icon { width: 38px; height: 38px; background: var(--green-pale); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
     .stat-num { font-size: 18px; font-weight: 700; color: var(--text-dark); }
     .stat-lbl { font-size: 11px; color: var(--text-light); }
 
-    /* Section titre */
-    .section-head {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 1rem;
-    }
+    .section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
     .section-head h2 { font-size: 18px; font-weight: 700; color: var(--text-dark); }
-    .see-all {
-      color: var(--green-light); font-size: 13px; font-weight: 600;
-      cursor: pointer; display: flex; align-items: center; gap: 4px;
-      background: none; border: none; font-family: 'Sora', sans-serif;
-    }
+    .see-all { color: var(--green-light); font-size: 13px; font-weight: 600; cursor: pointer; background: none; border: none; font-family: 'Sora', sans-serif; }
     .see-all:hover { text-decoration: underline; }
 
-    /* Subject cards grid */
+    /* Cards */
     .cards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-    .subject-card {
-      background: var(--white); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 1.1rem;
-      transition: all 0.2s; cursor: pointer; position: relative;
-    }
+    .subject-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.1rem; transition: all 0.2s; position: relative; }
     .subject-card:hover { border-color: var(--green-light); box-shadow: var(--shadow); transform: translateY(-2px); }
-    .card-new {
-      position: absolute; top: 10px; left: 10px;
-      background: var(--red); color: #fff; font-size: 9px; font-weight: 700;
-      padding: 2px 7px; border-radius: 4px; letter-spacing: 0.5px;
-    }
-    .card-icon {
-      width: 44px; height: 44px; border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 22px; margin-bottom: 10px; margin-top: 16px;
-    }
-    .card-icon.math { background: #fff3cd; }
-    .card-icon.sci { background: #d1f2eb; }
-    .card-icon.lit { background: #fce4ec; }
-    .card-icon.eco { background: #e8eaf6; }
-    .card-icon.droit { background: #fff8e1; }
-    .card-icon.info { background: #e3f2fd; }
-    .card-title { font-size: 14px; font-weight: 700; color: var(--text-dark); margin-bottom: 3px; }
-    .card-sub { font-size: 12px; color: var(--text-light); margin-bottom: 2px; }
+    .card-new { position: absolute; top: 10px; left: 10px; background: var(--red); color: #fff; font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 4px; }
+    .card-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 10px; margin-top: 18px; }
+    .bg-math { background: #fff3cd; } .bg-sci { background: #d1f2eb; } .bg-eco { background: #e8eaf6; } .bg-droit { background: #fff8e1; } .bg-info { background: #e3f2fd; } .bg-med { background: #fce4ec; } .bg-def { background: var(--green-pale); }
+    .card-title { font-size: 13px; font-weight: 700; color: var(--text-dark); margin-bottom: 3px; line-height: 1.3; }
+    .card-sub { font-size: 11px; color: var(--text-light); margin-bottom: 2px; }
     .card-year { font-size: 11px; color: var(--text-light); }
     .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
-    .btn-dl {
-      display: flex; align-items: center; gap: 5px;
-      color: var(--green-light); font-size: 12px; font-weight: 600;
-      background: none; border: none; cursor: pointer; font-family: 'Sora', sans-serif;
-      transition: color 0.2s;
-    }
-    .btn-dl:hover { color: var(--green); }
-    .btn-dl-lock { color: var(--text-light); cursor: pointer; }
-    .card-type-badge {
-      font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 20px;
-      background: var(--green-pale); color: var(--green);
-    }
+    .card-badge { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 20px; background: var(--green-pale); color: var(--green); }
+    .btn-dl { color: var(--green-light); font-size: 12px; font-weight: 600; background: none; border: none; cursor: pointer; font-family: 'Sora', sans-serif; }
+    .btn-dl:hover { color: var(--green); text-decoration: underline; }
+    .btn-dl-lock { color: var(--text-light); }
 
-    /* ── SIDEBAR ── */
+    /* Sidebar */
     .sidebar { display: flex; flex-direction: column; gap: 1rem; }
-
-    .sidebar-card {
-      background: var(--white); border: 1px solid var(--border);
-      border-radius: var(--radius); overflow: hidden;
-    }
-    .sidebar-card-head {
-      padding: 12px 16px; border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; gap: 8px;
-      font-size: 14px; font-weight: 700; color: var(--text-dark);
-    }
-    .sidebar-card-head span { font-size: 16px; }
-
-    /* Annonces */
+    .sidebar-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .sidebar-card-head { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 14px; font-weight: 700; color: var(--text-dark); display: flex; align-items: center; gap: 8px; }
     .annonce-item { padding: 12px 16px; border-bottom: 1px solid var(--border); }
     .annonce-item:last-child { border-bottom: none; }
     .annonce-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--red); display: inline-block; margin-right: 6px; }
-    .annonce-dot.green { background: var(--green-light); }
-    .annonce-title { font-size: 13px; font-weight: 600; color: var(--text-dark); margin-bottom: 3px; }
+    .annonce-dot.g { background: var(--green-light); }
+    .annonce-title { font-size: 13px; font-weight: 600; color: var(--text-dark); margin-bottom: 2px; }
     .annonce-text { font-size: 11px; color: var(--text-light); line-height: 1.5; }
-    .annonce-date { font-size: 10px; color: var(--text-light); margin-top: 4px; }
-    .annonce-see-all {
-      padding: 10px 16px; color: var(--red); font-size: 12px; font-weight: 600;
-      cursor: pointer; display: flex; align-items: center; justify-content: flex-end; gap: 4px;
-      background: none; border: none; width: 100%; font-family: 'Sora', sans-serif;
-    }
-
-    /* Accès rapide */
-    .quick-item {
-      padding: 11px 16px; border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between;
-      cursor: pointer; transition: background 0.15s;
-    }
+    .annonce-date { font-size: 10px; color: var(--text-light); margin-top: 3px; }
+    .quick-item { padding: 11px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: background 0.15s; }
     .quick-item:last-child { border-bottom: none; }
     .quick-item:hover { background: var(--cream); }
-    .quick-left { display: flex; align-items: center; gap: 10px; }
-    .quick-icon { font-size: 18px; }
-    .quick-label { font-size: 13px; font-weight: 500; color: var(--text-dark); }
-    .quick-arrow { color: var(--text-light); font-size: 14px; }
+    .quick-left { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 500; }
+    .quick-arrow { color: var(--text-light); }
+    .quote-card { background: var(--green-pale); border: 1px solid rgba(29,148,84,0.2); border-radius: var(--radius); padding: 1rem 1.25rem; }
+    .quote-text { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 14px; color: var(--green); line-height: 1.6; }
 
-    /* Citation */
-    .quote-card {
-      background: var(--green-pale); border: 1px solid rgba(29,148,84,0.2);
-      border-radius: var(--radius); padding: 1rem 1.25rem;
-    }
-    .quote-text {
-      font-family: 'DM Serif Display', serif; font-style: italic;
-      font-size: 14px; color: var(--green); line-height: 1.6;
-    }
-
-    /* ══════════════════════════════
-       PAGE SUJETS (liste complète)
-    ══════════════════════════════ */
+    /* ── PAGE SUJETS ── */
     .subjects-page { max-width: 1280px; margin: 0 auto; padding: 2rem 1.5rem; }
-    .subjects-page-head { margin-bottom: 1.5rem; }
-    .subjects-page-head h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
-    .subjects-page-head p { font-size: 14px; color: var(--text-light); }
+    .page-head { margin-bottom: 1.5rem; }
+    .page-head h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+    .page-head p { font-size: 14px; color: var(--text-light); }
+    .filters-bar { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 1.5rem; align-items: center; }
+    .filter-wrap { flex: 1; min-width: 180px; position: relative; }
+    .filter-wrap::before { content: '🔍'; position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 13px; pointer-events: none; }
+    .filter-wrap input { width: 100%; padding: 9px 12px 9px 34px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 13px; font-family: 'Sora', sans-serif; outline: none; transition: border-color 0.2s; }
+    .filter-wrap input:focus { border-color: var(--green); }
+    .filter-sel { padding: 9px 12px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 13px; font-family: 'Sora', sans-serif; outline: none; cursor: pointer; background: var(--cream); color: var(--text-dark); min-width: 130px; transition: border-color 0.2s; }
+    .filter-sel:focus { border-color: var(--green); }
+    .full-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
 
-    /* Filtres */
-    .filters-bar {
-      background: var(--white); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 1rem;
-      display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 1.5rem;
-      align-items: center;
-    }
-    .filter-search { flex: 1; min-width: 200px; position: relative; }
-    .filter-search input {
-      width: 100%; padding: 9px 12px 9px 36px;
-      border: 1.5px solid var(--border); border-radius: 8px;
-      font-size: 13px; font-family: 'Sora', sans-serif; outline: none;
-      transition: border-color 0.2s;
-    }
-    .filter-search input:focus { border-color: var(--green); }
-    .filter-search::before { content: ''; position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 13px; }
-    .filter-select {
-      padding: 9px 12px; border: 1.5px solid var(--border); border-radius: 8px;
-      font-size: 13px; font-family: 'Sora', sans-serif; outline: none; cursor: pointer;
-      background: var(--cream); color: var(--text-dark); min-width: 120px;
-      transition: border-color 0.2s;
-    }
-    .filter-select:focus { border-color: var(--green); }
-
-    .subjects-full-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
-
-    /* ══════════════════════════════
-       AUTH PAGES
-    ══════════════════════════════ */
+    /* ── AUTH ── */
     .auth-page { min-height: calc(100vh - 64px); display: flex; align-items: center; justify-content: center; padding: 2rem; background: var(--cream); }
-    .auth-box {
-      background: var(--white); border: 1px solid var(--border);
-      border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
-      padding: 2.5rem; width: 100%; max-width: 420px;
-    }
-    .auth-header { text-align: center; margin-bottom: 2rem; }
-    .auth-icon { font-size: 40px; margin-bottom: 12px; }
-    .auth-header h2 { font-size: 22px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
-    .auth-header p { font-size: 13px; color: var(--text-light); line-height: 1.5; }
-    .auth-form { display: flex; flex-direction: column; gap: 12px; }
-    .auth-input {
-      width: 100%; padding: 12px 14px; border: 1.5px solid var(--border);
-      border-radius: 8px; font-size: 14px; font-family: 'Sora', sans-serif;
-      color: var(--text-dark); background: var(--cream); outline: none;
-      transition: border-color 0.2s;
-    }
-    .auth-input:focus { border-color: var(--green); }
-    .auth-input.code-input { font-size: 26px; font-weight: 700; letter-spacing: 10px; text-align: center; }
-    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .auth-btn {
-      width: 100%; padding: 13px; background: var(--green); color: #fff;
-      border: none; border-radius: 8px; font-size: 15px; font-weight: 700;
-      font-family: 'Sora', sans-serif; cursor: pointer; transition: background 0.2s;
-      margin-top: 4px;
-    }
-    .auth-btn:hover { background: var(--green-mid); }
-    .auth-error { background: #fdecea; border: 1px solid #f5c6cb; color: #c0392b; padding: 10px 14px; border-radius: 8px; font-size: 13px; display: none; }
-    .auth-success { background: #d4edda; border: 1px solid #c3e6cb; color: #155724; padding: 10px 14px; border-radius: 8px; font-size: 13px; display: none; }
+    .auth-box { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); padding: 2.5rem; width: 100%; max-width: 420px; }
+    .auth-hd { text-align: center; margin-bottom: 2rem; }
+    .auth-ico { font-size: 36px; margin-bottom: 10px; }
+    .auth-hd h2 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+    .auth-hd p { font-size: 13px; color: var(--text-light); line-height: 1.5; }
+    .auth-form { display: flex; flex-direction: column; gap: 11px; }
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .ainput { width: 100%; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 14px; font-family: 'Sora', sans-serif; color: var(--text-dark); background: var(--cream); outline: none; transition: border-color 0.2s; }
+    .ainput:focus { border-color: var(--green); }
+    .ainput.code { font-size: 24px; font-weight: 700; letter-spacing: 10px; text-align: center; }
+    .abtn { width: 100%; padding: 13px; background: var(--green); color: #fff; border: none; border-radius: 8px; font-size: 15px; font-weight: 700; font-family: 'Sora', sans-serif; cursor: pointer; transition: background 0.2s; margin-top: 4px; }
+    .abtn:hover { background: var(--green-mid); }
+    .aerr { background: #fdecea; border: 1px solid #f5c6cb; color: #c0392b; padding: 10px 14px; border-radius: 8px; font-size: 13px; display: none; }
+    .aok { background: #d4edda; border: 1px solid #c3e6cb; color: #155724; padding: 10px 14px; border-radius: 8px; font-size: 13px; display: none; }
     .auth-links { margin-top: 16px; text-align: center; font-size: 13px; color: var(--text-light); display: flex; flex-direction: column; gap: 8px; }
-    .auth-links a { color: var(--green); font-weight: 600; cursor: pointer; text-decoration: none; }
+    .auth-links a { color: var(--green); font-weight: 600; cursor: pointer; }
     .auth-links a:hover { text-decoration: underline; }
-    .auth-divider { display: flex; align-items: center; gap: 10px; color: var(--text-light); font-size: 12px; }
-    .auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .adiv { display: flex; align-items: center; gap: 10px; color: var(--text-light); font-size: 12px; }
+    .adiv::before, .adiv::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-    /* ══════════════════════════════
-       ADMIN
-    ══════════════════════════════ */
+    /* ── PAGES STATIQUES ── */
+    .static-page { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem; }
+    .static-hero { text-align: center; margin-bottom: 3rem; }
+    .static-hero h1 { font-family: 'DM Serif Display', serif; font-size: 36px; color: var(--green); margin-bottom: 12px; }
+    .static-hero p { font-size: 16px; color: var(--text-mid); line-height: 1.7; max-width: 600px; margin: 0 auto; }
+    .static-section { margin-bottom: 2.5rem; }
+    .static-section h2 { font-size: 20px; font-weight: 700; color: var(--text-dark); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid var(--green-pale); }
+    .static-section p { font-size: 15px; color: var(--text-mid); line-height: 1.8; margin-bottom: 10px; }
+    .static-section ul { list-style: none; padding: 0; }
+    .static-section ul li { font-size: 14px; color: var(--text-mid); padding: 8px 0; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; gap: 10px; }
+    .static-section ul li::before { content: ''; flex-shrink: 0; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .contact-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; }
+    .contact-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 12px; color: var(--green); }
+    .contact-info { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--text-mid); margin-bottom: 10px; }
+    .contact-form { display: flex; flex-direction: column; gap: 10px; }
+    .contact-form input, .contact-form textarea { padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 14px; font-family: 'Sora', sans-serif; outline: none; transition: border-color 0.2s; }
+    .contact-form input:focus, .contact-form textarea:focus { border-color: var(--green); }
+    .contact-form textarea { height: 100px; resize: vertical; }
+    .faq-item { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 10px; overflow: hidden; }
+    .faq-q { padding: 14px 16px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .faq-q:hover { background: var(--cream); }
+    .faq-a { padding: 0 16px 14px; font-size: 14px; color: var(--text-mid); line-height: 1.7; display: none; }
+    .faq-a.open { display: block; }
+    .tip-card { background: var(--white); border-left: 4px solid var(--green-light); border-radius: 0 var(--radius) var(--radius) 0; padding: 1.25rem; margin-bottom: 12px; box-shadow: var(--shadow-sm); }
+    .tip-card h3 { font-size: 15px; font-weight: 700; color: var(--green); margin-bottom: 6px; }
+    .tip-card p { font-size: 13px; color: var(--text-mid); line-height: 1.6; }
+    .back-btn { display: inline-flex; align-items: center; gap: 8px; color: var(--green); font-size: 13px; font-weight: 600; cursor: pointer; margin-bottom: 2rem; background: none; border: none; font-family: 'Sora', sans-serif; }
+    .back-btn:hover { text-decoration: underline; }
+
+    /* ── ADMIN ── */
     .admin-wrap { display: flex; min-height: calc(100vh - 64px); }
-    .admin-nav {
-      width: 220px; background: var(--green); padding: 1.5rem 0.75rem;
-      flex-shrink: 0; display: flex; flex-direction: column; gap: 3px;
-    }
+    .admin-nav { width: 220px; background: var(--green); padding: 1.5rem 0.75rem; flex-shrink: 0; display: flex; flex-direction: column; gap: 3px; }
     .admin-nav-title { color: rgba(255,255,255,0.4); font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 0 12px; margin-bottom: 8px; }
-    .admin-nav-item {
-      display: flex; align-items: center; gap: 8px;
-      padding: 10px 12px; border-radius: 8px;
-      color: rgba(255,255,255,0.7); font-size: 13px; font-weight: 500;
-      cursor: pointer; border: none; background: none; width: 100%; text-align: left;
-      transition: all 0.2s; font-family: 'Sora', sans-serif;
-    }
+    .admin-nav-item { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 8px; color: rgba(255,255,255,0.7); font-size: 13px; font-weight: 500; cursor: pointer; border: none; background: none; width: 100%; text-align: left; transition: all 0.2s; font-family: 'Sora', sans-serif; }
     .admin-nav-item:hover { background: rgba(255,255,255,0.1); color: #fff; }
     .admin-nav-item.active { background: rgba(255,255,255,0.15); color: #fff; }
     .admin-nav-sep { height: 1px; background: rgba(255,255,255,0.1); margin: 8px 0; }
-
     .admin-main { flex: 1; padding: 2rem 1.5rem; background: var(--cream); overflow-y: auto; min-width: 0; }
     .admin-panel { display: none; }
     .admin-panel.active { display: block; }
     .admin-panel-title { font-size: 22px; font-weight: 700; color: var(--text-dark); margin-bottom: 1.5rem; }
-
     .kpi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 14px; margin-bottom: 1.5rem; }
     .kpi-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; }
     .kpi-num { font-size: 32px; font-weight: 800; color: var(--green); }
     .kpi-label { font-size: 11px; color: var(--text-light); margin-top: 2px; }
-
     .table-box { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); overflow-x: auto; }
     table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 500px; }
     thead { background: var(--green); }
@@ -410,84 +216,63 @@
     tbody tr:last-child { border-bottom: none; }
     tbody tr:hover { background: var(--cream); }
     tbody td { padding: 10px 14px; color: var(--text-dark); vertical-align: middle; }
-
     .form-box { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; max-width: 680px; }
     .form-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .form-field { display: flex; flex-direction: column; gap: 5px; }
     .form-field.full { grid-column: 1/-1; }
     .form-field label { font-size: 12px; font-weight: 600; color: var(--text-mid); }
-    .form-field input, .form-field select, .form-field textarea {
-      padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px;
-      font-size: 14px; font-family: 'Sora', sans-serif; color: var(--text-dark);
-      background: var(--cream); outline: none; width: 100%; transition: border-color 0.2s;
-    }
+    .form-field input, .form-field select { padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 14px; font-family: 'Sora', sans-serif; color: var(--text-dark); background: var(--cream); outline: none; width: 100%; transition: border-color 0.2s; }
     .form-field input:focus, .form-field select:focus { border-color: var(--green); }
-
-    .upload-area {
-      border: 2px dashed var(--border); border-radius: 8px; padding: 20px;
-      text-align: center; cursor: pointer; transition: border-color 0.2s;
-      background: var(--cream);
-    }
+    .upload-area { border: 2px dashed var(--border); border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: border-color 0.2s; background: var(--cream); }
     .upload-area:hover { border-color: var(--green); }
     .upload-area input { display: none; }
-    .upload-icon { font-size: 28px; margin-bottom: 6px; }
+    .upload-icon { font-size: 26px; margin-bottom: 6px; }
     .upload-text { font-size: 12px; color: var(--text-light); }
     .upload-name { font-size: 12px; color: var(--green); margin-top: 4px; font-weight: 600; }
-
     .btn-green { background: var(--green); color: #fff; border: none; border-radius: 8px; padding: 11px 24px; font-size: 14px; font-weight: 600; font-family: 'Sora', sans-serif; cursor: pointer; transition: background 0.2s; }
     .btn-green:hover { background: var(--green-mid); }
     .btn-ghost { background: none; color: var(--text-mid); border: 1px solid var(--border); border-radius: 8px; padding: 11px 24px; font-size: 14px; font-weight: 600; font-family: 'Sora', sans-serif; cursor: pointer; }
-    .btn-red-outline { background: none; border: 1px solid #f5c6cb; color: #c0392b; border-radius: 6px; padding: 5px 10px; font-size: 12px; font-family: 'Sora', sans-serif; cursor: pointer; transition: all 0.2s; }
-    .btn-red-outline:hover { background: #fdecea; }
-    .btn-blue-outline { background: none; border: 1px solid #bee3f8; color: #2b6cb0; border-radius: 6px; padding: 5px 10px; font-size: 12px; font-family: 'Sora', sans-serif; cursor: pointer; margin-right: 4px; }
-    .btn-blue-outline:hover { background: #ebf8ff; }
+    .btn-red { background: none; border: 1px solid #f5c6cb; color: #c0392b; border-radius: 6px; padding: 5px 10px; font-size: 12px; font-family: 'Sora', sans-serif; cursor: pointer; transition: all 0.2s; }
+    .btn-red:hover { background: #fdecea; }
+    .btn-blue { background: none; border: 1px solid #bee3f8; color: #2b6cb0; border-radius: 6px; padding: 5px 10px; font-size: 12px; font-family: 'Sora', sans-serif; cursor: pointer; margin-right: 4px; }
+    .btn-blue:hover { background: #ebf8ff; }
     .alert-ok { background: #d4edda; border: 1px solid #c3e6cb; color: #155724; padding: 12px 16px; border-radius: 8px; font-size: 14px; margin-bottom: 16px; display: none; }
-
-    /* LOGIN ADMIN */
     .login-wrap { min-height: calc(100vh - 64px); display: flex; align-items: center; justify-content: center; padding: 2rem; background: var(--cream); }
     .login-box { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); padding: 2.5rem; width: 100%; max-width: 380px; }
     .login-head { text-align: center; margin-bottom: 2rem; }
-    .login-head h2 { font-size: 20px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
+    .login-head h2 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
     .login-head p { font-size: 13px; color: var(--text-light); }
-    .login-form { display: flex; flex-direction: column; gap: 14px; }
-    .login-input { width: 100%; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 14px; font-family: 'Sora', sans-serif; background: var(--cream); outline: none; transition: border-color 0.2s; }
-    .login-input:focus { border-color: var(--green); }
-    .login-error { background: #fdecea; border: 1px solid #f5c6cb; color: #c0392b; padding: 10px 14px; border-radius: 8px; font-size: 13px; display: none; }
+    .lerr { background: #fdecea; border: 1px solid #f5c6cb; color: #c0392b; padding: 10px 14px; border-radius: 8px; font-size: 13px; display: none; }
 
-    /* FOOTER */
-    footer {
-      background: var(--green); color: rgba(255,255,255,0.8);
-      padding: 2.5rem 1.5rem 1.5rem;
-    }
+    /* ── FOOTER ── */
+    footer { background: var(--green); color: rgba(255,255,255,0.8); padding: 2.5rem 1.5rem 1.5rem; }
     .footer-inner { max-width: 1280px; margin: 0 auto; }
     .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr 1.5fr; gap: 2rem; margin-bottom: 2rem; }
     .footer-brand h3 { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 6px; }
     .footer-brand p { font-size: 12px; line-height: 1.6; color: rgba(255,255,255,0.6); }
     .footer-col h4 { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 10px; }
-    .footer-col a { display: block; font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 6px; cursor: pointer; transition: color 0.2s; text-decoration: none; }
+    .footer-col a { display: block; font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 6px; cursor: pointer; transition: color 0.2s; }
     .footer-col a:hover { color: #fff; }
-    .footer-contact-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 8px; }
-    .footer-newsletter p { font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 10px; line-height: 1.5; }
-    .newsletter-form { display: flex; gap: 0; border-radius: 8px; overflow: hidden; }
-    .newsletter-form input { flex: 1; padding: 10px 12px; border: none; font-size: 13px; font-family: 'Sora', sans-serif; outline: none; }
-    .newsletter-form button { background: var(--white); color: var(--green); border: none; padding: 10px 14px; cursor: pointer; font-size: 16px; }
-    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; display: flex; align-items: center; justify-content: space-between; font-size: 11px; color: rgba(255,255,255,0.4); flex-wrap: wrap; gap: 8px; }
-    .footer-bottom-links { display: flex; gap: 16px; }
-    .footer-bottom-links a { color: rgba(255,255,255,0.4); cursor: pointer; text-decoration: none; }
-    .footer-bottom-links a:hover { color: rgba(255,255,255,0.7); }
+    .footer-ci { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 8px; }
+    .nform { display: flex; border-radius: 8px; overflow: hidden; }
+    .nform input { flex: 1; padding: 10px 12px; border: none; font-size: 13px; font-family: 'Sora', sans-serif; outline: none; }
+    .nform button { background: var(--white); color: var(--green); border: none; padding: 10px 14px; cursor: pointer; font-size: 16px; }
+    .footer-nl p { font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 10px; line-height: 1.5; }
+    .footer-bot { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; display: flex; align-items: center; justify-content: space-between; font-size: 11px; color: rgba(255,255,255,0.4); flex-wrap: wrap; gap: 8px; }
+    .footer-bot-links { display: flex; gap: 16px; }
+    .footer-bot-links a { color: rgba(255,255,255,0.4); cursor: pointer; }
+    .footer-bot-links a:hover { color: rgba(255,255,255,0.7); }
 
     /* Empty state */
     .empty-state { text-align: center; padding: 60px 20px; color: var(--text-light); grid-column: 1/-1; }
-    .empty-icon { font-size: 40px; margin-bottom: 12px; }
-    .empty-state h3 { font-size: 16px; color: var(--text-mid); margin-bottom: 6px; }
+    .empty-state h3 { font-size: 16px; color: var(--text-mid); margin-bottom: 6px; margin-top: 12px; }
 
-    /* ══════════════════════════════
-       RESPONSIVE
-    ══════════════════════════════ */
+    /* ── RESPONSIVE ── */
     @media (max-width: 1024px) {
       .home-layout { grid-template-columns: 1fr; }
       .sidebar { display: grid; grid-template-columns: 1fr 1fr; }
       .footer-top { grid-template-columns: 1fr 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 768px) {
       .nav-center, .nav-right { display: none; }
@@ -498,18 +283,20 @@
       .stats-bar { grid-template-columns: 1fr 1fr; }
       .cards-grid { grid-template-columns: 1fr; }
       .sidebar { grid-template-columns: 1fr; }
-      .subjects-full-grid { grid-template-columns: 1fr; }
+      .full-grid { grid-template-columns: 1fr; }
       .filters-bar { flex-direction: column; }
-      .filter-search, .filter-select { width: 100%; }
+      .filter-wrap, .filter-sel { width: 100%; }
       .admin-wrap { flex-direction: column; }
       .admin-nav { width: 100%; flex-direction: row; flex-wrap: wrap; padding: 0.75rem; gap: 4px; }
       .admin-nav-title, .admin-nav-sep { display: none; }
       .admin-nav-item { font-size: 12px; padding: 8px 10px; }
       .form-2col { grid-template-columns: 1fr; }
-      .form-row-2 { grid-template-columns: 1fr; }
+      .row2 { grid-template-columns: 1fr; }
       .footer-top { grid-template-columns: 1fr; }
-      .footer-bottom { flex-direction: column; text-align: center; }
+      .footer-bot { flex-direction: column; text-align: center; }
       .kpi-grid { grid-template-columns: 1fr 1fr; }
+      .static-page { padding: 1.5rem 1rem; }
+      .static-hero h1 { font-size: 26px; }
     }
     @media (max-width: 480px) {
       .stats-bar { grid-template-columns: 1fr 1fr; }
@@ -520,7 +307,7 @@
 </head>
 <body>
 
-<!-- ══════════ HEADER ══════════ -->
+<!-- ══ HEADER ══ -->
 <header>
   <div class="header-inner">
     <div class="brand" onclick="goHome()">
@@ -530,23 +317,19 @@
         <div class="brand-tagline">Vivier d'expertise</div>
       </div>
     </div>
-
     <nav class="nav-center">
-      <button class="nav-link active" onclick="goHome()">Accueil</button>
+      <button class="nav-link" onclick="goHome()">Accueil</button>
       <button class="nav-link" onclick="requireAuth('subjects')">Sujets d'examen</button>
-      <button class="nav-link" onclick="requireAuth('subjects')">Annales</button>
-      <button class="nav-link">À propos</button>
-      <button class="nav-link">Contact</button>
+      <button class="nav-link" onclick="showPage('apropos')">À propos</button>
+      <button class="nav-link" onclick="showPage('contact')">Contact</button>
     </nav>
-
-    <div class="nav-right" id="navRight">
+    <div class="nav-right">
       <span id="navUserBadge" class="nav-user-badge" style="display:none"></span>
       <button id="navBtnLogout" class="btn-connect outline" style="display:none" onclick="deconnexion()">Déconnexion</button>
       <button id="navBtnInscription" class="btn-connect outline" onclick="showPage('inscription')">S'inscrire</button>
       <button id="navBtnConnexion" class="btn-connect" onclick="showPage('connexion')">Se connecter</button>
-      <button id="navBtnAdmin" class="btn-connect" style="display:none;background:var(--gold);color:#fff;" onclick="handleAdminNav()"> Admin</button>
+      <button id="navBtnAdmin" class="btn-connect" style="display:none;background:var(--gold);color:#fff;" onclick="handleAdminNav()">⚙ Admin</button>
     </div>
-
     <button class="hamburger" id="hamburger" onclick="toggleDrawer()">
       <span></span><span></span><span></span>
     </button>
@@ -557,52 +340,51 @@
 <div class="mobile-drawer" id="mobileDrawer">
   <button class="drawer-link" onclick="drawerNav('home')"> Accueil</button>
   <button class="drawer-link" onclick="drawerNav('subjects')"> Sujets d'examen</button>
-  <button class="drawer-link"> À propos</button>
-  <button class="drawer-link"> Contact</button>
+  <button class="drawer-link" onclick="drawerNav('apropos')"> À propos</button>
+  <button class="drawer-link" onclick="drawerNav('contact')"> Contact</button>
   <div class="drawer-divider"></div>
   <span id="drawerUserBadge" class="nav-user-badge" style="display:none;margin-bottom:4px;"></span>
-  <button id="drawerBtnLogout" class="drawer-link" style="display:none;color:#f87171;" onclick="deconnexion();closeDrawer()"> Déconnexion</button>
+  <button id="drawerBtnLogout" class="drawer-link" style="display:none;color:#f87171;" onclick="deconnexion();closeDrawer()">⬅ Déconnexion</button>
   <button id="drawerBtnInscription" class="drawer-link" onclick="drawerNav('inscription')"> S'inscrire</button>
-  <button id="drawerBtnConnexion" class="drawer-link gold-btn" onclick="drawerNav('connexion')"> Se connecter</button>
-  <button id="drawerBtnAdmin" class="drawer-link gold-btn" style="display:none;" onclick="drawerNav('admin')"> Admin</button>
+  <button id="drawerBtnConnexion" class="drawer-link white-btn" onclick="drawerNav('connexion')"> Se connecter</button>
+  <button id="drawerBtnAdmin" class="drawer-link white-btn" style="display:none;" onclick="drawerNav('admin')"> Admin</button>
 </div>
 
-<!-- ══════════ PAGE ACCUEIL ══════════ -->
+<!-- ══ PAGE ACCUEIL ══ -->
 <div id="page-home" class="page active">
   <div class="home-layout">
-
-    <!-- COLONNE PRINCIPALE -->
     <main>
-      <!-- HERO -->
       <section class="hero-section">
         <div class="hero-content">
           <div class="hero-text">
             <h1>Tous les sujets d'examen,<br><em>en un seul endroit.</em></h1>
             <p>Accédez facilement aux sujets classés par année, par matière et par niveau. Révisez, préparez-vous, réussissez.</p>
             <div class="search-bar">
-              <input type="text" id="homeSearch" placeholder="Rechercher un sujet, une matière, une classe…" oninput="renderHomeCards()" />
+              <input type="text" id="homeSearch" placeholder="Rechercher un sujet, une matière, une filière…" oninput="renderHomeCards()" />
               <button onclick="requireAuth('subjects')">🔍</button>
             </div>
             <div class="hero-actions">
               <button class="btn-main" onclick="requireAuth('subjects')"> Parcourir les sujets</button>
-              <button class="btn-outline" onclick="showPage('inscription')">⬆ Créer un compte</button>
+              <button class="btn-outline" onclick="showPage('inscription')"> Créer un compte</button>
             </div>
           </div>
           <div class="hero-img">🎓</div>
         </div>
-
-        <!-- Stats -->
         <div class="stats-bar">
           <div class="stat-item">
+            <div class="stat-icon"></div>
             <div><div class="stat-num" id="statSujets">0</div><div class="stat-lbl">Sujets disponibles</div></div>
           </div>
           <div class="stat-item">
+            <div class="stat-icon"></div>
             <div><div class="stat-num" id="statFilieres">0</div><div class="stat-lbl">Filières couvertes</div></div>
           </div>
           <div class="stat-item">
+            <div class="stat-icon"></div>
             <div><div class="stat-num" id="statMatieres">0</div><div class="stat-lbl">Matières</div></div>
-
-      <!-- SUJETS RÉCENTS -->
+          </div>
+        </div>
+      </section>
       <div class="section-head">
         <h2>Sujets récents</h2>
         <button class="see-all" onclick="requireAuth('subjects')">Voir tous les sujets →</button>
@@ -610,39 +392,44 @@
       <div class="cards-grid" id="homeCardsGrid"></div>
     </main>
 
-    <!-- SIDEBAR -->
     <aside class="sidebar">
-
-      <!-- Accès rapide -->
       <div class="sidebar-card">
-        <div class="sidebar-card-head"><span></span> Accès rapide</div>
-        <div class="quick-item" onclick="requireAuth('subjects')">
-          <div class="quick-left"><span class="quick-icon"></span><span class="quick-label">Sujets par filière</span></div>
-          <span class="quick-arrow">›</span>
+        <div class="sidebar-card-head">📢 Annonces</div>
+        <div class="annonce-item">
+          <div class="annonce-title"><span class="annonce-dot"></span>Nouveaux sujets disponibles</div>
+          <div class="annonce-text">Toutes filières</div>
+          <div class="annonce-date"></div>
         </div>
-        <div class="quick-item" onclick="requireAuth('subjects')">
-          <div class="quick-left"><span class="quick-icon"></span><span class="quick-label">Sujets par matière</span></div>
-          <span class="quick-arrow">›</span>
-        </div>
-        <div class="quick-item" onclick="requireAuth('subjects')">
-          <div class="quick-left"><span class="quick-icon"></span><span class="quick-label">Sujets populaires</span></div>
-          <span class="quick-arrow">›</span>
-        </div>
-        <div class="quick-item" onclick="requireAuth('subjects')">
-          <div class="quick-left"><span class="quick-icon"></span><span class="quick-label">Derniers ajouts</span></div>
-          <span class="quick-arrow">›</span>
+        <div class="annonce-item">
+          <div class="annonce-title"><span class="annonce-dot g"></span>Site mis à jour</div>
+          <div class="annonce-text">Nouvelles fonctionnalités disponibles.</div>
+          <div class="annonce-date"></div>
         </div>
       </div>
-
-      <!-- Citation -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-head"> Accès rapide</div>
+        <div class="quick-item" onclick="requireAuth('subjects')">
+          <div class="quick-left"> Sujets par filière</div><span class="quick-arrow">›</span>
+        </div>
+        <div class="quick-item" onclick="requireAuth('subjects')">
+          <div class="quick-left"> Sujets par matière</div><span class="quick-arrow">›</span>
+        </div>
+        <div class="quick-item" onclick="requireAuth('subjects')">
+          <div class="quick-left"> Sujets populaires</div><span class="quick-arrow">›</span>
+        </div>
+        <div class="quick-item" onclick="requireAuth('subjects')">
+          <div class="quick-left"> Derniers ajouts</div><span class="quick-arrow">›</span>
+        </div>
+        <div class="quick-item" onclick="showPage('conseils')">
+          <div class="quick-left"> Conseils de révision</div><span class="quick-arrow">›</span>
+        </div>
+      </div>
       <div class="quote-card">
         <div class="quote-text">" La préparation d'aujourd'hui détermine la réussite de demain. Bon courage à tous ! "</div>
       </div>
-
     </aside>
   </div>
 
-  <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
       <div class="footer-top">
@@ -654,34 +441,33 @@
           <h4>Liens utiles</h4>
           <a onclick="goHome()">Accueil</a>
           <a onclick="requireAuth('subjects')">Sujets d'examen</a>
-          <a onclick="requireAuth('subjects')">Annales</a>
-          <a onclick="goAbout()">À propos</a>
-          <a onclick="gocall()">Nous contacter</a>
+          <a onclick="showPage('apropos')">À propos</a>
+          <a onclick="showPage('contact')">Nous contacter</a>
         </div>
         <div class="footer-col">
           <h4>Ressources</h4>
-          <a onclick="goAdvise()">Conseils de révision</a>
-          <a onclick="goMethodology()">Méthodologie</a>
-          <a onclick="goHelp()">Aide / FAQ</a>
+          <a onclick="showPage('conseils')">Conseils de révision</a>
+          <a onclick="showPage('methodologie')">Méthodologie</a>
+          <a onclick="showPage('faq')">Aide / FAQ</a>
         </div>
         <div class="footer-col">
           <h4>Contact</h4>
-          <div class="footer-contact-item"> contact@ena.bj</div>
-          <div class="footer-contact-item"> +229 00 00 00 00</div>
-          <div class="footer-contact-item"> Abomey-Calavi, Bénin</div>
+          <div class="footer-ci">✉️ contact@ena.bj</div>
+          <div class="footer-ci">📞 +229 00 00 00 00</div>
+          <div class="footer-ci">📍 Abomey-Calavi, Bénin</div>
         </div>
-        <div class="footer-col footer-newsletter">
+        <div class="footer-col footer-nl">
           <h4>Restez informé</h4>
           <p>Abonnez-vous pour recevoir les derniers sujets et annonces.</p>
-          <div class="newsletter-form">
+          <div class="nform">
             <input type="email" placeholder="Votre email" />
             <button>➤</button>
           </div>
         </div>
       </div>
-      <div class="footer-bottom">
+      <div class="footer-bot">
         <span>© 2026 ENAExams. Tous droits réservés.</span>
-        <div class="footer-bottom-links">
+        <div class="footer-bot-links">
           <a>Conditions d'utilisation</a>
           <a>Politique de confidentialité</a>
         </div>
@@ -690,61 +476,67 @@
   </footer>
 </div>
 
-<!-- ══════════ PAGE SUJETS ══════════ -->
+<!-- ══ PAGE SUJETS ══ -->
 <div id="page-subjects" class="page">
   <div class="subjects-page">
-    <div class="subjects-page-head">
+    <div class="page-head">
       <h1>Tous les sujets d'examen</h1>
       <p>Consultez et téléchargez les sujets de votre filière</p>
     </div>
     <div class="filters-bar">
-      <div class="filter-search">
+      <div class="filter-wrap">
         <input type="text" id="allSearch" placeholder="Rechercher un sujet…" oninput="renderAllCards()" />
       </div>
-      <select class="filter-select" id="allFiliere" onchange="renderAllCards()"><option value="">Toutes les filières</option></select>
-      <select class="filter-select" id="allNiveau" onchange="renderAllCards()">
+      <select class="filter-sel" id="allFiliere" onchange="renderAllCards()"><option value="">Toutes les filières</option></select>
+      <select class="filter-sel" id="allNiveau" onchange="renderAllCards()">
         <option value="">Tous les niveaux</option>
         <option>L1</option><option>L2</option><option>L3</option><option>M1</option><option>M2</option>
       </select>
-      <select class="filter-select" id="allAnnee" onchange="renderAllCards()"><option value="">Toutes les années</option></select>
-      <select class="filter-select" id="allMatiere" onchange="renderAllCards()"><option value="">Toutes les matières</option></select>
+      <select class="filter-sel" id="allAnnee" onchange="renderAllCards()">
+        <option value="">Toutes les années</option>
+        <option>2010-2011</option><option>2011-2012</option><option>2012-2013</option><option>2013-2014</option><option>2014-2015</option><option>2015-2016</option><option>2016-2017</option><option>2017-2018</option><option>2018-2019</option><option>2019-2020</option><option>2020-2021</option><option>2021-2022</option><option>2022-2023</option><option>2023-2024</option><option>2025-2026</option><option>2026-2027</option><option>2027-2028</option><option>2028-2029</option><option>2029-2030</option>
+      </select>
+      <select class="filter-sel" id="allMatiere" onchange="renderAllCards()"><option value="">Toutes les matières</option></select>
     </div>
     <div class="section-head">
       <h2 id="allCountLabel">Tous les sujets</h2>
     </div>
-    <div class="subjects-full-grid" id="allCardsGrid"></div>
+    <div class="full-grid" id="allCardsGrid"></div>
   </div>
 </div>
 
-<!-- ══════════ PAGE INSCRIPTION ══════════ -->
+<!-- ══ PAGE INSCRIPTION ══ -->
 <div id="page-inscription" class="page">
   <div class="auth-page">
     <div class="auth-box">
-      <div class="auth-header">
-        <div class="auth-icon"></div>
+      <div class="auth-hd">
+        <div class="auth-ico"></div>
         <h2>Créer un compte</h2>
         <p>Rejoignez l'École Nationale d'Administration du Bénin</p>
       </div>
       <div class="auth-form">
-        <div id="inscriptionError" class="auth-error"></div>
-        <div id="inscriptionSuccess" class="auth-success"></div>
-        <div class="form-row-2">
-          <input type="text" class="auth-input" id="regNom" placeholder="Nom *" />
-          <input type="text" class="auth-input" id="regPrenom" placeholder="Prénom *" />
+        <div id="inscriptionError" class="aerr"></div>
+        <div id="inscriptionSuccess" class="aok"></div>
+        <div class="row2">
+          <input type="text" class="ainput" id="regNom" placeholder="Nom *" />
+          <input type="text" class="ainput" id="regPrenom" placeholder="Prénom *" />
         </div>
-        <input type="email" class="auth-input" id="regEmail" placeholder="Adresse email *" />
-        <input type="password" class="auth-input" id="regPassword" placeholder="Mot de passe *" />
-        <input type="password" class="auth-input" id="regPassword2" placeholder="Confirmer le mot de passe *" />
-        <select class="auth-input" id="regFiliere">
+        <input type="email" class="ainput" id="regEmail" placeholder="Adresse email *" />
+        <input type="password" class="ainput" id="regPassword" placeholder="Mot de passe *" />
+        <input type="password" class="ainput" id="regPassword2" placeholder="Confirmer le mot de passe *" />
+        <select class="ainput" id="regFiliere">
           <option value="">Filière (optionnel)</option>
-          <option>AG</option><option>AF</option><option>SG</option>
-          <option>STID</option><option>AGT</option><option>ATSS</option><option>DRI</option><option>AAS</option><option>AFT</option><option>AI</option><option>AHUI</option><option>GMP</option><option>PDL</option><option>GFCL</option><option>ARCHI</option><option>MSP</option><option>EPP</option><option>GRH</option><option>GP</option><option>Autre</option>
+          <option>AG</option><option>AF</option><option>SG</option><option>STID</option>
+          <option>AGT</option><option>ATSS</option><option>DRI</option><option>AAS</option>
+          <option>AFT</option><option>AI</option><option>AHUI</option><option>GMP</option>
+          <option>PDL</option><option>GFCL</option><option>ARCHI</option><option>MSP</option>
+          <option>EPP</option><option>GRH</option><option>GP</option><option>Autre</option>
         </select>
-        <select class="auth-input" id="regNiveau">
+        <select class="ainput" id="regNiveau">
           <option value="">Niveau (optionnel)</option>
           <option>L1</option><option>L2</option><option>L3</option><option>M1</option><option>M2</option>
         </select>
-        <button class="auth-btn" onclick="doInscription()">Créer mon compte</button>
+        <button class="abtn" onclick="doInscription()">Créer mon compte</button>
       </div>
       <div class="auth-links">
         <span>Déjà inscrit ? <a onclick="showPage('connexion')">Se connecter</a></span>
@@ -753,46 +545,46 @@
   </div>
 </div>
 
-<!-- ══════════ PAGE CONNEXION ══════════ -->
+<!-- ══ PAGE CONNEXION ══ -->
 <div id="page-connexion" class="page">
   <div class="auth-page">
     <div class="auth-box">
-      <div class="auth-header">
-        <div class="auth-icon"></div>
+      <div class="auth-hd">
+        <div class="auth-ico"></div>
         <h2>Se connecter</h2>
         <p>Accédez à votre bibliothèque de sujets</p>
       </div>
       <div class="auth-form">
-        <div id="connexionError" class="auth-error"></div>
-        <input type="email" class="auth-input" id="loginEmail" placeholder="Adresse email" />
-        <input type="password" class="auth-input" id="loginPassword" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')doConnexion()" />
-        <button class="auth-btn" onclick="doConnexion()">Se connecter</button>
+        <div id="connexionError" class="aerr"></div>
+        <input type="email" class="ainput" id="loginEmail" placeholder="Adresse email" />
+        <input type="password" class="ainput" id="loginPassword" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')doConnexion()" />
+        <button class="abtn" onclick="doConnexion()">Se connecter</button>
       </div>
       <div class="auth-links">
         <span>Mot de passe oublié ? <a onclick="showPage('oublie')">Réinitialiser</a></span>
-        <div class="auth-divider">ou</div>
+        <div class="adiv">ou</div>
         <span>Pas encore de compte ? <a onclick="showPage('inscription')">S'inscrire gratuitement</a></span>
-        <div class="auth-divider">ou</div>
+        <div class="adiv">ou</div>
         <span><a onclick="showPage('login')">Accès administrateur</a></span>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ══════════ PAGE MOT DE PASSE OUBLIÉ ══════════ -->
+<!-- ══ PAGE MOT DE PASSE OUBLIÉ ══ -->
 <div id="page-oublie" class="page">
   <div class="auth-page">
     <div class="auth-box">
-      <div class="auth-header">
-        <div class="auth-icon"></div>
+      <div class="auth-hd">
+        <div class="auth-ico"></div>
         <h2>Mot de passe oublié</h2>
         <p>Entrez votre email pour recevoir un code à 6 chiffres</p>
       </div>
       <div class="auth-form">
-        <div id="oublieError" class="auth-error"></div>
-        <div id="oublieSuccess" class="auth-success"></div>
-        <input type="email" class="auth-input" id="oublieEmail" placeholder="Votre adresse email" />
-        <button class="auth-btn" onclick="demanderCode()">Envoyer le code</button>
+        <div id="oublieError" class="aerr"></div>
+        <div id="oublieSuccess" class="aok"></div>
+        <input type="email" class="ainput" id="oublieEmail" placeholder="Votre adresse email" />
+        <button class="abtn" onclick="demanderCode()">Envoyer le code</button>
       </div>
       <div class="auth-links">
         <span><a onclick="showPage('connexion')">← Retour à la connexion</a></span>
@@ -801,22 +593,22 @@
   </div>
 </div>
 
-<!-- ══════════ PAGE RÉINITIALISER MOT DE PASSE ══════════ -->
+<!-- ══ PAGE RÉINITIALISER ══ -->
 <div id="page-reinitialiser" class="page">
   <div class="auth-page">
     <div class="auth-box">
-      <div class="auth-header">
-        <div class="auth-icon"></div>
+      <div class="auth-hd">
+        <div class="auth-ico"></div>
         <h2>Nouveau mot de passe</h2>
         <p id="reinitSub">Entrez le code reçu par email et choisissez un nouveau mot de passe</p>
       </div>
       <div class="auth-form">
-        <div id="reinitError" class="auth-error"></div>
-        <div id="reinitSuccess" class="auth-success"></div>
-        <input type="text" class="auth-input code-input" id="reinitCode" placeholder="000000" maxlength="6" />
-        <input type="password" class="auth-input" id="reinitPassword" placeholder="Nouveau mot de passe *" />
-        <input type="password" class="auth-input" id="reinitPassword2" placeholder="Confirmer le mot de passe *" />
-        <button class="auth-btn" onclick="reinitialiserMotDePasse()">Changer le mot de passe</button>
+        <div id="reinitError" class="aerr"></div>
+        <div id="reinitSuccess" class="aok"></div>
+        <input type="text" class="ainput code" id="reinitCode" placeholder="000000" maxlength="6" />
+        <input type="password" class="ainput" id="reinitPassword" placeholder="Nouveau mot de passe *" />
+        <input type="password" class="ainput" id="reinitPassword2" placeholder="Confirmer le mot de passe *" />
+        <button class="abtn" onclick="reinitialiserMotDePasse()">Changer le mot de passe</button>
       </div>
       <div class="auth-links">
         <span><a onclick="showPage('oublie')">← Renvoyer le code</a></span>
@@ -825,25 +617,25 @@
   </div>
 </div>
 
-<!-- ══════════ PAGE LOGIN ADMIN ══════════ -->
+<!-- ══ PAGE LOGIN ADMIN ══ -->
 <div id="page-login" class="page">
   <div class="login-wrap">
     <div class="login-box">
       <div class="login-head">
-        <h2>⚙ Espace Administrateur</h2>
+        <h2> Espace Administrateur</h2>
         <p>Réservé à l'administration de l'école</p>
       </div>
-      <div class="login-form">
-        <div id="loginError" class="login-error">Identifiants incorrects.</div>
-        <input type="text" class="login-input" id="adminUser" placeholder="Identifiant" />
-        <input type="password" class="login-input" id="adminPass" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')doAdminLogin()" />
-        <button class="auth-btn" onclick="doAdminLogin()">Se connecter</button>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div id="loginError" class="lerr">Identifiants incorrects.</div>
+        <input type="text" class="ainput" id="adminUser" placeholder="Identifiant" />
+        <input type="password" class="ainput" id="adminPass" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')doAdminLogin()" />
+        <button class="abtn" onclick="doAdminLogin()">Se connecter</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ══════════ PAGE ADMIN ══════════ -->
+<!-- ══ PAGE ADMIN ══ -->
 <div id="page-admin" class="page">
   <div class="admin-wrap">
     <nav class="admin-nav">
@@ -855,10 +647,7 @@
       <div class="admin-nav-sep"></div>
       <button class="admin-nav-item" onclick="doAdminLogout()" style="color:#f87171;">⬅ Déconnexion</button>
     </nav>
-
     <main class="admin-main">
-
-      <!-- Dashboard -->
       <div id="panel-dashboard" class="admin-panel active">
         <h2 class="admin-panel-title">Tableau de bord</h2>
         <div class="kpi-grid">
@@ -873,16 +662,15 @@
         </div>
       </div>
 
-      <!-- Ajouter -->
       <div id="panel-add" class="admin-panel">
         <h2 class="admin-panel-title" id="addTitle">Ajouter un sujet</h2>
-        <div id="addOk" class="alert-ok"> Sujet enregistré avec succès !</div>
+        <div id="addOk" class="alert-ok">✅ Sujet enregistré avec succès !</div>
         <div class="form-box">
           <input type="hidden" id="editId" />
           <div class="form-2col">
             <div class="form-field full">
               <label>Titre du sujet *</label>
-              <input type="text" id="fTitre" placeholder="Ex : Examen final — STID 1" />
+              <input type="text" id="fTitre" placeholder="Ex : Examen final — STID L1 Session 2024-2025" />
             </div>
             <div class="form-field">
               <label>Filière *</label>
@@ -928,7 +716,6 @@
         </div>
       </div>
 
-      <!-- Gérer -->
       <div id="panel-manage" class="admin-panel">
         <h2 class="admin-panel-title">Gérer les sujets</h2>
         <div class="table-box">
@@ -937,7 +724,6 @@
         </div>
       </div>
 
-      <!-- Étudiants -->
       <div id="panel-etudiants" class="admin-panel">
         <h2 class="admin-panel-title">Étudiants inscrits</h2>
         <div class="table-box">
@@ -945,8 +731,222 @@
           <tbody id="etudiantsTable"></tbody></table>
         </div>
       </div>
-
     </main>
+  </div>
+</div>
+
+<!-- ══ PAGE À PROPOS ══ -->
+<div id="page-apropos" class="page">
+  <div class="static-page">
+    <button class="back-btn" onclick="goHome()">← Retour à l'accueil</button>
+    <div class="static-hero">
+      <h1>À propos d'ENAExams</h1>
+      <p>La plateforme numérique officielle de l'École Nationale d'Administration du Bénin pour le partage des ressources pédagogiques.</p>
+    </div>
+    <div class="static-section">
+      <h2>Notre mission</h2>
+      <p>ENAExams est née d'un constat simple : les étudiants de l'ENA manquaient d'accès centralisé aux sujets d'examens passés. C'est ainsi que nous avons créé cette plateforme afin de les aider. C'est le fruit de la réflexion de deux étudiants de l'école : YAYI Jovis Le Prince et ATIKA Turibio Victorin. Notre mission est de démocratiser l'accès aux ressources pédagogiques pour permettre à chaque étudiant de se préparer efficacement.</p>
+      <p>Avec l'autorisation de l'administration, nous mettons à disposition l'ensemble des sujets d'examens, devoirs surveillés, travaux dirigés et travaux pratiques pour toutes les filières et tous les niveaux de l'école.</p>
+    </div>
+    <div class="static-section">
+      <h2>Ce que nous offrons</h2>
+      <ul>
+        <li>Accès à des centaines de sujets d'examens classés par filière, niveau et année</li>
+        <li>Téléchargement gratuit des fichiers PDF pour tous les étudiants inscrits</li>
+        <li>Moteur de recherche avancé pour trouver rapidement un sujet</li>
+        <li>Interface responsive accessible sur mobile et ordinateur</li>
+        <li>Mise à jour régulière avec de nouveaux sujets après chaque session</li>
+        <li>Espace administrateur sécurisé pour la gestion du contenu</li>
+      </ul>
+    </div>
+    <div class="static-section">
+      <h2>Nos valeurs</h2>
+      <ul>
+        <li>Excellence académique : Nous encourageons la rigueur et la préparation sérieuse</li>
+        <li>Accessibilité : Toutes les ressources sont disponibles pour tous les étudiants</li>
+        <li>Innovation : Nous utilisons les technologies modernes au service de l'éducation</li>
+        <li>Solidarité : Nous croyons au partage du savoir entre étudiants</li>
+      </ul>
+    </div>
+    <div class="static-section">
+      <h2>L'École Nationale d'Administration</h2>
+      <p>L'ENA du Bénin est un établissement d'enseignement supérieur qui forme les cadres de l'administration béninoise. Créée en 1984, propose plusieurs filières allant de l'administration générale aux sciences et techniques de l'information et de la documentation. Elle est un VIVIER D'EXPERTISE.</p>
+      <p>ENAExams est une initiative complémentaire qui vise à soutenir les étudiants dans leur parcours académique en leur donnant accès aux ressources dont ils ont besoin pour réussir.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PAGE CONTACT ══ -->
+<div id="page-contact" class="page">
+  <div class="static-page">
+    <button class="back-btn" onclick="goHome()">← Retour à l'accueil</button>
+    <div class="static-hero">
+      <h1>Nous contacter</h1>
+      <p>Une question, une suggestion ou un problème technique ? Notre équipe est là pour vous aider.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <h3> Informations de contact</h3>
+        <div class="contact-info">✉️ <span>contact@ena.bj</span></div>
+        <div class="contact-info">📞 <span>+229 00 00 00 00</span></div>
+        <div class="contact-info">📍 <span>Abomey-Calavi, République du Bénin</span></div>
+        <div class="contact-info">🕐 <span>Lundi – Vendredi : 08h00 – 17h00</span></div>
+        <br>
+        <h3> Signaler un problème</h3>
+        <p style="font-size:13px;color:var(--text-mid);margin-top:8px;line-height:1.6;">Si vous rencontrez un problème technique (lien cassé, fichier manquant, erreur de connexion), merci de nous écrire en précisant le sujet concerné et votre filière.</p>
+      </div>
+      <div class="contact-card">
+        <h3> Envoyer un message</h3>
+        <div class="contact-form">
+          <input type="text" placeholder="Votre nom complet" />
+          <input type="email" placeholder="Votre adresse email" />
+          <input type="text" placeholder="Sujet du message" />
+          <textarea placeholder="Votre message…"></textarea>
+          <button class="btn-green" onclick="alert('Message envoyé ! Nous vous répondrons dans les 24h.')">Envoyer le message</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PAGE CONSEILS DE RÉVISION ══ -->
+<div id="page-conseils" class="page">
+  <div class="static-page">
+    <button class="back-btn" onclick="goHome()">← Retour à l'accueil</button>
+    <div class="static-hero">
+      <h1>Conseils de révision</h1>
+      <p>Des stratégies éprouvées pour optimiser vos révisions et maximiser vos chances de succès aux examens.</p>
+    </div>
+    <div class="static-section">
+      <h2>Planifier ses révisions</h2>
+      <div class="tip-card">
+        <h3> Créez un planning réaliste</h3>
+        <p>Divisez votre programme en petites portions et répartissez-les sur plusieurs semaines. Évitez de tout laisser à la dernière minute. Un planning visuel affiché dans votre chambre vous aidera à rester discipliné.</p>
+      </div>
+      <div class="tip-card">
+        <h3> Utilisez la technique Pomodoro</h3>
+        <p>Travaillez 25 minutes de façon concentrée, puis prenez une pause de 5 minutes. Après 4 cycles, faites une pause longue de 15-30 minutes. Cette méthode améliore la concentration et réduit la fatigue mentale.</p>
+      </div>
+    </div>
+    <div class="static-section">
+      <h2>Réviser efficacement</h2>
+      <div class="tip-card">
+        <h3> Pratiquez les anciens sujets</h3>
+        <p>La meilleure façon de se préparer à un examen est de s'entraîner sur des sujets similaires à ceux qui seront posés. Utilisez ENAExams pour accéder aux sujets des années précédentes et entraînez-vous dans les conditions de l'examen.</p>
+      </div>
+      <div class="tip-card">
+        <h3> Révisez en spirale</h3>
+        <p>Revenez régulièrement sur les notions déjà étudiées pour les consolider. Espacez vos révisions : revoir une notion 24h, 1 semaine et 1 mois après la première étude optimise la mémorisation à long terme.</p>
+      </div>
+      <div class="tip-card">
+        <h3> Travaillez en groupe</h3>
+        <p>S'expliquer des notions entre pairs est une des méthodes d'apprentissage les plus efficaces. Formez des groupes de révision, posez-vous des questions mutuellement et discutez des sujets d'examen ensemble.</p>
+      </div>
+    </div>
+    <div class="static-section">
+      <h2>Le jour de l'examen</h2>
+      <ul>
+        <li>Dormez suffisamment la veille car la fatigue nuit à la concentration</li>
+        <li>Lisez toutes les questions avant de commencer à répondre</li>
+        <li>Gérez votre temps : allouez un temps à chaque question</li>
+        <li>Commencez par les questions que vous maîtrisez le mieux</li>
+        <li>Relisez votre copie avant de la remettre</li>
+        <li>Restez calme et faites confiance à votre préparation</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PAGE MÉTHODOLOGIE ══ -->
+<div id="page-methodologie" class="page">
+  <div class="static-page">
+    <button class="back-btn" onclick="goHome()">← Retour à l'accueil</button>
+    <div class="static-hero">
+      <h1>Méthodologie</h1>
+      <p>Apprenez à structurer vos réponses et à rédiger des copies de qualité pour décrocher les meilleures notes.</p>
+    </div>
+    <div class="static-section">
+      <h2>Analyser un sujet d'examen</h2>
+      <div class="tip-card">
+        <h3> Lire et comprendre la question</h3>
+        <p>Avant tout, lisez attentivement l'énoncé. Identifiez les mots-clés, les verbes d'action (analysez, expliquez, comparez, discutez) et le domaine concerné. Reformulez la question dans vos mots pour vous assurer de bien la comprendre.</p>
+      </div>
+      <div class="tip-card">
+        <h3> Faire un brouillon</h3>
+        <p>Ne commencez jamais à rédiger directement. Notez d'abord toutes vos idées en vrac, puis organisez-les en plan. Un bon plan est la base d'une bonne réponse.</p>
+      </div>
+    </div>
+    <div class="static-section">
+      <h2>Structure d'une réponse type</h2>
+      <ul>
+        <li>Introduction : présentez le contexte, définissez les termes clés et annoncez le plan</li>
+        <li>Développement : organisez vos idées en 2 ou 3 parties équilibrées avec des exemples concrets</li>
+        <li>Transitions : liez chaque partie avec une phrase de transition logique</li>
+        <li>Conclusion : résumez vos points principaux et ouvrez sur une perspective plus large</li>
+        <li>Relecture : vérifiez l'orthographe, la grammaire et la cohérence de votre argumentation</li>
+      </ul>
+    </div>
+    <div class="static-section">
+      <h2>Rédiger clairement</h2>
+      <div class="tip-card">
+        <h3> Écrire pour être compris</h3>
+        <p>Utilisez des phrases courtes et claires. Évitez le jargon inutile. Chaque paragraphe doit contenir une idée principale. Illustrez vos propos avec des exemples tirés du cours ou de l'actualité.</p>
+      </div>
+      <div class="tip-card">
+        <h3> Utiliser des éléments visuels</h3>
+        <p>Quand c'est pertinent, utilisez des tableaux, des schémas ou des listes numérotées pour rendre vos réponses plus claires et plus faciles à lire pour le correcteur.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PAGE FAQ ══ -->
+<div id="page-faq" class="page">
+  <div class="static-page">
+    <button class="back-btn" onclick="goHome()">← Retour à l'accueil</button>
+    <div class="static-hero">
+      <h1>Aide / FAQ</h1>
+      <p>Trouvez des réponses aux questions les plus fréquentes sur l'utilisation d'ENAExams.</p>
+    </div>
+    <div class="static-section">
+      <h2>Questions fréquentes</h2>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Comment créer un compte ? <span>+</span></div>
+        <div class="faq-a">Cliquez sur le bouton "S'inscrire" en haut à droite, puis remplissez le formulaire avec votre nom, prénom, adresse email et un mot de passe. Vous pourrez ensuite vous connecter et accéder à tous les sujets.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Comment télécharger un sujet ? <span>+</span></div>
+        <div class="faq-a">Connectez-vous à votre compte, puis naviguez vers la page "Sujets d'examen". Cliquez sur le bouton "⬇ Télécharger" sous le sujet de votre choix. Le fichier PDF sera téléchargé sur votre appareil.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">J'ai oublié mon mot de passe. Que faire ? <span>+</span></div>
+        <div class="faq-a">Sur la page de connexion, cliquez sur "Mot de passe oublié ? Réinitialiser". Entrez votre adresse email et vous recevrez un code à 6 chiffres. Entrez ce code et choisissez un nouveau mot de passe.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Pourquoi certains sujets n'ont pas de fichier PDF ? <span>+</span></div>
+        <div class="faq-a">Certains sujets ont été ajoutés à la base de données mais leur fichier PDF n'est pas encore disponible. L'administration travaille à compléter la bibliothèque progressivement. Revenez régulièrement pour les nouveaux ajouts.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Le site fonctionne-t-il sur mobile ? <span>+</span></div>
+        <div class="faq-a">Oui ! ENAExams est entièrement responsive et fonctionne parfaitement sur smartphones, tablettes et ordinateurs. Vous pouvez accéder à tous les sujets depuis n'importe quel appareil.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Comment signaler une erreur dans un sujet ? <span>+</span></div>
+        <div class="faq-a">Rendez-vous sur la page "Contact" et envoyez-nous un message en précisant le titre du sujet concerné, la filière et la nature de l'erreur. Notre équipe corrigera le problème dans les plus brefs délais.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Comment proposer un sujet qui manque ? <span>+</span></div>
+        <div class="faq-a">Vous pouvez nous contacter via la page "Contact" en précisant la filière, le niveau, la matière, l'année et le type de sujet (examen, devoir, TD...). Si vous disposez d'un fichier PDF, vous pouvez nous l'envoyer par email.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Comment changer ma filière ou mon niveau dans mon profil ? <span>+</span></div>
+        <div class="faq-a">Pour le moment, la modification du profil se fait via l'administrateur. Contactez-nous via la page Contact en précisant votre email et les nouvelles informations à mettre à jour.</div>
+      </div>
+    </div>
+    <div class="static-section">
+      <h2>Vous n'avez pas trouvé votre réponse ?</h2>
+      <p>Contactez notre équipe directement via la <a onclick="showPage('contact')" style="color:var(--green);cursor:pointer;font-weight:600;">page de contact</a>. Nous vous répondrons dans les 24 heures ouvrables.</p>
+    </div>
   </div>
 </div>
 
@@ -958,8 +958,8 @@ let etudiantInfo = JSON.parse(localStorage.getItem('etudiant_info') || 'null');
 let adminToken = localStorage.getItem('admin_token');
 let emailReinit = '';
 
-const ICONS = { 'AG':'', 'AF':'', 'SG':'', 'STID':'', 'AGT':'', 'STID':'', 'default':'' };
-const ICON_CLASSES = { 'Administration Générale':'AG', 'Administration des Finance':'AF', 'Secrétariat de Gestion':'SG', 'Sciences et Tchniques de l'Information et de la Documentation':'STID', 'default':'AG' };
+const ICONS = { 'AG':'','AF':'','SG':'','STID':'','AGT':'','ATSS':'','DRI':'','AAS':'','AFT':'','AI':'','AHUI':'','GMP':'','PDL':'','GFCL':'','ARCHI':'','MSP':'','EPP':'','GRH':'','GP':'' };
+const BGANIMS = ['bg-math','bg-sci','bg-eco','bg-droit','bg-info','bg-med','bg-def'];
 
 window.onload = async () => {
   updateNav();
@@ -967,7 +967,7 @@ window.onload = async () => {
   renderHomeCards();
 };
 
-// ── DRAWER MOBILE ──
+// ── DRAWER ──
 function toggleDrawer() {
   document.getElementById('mobileDrawer').classList.toggle('open');
   document.getElementById('hamburger').classList.toggle('open');
@@ -985,7 +985,8 @@ function drawerNav(page) {
 // ── NAVIGATION ──
 function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-' + name).classList.add('active');
+  const el = document.getElementById('page-' + name);
+  if (el) el.classList.add('active');
   window.scrollTo(0, 0);
   if (name === 'subjects') renderAllCards();
 }
@@ -995,15 +996,13 @@ function requireAuth(page) {
   else showPage('connexion');
 }
 function handleAdminNav() {
-  if (adminToken) showPage('admin');
-  else showPage('login');
+  if (adminToken) showPage('admin'); else showPage('login');
 }
 
 function updateNav() {
   const isEtu = !!etudiantToken;
   const isAdm = !!adminToken;
-  const show = (id, v) => document.getElementById(id).style.display = v ? '' : 'none';
-
+  const show = (id, v) => { const el = document.getElementById(id); if(el) el.style.display = v ? '' : 'none'; };
   show('navBtnInscription', !isEtu && !isAdm);
   show('navBtnConnexion', !isEtu && !isAdm);
   show('navBtnLogout', isEtu || isAdm);
@@ -1012,23 +1011,22 @@ function updateNav() {
   show('drawerBtnConnexion', !isEtu && !isAdm);
   show('drawerBtnLogout', isEtu || isAdm);
   show('drawerBtnAdmin', isAdm);
-
-  const label = isEtu && etudiantInfo ? ' ' + etudiantInfo.prenom : isAdm ? ' Admin' : '';
+  const label = isEtu && etudiantInfo ? ' ' + etudiantInfo.prenom : isAdm ? '⚙ Admin' : '';
   ['navUserBadge','drawerUserBadge'].forEach(id => {
     const el = document.getElementById(id);
+    if (!el) return;
     el.style.display = label ? '' : 'none';
     el.textContent = label;
   });
 }
 
-// ── LOAD SUBJECTS ──
+// ── SUBJECTS ──
 async function loadSubjects() {
   try {
     const res = await fetch(API + '/api/subjects?limit=200');
     const data = await res.json();
     subjects = data.subjects || [];
-    updateStats();
-    populateFilters();
+    updateStats(); populateFilters();
   } catch { subjects = []; }
 }
 
@@ -1044,71 +1042,73 @@ function populateFilters() {
   const filieres = [...new Set(subjects.map(s => s.filiere))].sort();
   const annees = [...new Set(subjects.map(s => s.annee))].sort().reverse();
   const matieres = [...new Set(subjects.map(s => s.matiere))].sort();
-
   const fe = document.getElementById('allFiliere');
   if (fe) { const v=fe.value; fe.innerHTML=`<option value="">Toutes les filières</option>`+filieres.map(f=>`<option ${f===v?'selected':''}>${f}</option>`).join(''); }
   const ae = document.getElementById('allAnnee');
   if (ae) { const v=ae.value; ae.innerHTML=`<option value="">Toutes les années</option>`+annees.map(a=>`<option ${a===v?'selected':''}>${a}</option>`).join(''); }
   const me = document.getElementById('allMatiere');
   if (me) { const v=me.value; me.innerHTML=`<option value="">Toutes les matières</option>`+matieres.map(m=>`<option ${m===v?'selected':''}>${m}</option>`).join(''); }
-
   const fl = document.getElementById('filiereList'); const ml = document.getElementById('matiereList');
   if (fl) fl.innerHTML = filieres.map(f=>`<option value="${f}">`).join('');
   if (ml) ml.innerHTML = matieres.map(m=>`<option value="${m}">`).join('');
 }
 
-// ── RENDER CARDS ──
-function getFiltered(prefix) {
-  const q = (document.getElementById(prefix+'Search')?.value||'').toLowerCase();
-  const fil = document.getElementById(prefix === 'home' ? 'homeSearch' : 'allFiliere')?.value||'';
+function renderHomeCards() {
+  const q = (document.getElementById('homeSearch')?.value||'').toLowerCase();
+  const filtered = q ? subjects.filter(s => s.titre.toLowerCase().includes(q)||s.matiere.toLowerCase().includes(q)||s.filiere.toLowerCase().includes(q)) : subjects;
+  const el = document.getElementById('homeCardsGrid');
+  if (el) el.innerHTML = renderCards(filtered.slice(0,6), !!(etudiantToken||adminToken));
+}
+
+function renderAllCards() {
+  const q = (document.getElementById('allSearch')?.value||'').toLowerCase();
+  const fil = document.getElementById('allFiliere')?.value||'';
   const niv = document.getElementById('allNiveau')?.value||'';
   const ann = document.getElementById('allAnnee')?.value||'';
   const mat = document.getElementById('allMatiere')?.value||'';
-  return subjects.filter(s => {
+  const filtered = subjects.filter(s => {
     if (q && !s.titre.toLowerCase().includes(q) && !s.matiere.toLowerCase().includes(q) && !s.filiere.toLowerCase().includes(q)) return false;
-    if (prefix !== 'home' && fil && s.filiere !== fil) return false;
+    if (fil && s.filiere !== fil) return false;
     if (niv && s.niveau !== niv) return false;
     if (ann && s.annee !== ann) return false;
     if (mat && s.matiere !== mat) return false;
     return true;
   });
-}
-
-function renderHomeCards() {
-  const q = (document.getElementById('homeSearch')?.value||'').toLowerCase();
-  const filtered = q ? subjects.filter(s => s.titre.toLowerCase().includes(q) || s.matiere.toLowerCase().includes(q) || s.filiere.toLowerCase().includes(q)) : subjects;
-  document.getElementById('homeCardsGrid').innerHTML = renderCards(filtered.slice(0,6), !!(etudiantToken||adminToken));
-}
-
-function renderAllCards() {
-  const filtered = getFiltered('all');
-  document.getElementById('allCountLabel').textContent = filtered.length + ' sujet(s) trouvé(s)';
-  document.getElementById('allCardsGrid').innerHTML = renderCards(filtered, true);
+  const lbl = document.getElementById('allCountLabel');
+  if (lbl) lbl.textContent = filtered.length + ' sujet(s) trouvé(s)';
+  const el = document.getElementById('allCardsGrid');
+  if (el) el.innerHTML = renderCards(filtered, true);
 }
 
 function renderCards(list, isAuth) {
-  if (!list.length) return `<div class="empty-state" style="grid-column:1/-1;"><div class="empty-icon"></div><h3>Aucun sujet trouvé</h3><p>Modifiez vos critères de recherche.</p></div>`;
-  const isNew = (s) => {
-    const d = new Date(s.createdAt);
-    return (Date.now() - d.getTime()) < 30 * 24 * 3600 * 1000;
-  };
-  return list.map(s => {
-    const icon = ICONS[s.filiere] || ICONS.default;
-    const cls = ICON_CLASSES[s.filiere] || ICON_CLASSES.default;
+  if (!list.length) return `<div class="empty-state" style="grid-column:1/-1"><div style="font-size:40px">📭</div><h3>Aucun sujet trouvé</h3><p>Modifiez vos critères de recherche.</p></div>`;
+  const isNew = s => { try { return (Date.now() - new Date(s.createdAt).getTime()) < 30*24*3600*1000; } catch { return false; } };
+  return list.map((s, i) => {
+    const icon = ICONS[s.filiere] || '';
+    const bg = BGANIMS[i % BGANIMS.length];
     return `
     <div class="subject-card">
-      ${isNew(s) ? `<div class="card-new">NOUVEAU</div>` : ''}
-      <div class="card-icon ${cls}">${icon}</div>
+      ${isNew(s) ? '<div class="card-new">NOUVEAU</div>' : ''}
+      <div class="card-icon ${bg}">${icon}</div>
       <div class="card-title">${s.titre}</div>
       <div class="card-sub">${s.filiere} — ${s.niveau}</div>
       <div class="card-year">Session ${s.annee}</div>
       <div class="card-footer">
-        <span class="card-type-badge">${s.type}</span>
+        <span class="card-badge">${s.type}</span>
         ${isAuth
-          ? `<button class="btn-dl" onclick="window.location='${s.fichier?'/uploads/'+s.fichier:'#'}'">⬇ Télécharger</button>`
+          ? `<button class="btn-dl" onclick="if('${s.fichier}'){window.open('/uploads/${s.fichier}','_blank')}else{alert('Fichier PDF non disponible pour ce sujet.')}">⬇ Télécharger</button>`
           : `<button class="btn-dl btn-dl-lock" onclick="showPage('connexion')"> Connexion</button>`}
       </div>
     </div>`}).join('');
+}
+
+// ── FAQ ──
+function toggleFaq(el) {
+  const answer = el.nextElementSibling;
+  const isOpen = answer.classList.contains('open');
+  document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
+  document.querySelectorAll('.faq-q span').forEach(s => s.textContent = '+');
+  if (!isOpen) { answer.classList.add('open'); el.querySelector('span').textContent = '−'; }
 }
 
 // ── AUTH ÉTUDIANT ──
@@ -1130,7 +1130,7 @@ async function doInscription() {
     localStorage.setItem('etudiant_token',etudiantToken); localStorage.setItem('etudiant_info',JSON.stringify(etudiantInfo));
     updateNav(); sucEl.textContent=' Bienvenue '+data.prenom+' !'; sucEl.style.display='block';
     setTimeout(()=>{showPage('subjects');renderAllCards();},1500);
-  } catch {errEl.textContent='Erreur de connexion.';errEl.style.display='block';}
+  } catch {errEl.textContent='Erreur de connexion au serveur.';errEl.style.display='block';}
 }
 
 async function doConnexion() {
@@ -1144,13 +1144,13 @@ async function doConnexion() {
     etudiantToken=data.token; etudiantInfo={nom:data.nom,prenom:data.prenom,email:data.email};
     localStorage.setItem('etudiant_token',etudiantToken); localStorage.setItem('etudiant_info',JSON.stringify(etudiantInfo));
     updateNav(); showPage('subjects'); renderAllCards();
-  } catch {errEl.textContent='Erreur de connexion.';errEl.style.display='block';}
+  } catch {errEl.textContent='Erreur de connexion au serveur.';errEl.style.display='block';}
 }
 
 function deconnexion() {
   etudiantToken=null; etudiantInfo=null; adminToken=null;
   localStorage.removeItem('etudiant_token'); localStorage.removeItem('etudiant_info'); localStorage.removeItem('admin_token');
-  updateNav(); showPage('home'); renderHomeCards();
+  updateNav(); goHome(); renderHomeCards();
 }
 
 // ── MOT DE PASSE OUBLIÉ ──
@@ -1164,10 +1164,10 @@ async function demanderCode() {
     const data=await res.json();
     if (!res.ok){errEl.textContent=data.message;errEl.style.display='block';return;}
     emailReinit=email;
-    sucEl.textContent=' Code envoyé ! Vérifiez votre boîte email.'; sucEl.style.display='block';
-    document.getElementById('reinitSub').textContent=`Code envoyé à ${email}. Entrez-le ci-dessous.`;
+    sucEl.textContent='✅ Code envoyé ! Vérifiez votre boîte email.'; sucEl.style.display='block';
+    document.getElementById('reinitSub').textContent='Code envoyé à '+email+'. Entrez-le ci-dessous.';
     setTimeout(()=>showPage('reinitialiser'),2000);
-  } catch {errEl.textContent='Erreur de connexion.';errEl.style.display='block';}
+  } catch {errEl.textContent='Erreur de connexion au serveur.';errEl.style.display='block';}
 }
 
 async function reinitialiserMotDePasse() {
@@ -1179,14 +1179,14 @@ async function reinitialiserMotDePasse() {
   if (!code||code.length!==6){errEl.textContent='Entrez le code à 6 chiffres.';errEl.style.display='block';return;}
   if (!password){errEl.textContent='Entrez un nouveau mot de passe.';errEl.style.display='block';return;}
   if (password!==password2){errEl.textContent='Les mots de passe ne correspondent pas.';errEl.style.display='block';return;}
-  if (password.length<6){errEl.textContent='Mot de passe trop court.';errEl.style.display='block';return;}
+  if (password.length<6){errEl.textContent='Mot de passe trop court (6 min).';errEl.style.display='block';return;}
   try {
     const res=await fetch(API+'/api/etudiants/reinitialiser-mot-de-passe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:emailReinit,code,nouveauMotDePasse:password})});
     const data=await res.json();
     if (!res.ok){errEl.textContent=data.message;errEl.style.display='block';return;}
-    sucEl.textContent=' Mot de passe changé ! Vous pouvez vous connecter.'; sucEl.style.display='block';
+    sucEl.textContent='✅ Mot de passe changé ! Vous pouvez vous connecter.'; sucEl.style.display='block';
     emailReinit=''; setTimeout(()=>showPage('connexion'),2000);
-  } catch {errEl.textContent='Erreur de connexion.';errEl.style.display='block';}
+  } catch {errEl.textContent='Erreur de connexion au serveur.';errEl.style.display='block';}
 }
 
 // ── AUTH ADMIN ──
@@ -1201,9 +1201,7 @@ async function doAdminLogin() {
     updateNav(); showPage('admin'); refreshAdmin();
   } catch {errEl.style.display='block';}
 }
-function doAdminLogout() {
-  adminToken=null; localStorage.removeItem('admin_token'); updateNav(); showPage('home');
-}
+function doAdminLogout() { adminToken=null; localStorage.removeItem('admin_token'); updateNav(); goHome(); }
 
 // ── ADMIN ──
 function showPanel(name, btn) {
@@ -1226,7 +1224,7 @@ async function refreshAdmin() {
     document.getElementById('dashMatieres').textContent=stats.matieres||0;
     document.getElementById('dashEtudiants').textContent=stats.etudiants||'—';
     document.getElementById('dashTable').innerHTML=subjects.slice(0,10).map(s=>`<tr><td>${s.titre}</td><td>${s.filiere}</td><td>${s.niveau}</td><td>${s.matiere}</td><td>${s.annee}</td></tr>`).join('');
-    document.getElementById('manageTable').innerHTML=subjects.map(s=>`<tr><td>${s.titre}</td><td>${s.filiere}</td><td>${s.niveau}</td><td>${s.annee}</td><td><button class="btn-blue-outline" onclick="editSubject('${s._id}')">Modifier</button><button class="btn-red-outline" onclick="deleteSubject('${s._id}')">Supprimer</button></td></tr>`).join('');
+    document.getElementById('manageTable').innerHTML=subjects.map(s=>`<tr><td>${s.titre}</td><td>${s.filiere}</td><td>${s.niveau}</td><td>${s.annee}</td><td><button class="btn-blue" onclick="editSubject('${s._id}')">Modifier</button><button class="btn-red" onclick="deleteSubject('${s._id}')">Supprimer</button></td></tr>`).join('');
     populateFilters(); renderHomeCards();
   } catch(e){console.error(e);}
   try {
@@ -1238,7 +1236,7 @@ async function refreshAdmin() {
           <td>${e.nom}</td><td>${e.prenom}</td><td>${e.email}</td>
           <td>${e.filiere||'—'}</td><td>${e.niveau||'—'}</td>
           <td>${new Date(e.createdAt).toLocaleDateString('fr-FR')}</td>
-          <td><button class="btn-red-outline" onclick="deleteEtudiant('${e._id}','${e.nom} ${e.prenom}')">Supprimer</button></td>
+          <td><button class="btn-red" onclick="deleteEtudiant('${e._id}','${e.nom} ${e.prenom}')">Supprimer</button></td>
         </tr>`).join('');
       document.getElementById('dashEtudiants').textContent=ets.length;
     }
@@ -1246,7 +1244,7 @@ async function refreshAdmin() {
 }
 
 async function deleteEtudiant(id, nom) {
-  if (!confirm(`Supprimer le compte de ${nom} ?`)) return;
+  if (!confirm('Supprimer le compte de '+nom+' définitivement ?')) return;
   try {
     await fetch(API+'/api/etudiants/'+id,{method:'DELETE',headers:{'Authorization':'Bearer '+adminToken}});
     await refreshAdmin();
