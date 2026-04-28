@@ -372,16 +372,13 @@
         </div>
         <div class="stats-bar">
           <div class="stat-item">
-            <div class="stat-icon"></div>
-            <div><div class="stat-num" id="statSujets">0</div><div class="stat-lbl">Sujets disponibles</div></div>
+            <div><div class="stat-num" id="statSujets">+2000</div><div class="stat-lbl">Sujets disponibles</div></div>
           </div>
           <div class="stat-item">
-            <div class="stat-icon"></div>
-            <div><div class="stat-num" id="statFilieres">0</div><div class="stat-lbl">Filières couvertes</div></div>
+            <div><div class="stat-num" id="statFilieres">19</div><div class="stat-lbl">Filières couvertes</div></div>
           </div>
           <div class="stat-item">
-            <div class="stat-icon"></div>
-            <div><div class="stat-num" id="statMatieres">0</div><div class="stat-lbl">Matières</div></div>
+            <div><div class="stat-num" id="statMatieres">+200</div><div class="stat-lbl">Matières</div></div>
           </div>
         </div>
       </section>
@@ -958,7 +955,6 @@ let etudiantInfo = JSON.parse(localStorage.getItem('etudiant_info') || 'null');
 let adminToken = localStorage.getItem('admin_token');
 let emailReinit = '';
 
-const ICONS = { 'AG':'','AF':'','SG':'','STID':'','AGT':'','ATSS':'','DRI':'','AAS':'','AFT':'','AI':'','AHUI':'','GMP':'','PDL':'','GFCL':'','ARCHI':'','MSP':'','EPP':'','GRH':'','GP':'' };
 const BGANIMS = ['bg-math','bg-sci','bg-eco','bg-droit','bg-info','bg-med','bg-def'];
 
 window.onload = async () => {
