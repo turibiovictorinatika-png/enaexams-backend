@@ -955,6 +955,7 @@ let etudiantInfo = JSON.parse(localStorage.getItem('etudiant_info') || 'null');
 let adminToken = localStorage.getItem('admin_token');
 let emailReinit = '';
 
+const ICONS = { 'AG': '🏢','AF': '💰','SG': '📋','STID': '🗄️','AFT': '🏦','AI': '🧾','GMP': '⚖️','AGT': '🏙️','ATSS': '👥','DRI': '🌍','GRH': '🧑‍💼','MSP': '⚙️','GP': '📊','EPP': '📈','ARCHI': '📦' };
 const BGANIMS = ['bg-math','bg-sci','bg-eco','bg-droit','bg-info','bg-med','bg-def'];
 
 window.onload = async () => {
