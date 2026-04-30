@@ -3,7 +3,86 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ENAExams — École Nationale d'Administration du Bénin</title>
+
+  <!-- ══ SEO ══ -->
+  <title>ENAExams — Sujets d'examen ENA Bénin | Toutes filières, tous niveaux</title>
+  <meta name="description" content="Accédez gratuitement aux sujets d'examens, devoirs, TD et TP de l'École Nationale d'Administration du Bénin (ENA). Filières AG, AF, SG, STID, GRH, ATSS et plus. Téléchargez les épreuves classées par année et matière." />
+  <meta name="keywords" content="ENA Bénin, sujets examen ENA, école nationale administration Bénin, examens ENA Bénin, devoirs ENA, TD ENA, AG AF SG STID GRH ATSS, Abomey-Calavi, ENAExams, révision ENA" />
+  <meta name="author" content="YAYI Jovis Le Prince, ATIKA Turibio Victorin" />
+  <meta name="robots" content="index, follow" />
+  <meta name="language" content="French" />
+  <meta name="revisit-after" content="7 days" />
+  <link rel="canonical" href="https://enaexams.vercel.app/" />
+
+  <!-- ══ Open Graph ══ -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://enaexams.vercel.app/" />
+  <meta property="og:title" content="ENAExams — Sujets d'examen de l'ENA Bénin" />
+  <meta property="og:description" content="Tous les sujets d'examens de l'École Nationale d'Administration du Bénin. Téléchargez gratuitement les épreuves classées par filière, niveau et année académique." />
+  <meta property="og:image" content="https://enaexams.vercel.app/og-image.png" />
+  <meta property="og:site_name" content="ENAExams" />
+  <meta property="og:locale" content="fr_BJ" />
+
+  <!-- ══ Twitter Card ══ -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ENAExams — Sujets d'examen ENA Bénin" />
+  <meta name="twitter:description" content="Téléchargez gratuitement les sujets d'examens de l'ENA Bénin. Toutes filières, tous niveaux." />
+  <meta name="twitter:image" content="https://enaexams.vercel.app/og-image.png" />
+
+  <!-- ══ Données structurées JSON-LD (Google, IA) ══ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "ENAExams",
+    "url": "https://enaexams.vercel.app/",
+    "description": "Plateforme de partage des sujets d'examens de l'École Nationale d'Administration du Bénin",
+    "inLanguage": "fr",
+    "publisher": {
+      "@type": "Organization",
+      "name": "ENAExams",
+      "url": "https://enaexams.vercel.app/",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Abomey-Calavi",
+        "addressCountry": "BJ"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "contact@ena.bj",
+        "contactType": "customer service",
+        "availableLanguage": "French"
+      }
+    },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://enaexams.vercel.app/?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "École Nationale d'Administration du Bénin",
+    "alternateName": "ENA Bénin",
+    "url": "https://enaexams.vercel.app/",
+    "description": "L'ENA du Bénin est un établissement d'enseignement supérieur qui forme les cadres de l'administration béninoise depuis 1984.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Abomey-Calavi",
+      "addressCountry": "BJ"
+    }
+  }
+  </script>
+
+  <!-- ══ Favicon SVG inline ══ -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%230f4b21'/%3E%3Ctext y='.9em' font-size='80' x='10'%3E%F0%9F%8E%93%3C/text%3E%3C/svg%3E" />
+
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -519,7 +598,7 @@
   <div class="auth-page">
     <div class="auth-box">
       <div class="auth-hd">
-        <div class="auth-ico"></div>
+        <div class="auth-ico">✏️</div>
         <h2>Créer un compte</h2>
         <p>Rejoignez l'École Nationale d'Administration du Bénin</p>
       </div>
@@ -755,7 +834,7 @@
     </div>
     <div class="static-section">
       <h2>Notre mission</h2>
-      <p>ENAExams est née d'un constat simple : les étudiants de l'ENA manquaient d'accès centralisé aux sujets d'examens passés. C'est ainsi que nous avons créé cette plateforme afin de les aider. C'est le fruit de la réflexion de deux étudiants de l'école : <a href="https://jovisleprinceyayi-portfolio.vercel.app/" target="_blank" rel="noopener noreferrer" style="color:var(--green-light);font-weight:600;text-decoration:none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">YAYI Jovis le Prince</a> et <a href="https://sportssearchlight.com" target="_blank" rel="noopener noreferrer" style="color:var(--green-light);font-weight:600;text-decoration:none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">ATIKA Turibio Victorin</a>. Notre mission est de démocratiser l'accès aux ressources pédagogiques pour permettre à chaque étudiant de se préparer efficacement.</p>
+      <p>ENAExams est née d'un constat simple : les étudiants de l'ENA manquaient d'accès centralisé aux sujets d'examens passés. C'est ainsi que nous avons créé cette plateforme afin de les aider. C'est le fruit de la réflexion de deux étudiants de l'école : <a href="https://jovisleprinceyayi-portfolio.vercel.app/" target="_blank" rel="noopener noreferrer" style="color:var(--green-light);font-weight:600;text-decoration:none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">YAYI Jovis Le Prince</a> et ATIKA Turibio Victorin. Notre mission est de démocratiser l'accès aux ressources pédagogiques pour permettre à chaque étudiant de se préparer efficacement.</p>
       <p>Avec l'autorisation de l'administration, nous mettons à disposition l'ensemble des sujets d'examens, devoirs surveillés, travaux dirigés et travaux pratiques pour toutes les filières et tous les niveaux de l'école.</p>
     </div>
     <div class="static-section">
@@ -780,7 +859,7 @@
     </div>
     <div class="static-section">
       <h2>L'École Nationale d'Administration</h2>
-      <p>L'ENA du Bénin est un établissement d'enseignement supérieur qui forme les cadres de l'administration béninoise. Créée en 1984, l'ENA propose plusieurs filières allant de l'administration générale aux sciences et techniques de l'information et de la documentation. Elle est un VIVIER D'EXPERTISE.</p>
+      <p>L'ENA du Bénin est un établissement d'enseignement supérieur qui forme les cadres de l'administration béninoise. Créée en 1984, elle propose plusieurs filières allant de l'administration générale aux sciences et techniques de l'information et de la documentation. Elle est un VIVIER D'EXPERTISE.</p>
       <p>ENAExams est une initiative complémentaire qui vise à soutenir les étudiants dans leur parcours académique en leur donnant accès aux ressources dont ils ont besoin pour réussir.</p>
     </div>
   </div>
@@ -1152,7 +1231,7 @@ function renderCards(list, isAuth) {
     // FIX: logique de téléchargement corrigée — s.fichier est bien évalué comme valeur, pas comme string
     const dlBtn = isAuth
       ? s.fichier
-        ? `<button class="btn-dl" onclick="window.open('/uploads/${escapeAttr(s.fichier)}','_blank')">⬇ Télécharger</button>`
+        ? `<button class="btn-dl" onclick="telechargerFichier('/uploads/${escapeAttr(s.fichier)}','${escapeAttr(s.fichier)}')">⬇ Télécharger</button>`
         : `<button class="btn-dl btn-dl-lock" disabled title="Fichier non disponible" style="cursor:not-allowed;opacity:0.5;">⬇ Indisponible</button>`
       : `<button class="btn-dl btn-dl-lock" onclick="showPage('connexion')" title="Connexion requise">🔒 Connexion</button>`;
 
@@ -1182,6 +1261,47 @@ function escapeAttr(str) {
   if (str == null) return '';
   // N'autoriser que les noms de fichier simples (alphanum, tiret, underscore, point)
   return String(str).replace(/[^a-zA-Z0-9._\-]/g, '');
+}
+
+// ── TÉLÉCHARGEMENT FORCÉ (enregistrement dans les documents de l'utilisateur) ──
+async function telechargerFichier(url, nomFichier) {
+  const btn = event.currentTarget;
+  const texteOriginal = btn.textContent;
+  btn.textContent = '⏳ Chargement…';
+  btn.disabled = true;
+
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error('Fichier introuvable (HTTP ' + response.status + ')');
+    const blob = await response.blob();
+    const blobUrl = URL.createObjectURL(blob);
+
+    // Créer un lien invisible avec l'attribut download pour forcer l'enregistrement
+    const a = document.createElement('a');
+    a.href = blobUrl;
+    a.download = nomFichier.endsWith('.pdf') ? nomFichier : nomFichier + '.pdf';
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    // Libérer la mémoire après un court délai
+    setTimeout(() => URL.revokeObjectURL(blobUrl), 5000);
+
+    btn.textContent = '✅ Téléchargé !';
+    setTimeout(() => {
+      btn.textContent = texteOriginal;
+      btn.disabled = false;
+    }, 2500);
+  } catch (err) {
+    console.error('Erreur téléchargement :', err);
+    btn.textContent = '❌ Erreur';
+    setTimeout(() => {
+      btn.textContent = texteOriginal;
+      btn.disabled = false;
+    }, 2500);
+    alert('Impossible de télécharger ce fichier. Vérifiez votre connexion ou contactez l\'administration.');
+  }
 }
 
 // ── FAQ ──
@@ -1559,5 +1679,111 @@ function resetForm() {
   document.getElementById('addTitle').textContent  = 'Ajouter un sujet';
 }
 </script>
+
+<!-- ══ PAGE CONDITIONS D'UTILISATION ══ -->
+<div id="page-cgu" class="page">
+  <div class="static-page">
+    <button class="back-btn" onclick="goHome()">← Retour à l'accueil</button>
+    <div class="static-hero">
+      <h1>Conditions d'utilisation</h1>
+      <p>Dernière mise à jour : avril 2026. En utilisant ENAExams, vous acceptez les présentes conditions.</p>
+    </div>
+    <div class="static-section">
+      <h2>1. Objet du service</h2>
+      <p>ENAExams est une plateforme numérique créée par des étudiants de l'École Nationale d'Administration du Bénin (ENA) dans le but de centraliser et partager les sujets d'examens, devoirs surveillés, travaux dirigés (TD) et travaux pratiques (TP) de l'établissement. Ce service est mis à disposition à titre informatif et éducatif, exclusivement à l'intention des étudiants et du personnel de l'ENA.</p>
+    </div>
+    <div class="static-section">
+      <h2>2. Accès à la plateforme</h2>
+      <p>L'accès aux sujets d'examens est réservé aux utilisateurs disposant d'un compte valide. La création d'un compte est gratuite et ouverte à tout étudiant de l'ENA Bénin. Vous êtes responsable de la confidentialité de vos identifiants de connexion. Tout accès frauduleux ou toute utilisation abusive de la plateforme peut entraîner la suppression du compte concerné.</p>
+    </div>
+    <div class="static-section">
+      <h2>3. Utilisation des contenus</h2>
+      <p>Les sujets d'examens et ressources pédagogiques disponibles sur ENAExams sont mis à disposition exclusivement à des fins de révision personnelle. Il est strictement interdit de :</p>
+      <ul>
+        <li>Reproduire, redistribuer ou commercialiser les contenus sans autorisation explicite</li>
+        <li>Utiliser les ressources à des fins contraires à l'éthique académique (fraude, triche, etc.)</li>
+        <li>Accéder à des zones réservées sans les droits requis</li>
+        <li>Tenter de pirater ou d'altérer le fonctionnement de la plateforme</li>
+      </ul>
+    </div>
+    <div class="static-section">
+      <h2>4. Propriété intellectuelle</h2>
+      <p>Les sujets d'examens sont la propriété de l'École Nationale d'Administration du Bénin et sont publiés sur ENAExams avec son autorisation. Le code source, le design et l'architecture de la plateforme sont la propriété de ses créateurs, YAYI Jovis Le Prince et ATIKA Turibio Victorin. Toute reproduction de l'interface sans autorisation est interdite.</p>
+    </div>
+    <div class="static-section">
+      <h2>5. Responsabilité</h2>
+      <p>ENAExams s'efforce de maintenir les ressources à jour et exactes, mais ne peut garantir l'exhaustivité ou l'absence d'erreurs dans les documents publiés. La plateforme décline toute responsabilité en cas d'interruption du service pour maintenance ou raisons techniques. Les utilisateurs sont invités à signaler toute erreur via la page Contact.</p>
+    </div>
+    <div class="static-section">
+      <h2>6. Modification des conditions</h2>
+      <p>ENAExams se réserve le droit de modifier les présentes conditions à tout moment. Les utilisateurs seront informés des modifications importantes. La poursuite de l'utilisation de la plateforme après modification vaut acceptation des nouvelles conditions.</p>
+    </div>
+    <div class="static-section">
+      <h2>7. Contact</h2>
+      <p>Pour toute question relative aux présentes conditions d'utilisation, contactez-nous à <a href="mailto:contact@ena.bj" style="color:var(--green-light);font-weight:600;">contact@ena.bj</a> ou via notre <a onclick="showPage('contact')" style="color:var(--green-light);font-weight:600;cursor:pointer;">page de contact</a>.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PAGE POLITIQUE DE CONFIDENTIALITÉ ══ -->
+<div id="page-confidentialite" class="page">
+  <div class="static-page">
+    <button class="back-btn" onclick="goHome()">← Retour à l'accueil</button>
+    <div class="static-hero">
+      <h1>Politique de confidentialité</h1>
+      <p>Dernière mise à jour : avril 2026. Votre vie privée est importante pour nous.</p>
+    </div>
+    <div class="static-section">
+      <h2>1. Données collectées</h2>
+      <p>Lors de la création de votre compte ENAExams, nous collectons les informations suivantes :</p>
+      <ul>
+        <li>Nom et prénom</li>
+        <li>Adresse email</li>
+        <li>Filière et niveau académique (optionnel)</li>
+        <li>Mot de passe (stocké de manière chiffrée, jamais en clair)</li>
+      </ul>
+      <p>Nous ne collectons aucune information de paiement. Aucune donnée bancaire n'est traitée par ENAExams.</p>
+    </div>
+    <div class="static-section">
+      <h2>2. Utilisation des données</h2>
+      <p>Les données collectées sont utilisées exclusivement pour :</p>
+      <ul>
+        <li>Gérer votre compte et vous authentifier sur la plateforme</li>
+        <li>Vous permettre d'accéder aux ressources pédagogiques</li>
+        <li>Vous envoyer des notifications importantes concernant le service (nouvelles ressources, mises à jour)</li>
+        <li>Améliorer l'expérience utilisateur de la plateforme</li>
+      </ul>
+      <p>Vos données ne sont jamais vendues, louées ou cédées à des tiers à des fins commerciales.</p>
+    </div>
+    <div class="static-section">
+      <h2>3. Stockage et sécurité</h2>
+      <p>Vos données personnelles sont stockées sur des serveurs sécurisés. Les mots de passe sont chiffrés via des algorithmes de hachage robustes (bcrypt). L'accès aux données est strictement limité aux administrateurs autorisés de la plateforme. Nous mettons en œuvre des mesures techniques et organisationnelles pour protéger vos informations contre tout accès non autorisé.</p>
+    </div>
+    <div class="static-section">
+      <h2>4. Cookies et stockage local</h2>
+      <p>ENAExams utilise le stockage local du navigateur (localStorage) pour maintenir votre session de connexion active entre vos visites. Ces données restent sur votre appareil et ne sont pas transmises à des tiers. Aucun cookie publicitaire ou de suivi n'est utilisé sur cette plateforme.</p>
+    </div>
+    <div class="static-section">
+      <h2>5. Vos droits</h2>
+      <p>Conformément à la réglementation en vigueur, vous disposez des droits suivants sur vos données personnelles :</p>
+      <ul>
+        <li>Droit d'accès : consulter les données vous concernant</li>
+        <li>Droit de rectification : corriger des informations inexactes</li>
+        <li>Droit à l'effacement : demander la suppression de votre compte et de vos données</li>
+        <li>Droit d'opposition : vous opposer à certains traitements de vos données</li>
+      </ul>
+      <p>Pour exercer ces droits, contactez-nous à <a href="mailto:contact@ena.bj" style="color:var(--green-light);font-weight:600;">contact@ena.bj</a>.</p>
+    </div>
+    <div class="static-section">
+      <h2>6. Services tiers</h2>
+      <p>ENAExams utilise Google Fonts pour l'affichage des polices de caractères. Ce service peut collecter des données techniques (adresse IP) conformément à la politique de confidentialité de Google. Aucun autre service tiers d'analyse ou de publicité n'est intégré à la plateforme.</p>
+    </div>
+    <div class="static-section">
+      <h2>7. Contact</h2>
+      <p>Pour toute question relative à cette politique de confidentialité ou à vos données personnelles, contactez-nous à <a href="mailto:contact@ena.bj" style="color:var(--green-light);font-weight:600;">contact@ena.bj</a>.</p>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
