@@ -1,7 +1,7 @@
 {
-  "name": "edudocs-backend",
+  "name": "ENAExams-backend",
   "version": "1.0.0",
-  "description": "Backend API pour EduDocs — plateforme de sujets d'évaluation",
+  "description": "Backend API pour ENAExams — plateforme de sujets d'évaluation",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
