@@ -11,7 +11,12 @@ require('dotenv').config();
 const app = express();
 
 // ─── Middleware ───
-app.use(cors({ origin: process.env.FRONTEND_URL || '*' }));
+app.use(cors({
+  origin: 'https://enaexams.vercel.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+app.options('*', cors());
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
@@ -20,10 +25,6 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/subjects', require('./routes/subjects'));
 app.use('/api/stats', require('./routes/stats'));
 app.use('/api/etudiants', require('./routes/etudiants'));
-
-// ─── Serve frontend in production ───
-app.use(express.static(path.join(__dirname, '../frontend')));
-app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../frontend/index.html')));
 
 // ─── Create uploads dir ───
 const uploadsDir = path.join(__dirname, 'uploads');
