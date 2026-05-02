@@ -1,29 +1,34 @@
 const mongoose = require('mongoose');
-const Admin = require('../models/Admin');
+const bcrypt = require('bcryptjs');
 require('dotenv').config();
 
-const NOUVEAU_USERNAME = 'Admin1984';        // ← votre identifiant
-const NOUVEAU_PASSWORD = 'Admin2026';  // ← votre mot de passe
+const NOUVEAU_USERNAME = 'Admin1984';
+const NOUVEAU_PASSWORD = 'ENA2026'; // ← votre vrai mot de passe
 
 mongoose.connect(process.env.MONGO_URI)
   .then(async () => {
     console.log('✅ Connecté à MongoDB');
 
-    // Trouver et mettre à jour directement
-    const admin = await Admin.findOne({});
+    // Hash manuel — contourne le hook pre('save')
+    const hash = await bcrypt.hash(NOUVEAU_PASSWORD, 12);
     
-    if (!admin) {
-      console.log('❌ Aucun admin trouvé');
-      process.exit(1);
+    // Mise à jour directe sans passer par Mongoose
+    const result = await mongoose.connection.collection('admins').updateOne(
+      {}, // premier admin trouvé
+      { $set: { 
+          username: NOUVEAU_USERNAME, 
+          password: hash 
+        } 
+      }
+    );
+
+    if (result.modifiedCount === 1) {
+      console.log('✅ Admin mis à jour avec succès');
+      console.log('👤 Username :', NOUVEAU_USERNAME);
+      console.log('🔐 Hash :', hash.substring(0, 20) + '...');
+    } else {
+      console.log('❌ Aucun admin modifié');
     }
-
-    admin.username = NOUVEAU_USERNAME;
-    admin.password = NOUVEAU_PASSWORD;
-    await admin.save();
-
-    console.log('✅ Admin mis à jour avec succès');
-    console.log('👤 Username :', NOUVEAU_USERNAME);
-    console.log('🔐 Mot de passe hashé correctement');
     process.exit(0);
   })
   .catch(err => {
