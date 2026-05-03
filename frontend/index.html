@@ -1230,7 +1230,7 @@ function renderCards(list, isAuth) {
     // FIX: logique de téléchargement corrigée — s.fichier est bien évalué comme valeur, pas comme string
     const dlBtn = isAuth
       ? s.fichier
-        ? `<button class="btn-dl" onclick="telechargerFichier('/uploads/${escapeAttr(s.fichier)}','${escapeAttr(s.fichier)}')">⬇ Télécharger</button>`
+        ? `<button class="btn-dl" onclick="telechargerFichier('https://edudocs-x8gc.onrender.com/uploads/${escapeAttr(s.fichier)}','${escapeAttr(s.fichier)}')">⬇ Télécharger</button>`
         : `<button class="btn-dl btn-dl-lock" disabled title="Fichier non disponible" style="cursor:not-allowed;opacity:0.5;">⬇ Indisponible</button>`
       : `<button class="btn-dl btn-dl-lock" onclick="showPage('connexion')" title="Connexion requise">🔒 Connexion</button>`;
 
