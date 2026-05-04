@@ -1,18 +1,27 @@
 const router = require('express').Router();
 const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const Subject = require('../models/Subject');
 const auth = require('../middleware/auth');
 
-// ─── Multer config ───
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, path.join(__dirname, '../uploads')),
-  filename: (req, file, cb) => {
-    const unique = Date.now() + '-' + Math.round(Math.random() * 1e6);
-    cb(null, unique + path.extname(file.originalname));
+// ─── Configuration Cloudinary ───
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key:    process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+// ─── Multer + Cloudinary Storage ───
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: 'enaexams',
+    allowed_formats: ['pdf'],
+    resource_type: 'raw', // obligatoire pour les PDF
   },
 });
+
 const upload = multer({
   storage,
   limits: { fileSize: 20 * 1024 * 1024 }, // 20 MB max
@@ -25,7 +34,7 @@ const upload = multer({
 // ─── GET /api/subjects — public ───
 router.get('/', async (req, res) => {
   try {
-    const { q, filiere, niveau, matiere, annee, page = 1, limit = 20 } = req.query;
+    const { q, filiere, niveau, matiere, annee, page = 1, limit = 200 } = req.query;
     const filter = {};
     if (filiere) filter.filiere = filiere;
     if (niveau)  filter.niveau  = niveau;
@@ -63,12 +72,16 @@ router.post('/', auth, upload.single('fichier'), async (req, res) => {
     if (!titre || !filiere || !niveau || !matiere || !annee)
       return res.status(400).json({ message: 'Champs obligatoires manquants' });
 
+    // fichier = URL complète Cloudinary
+    const fichierUrl = req.file ? req.file.path : null;
+
     const subject = await Subject.create({
       titre, filiere, niveau, matiere, annee, type,
-      fichier: req.file ? req.file.filename : null,
+      fichier: fichierUrl,
     });
     res.status(201).json(subject);
   } catch (err) {
+    console.error('POST /subjects :', err.message);
     res.status(500).json({ error: err.message });
   }
 });
@@ -80,24 +93,33 @@ router.put('/:id', auth, upload.single('fichier'), async (req, res) => {
     const subject = await Subject.findById(req.params.id);
     if (!subject) return res.status(404).json({ message: 'Sujet non trouvé' });
 
+    // Supprimer l'ancien fichier sur Cloudinary si nouveau fichier uploadé
     if (req.file && subject.fichier) {
-      const oldPath = path.join(__dirname, '../uploads', subject.fichier);
-      if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
+      try {
+        // Extraire le public_id depuis l'URL Cloudinary
+        const publicId = subject.fichier
+          .split('/').slice(-2).join('/')
+          .replace(/\.[^/.]+$/, '');
+        await cloudinary.uploader.destroy(publicId, { resource_type: 'raw' });
+      } catch (e) {
+        console.error('Erreur suppression Cloudinary:', e.message);
+      }
     }
 
     Object.assign(subject, {
-      titre: titre || subject.titre,
+      titre:   titre   || subject.titre,
       filiere: filiere || subject.filiere,
-      niveau: niveau || subject.niveau,
+      niveau:  niveau  || subject.niveau,
       matiere: matiere || subject.matiere,
-      annee: annee || subject.annee,
-      type: type || subject.type,
-      ...(req.file && { fichier: req.file.filename }),
+      annee:   annee   || subject.annee,
+      type:    type    || subject.type,
+      ...(req.file && { fichier: req.file.path }),
     });
 
     await subject.save();
     res.json(subject);
   } catch (err) {
+    console.error('PUT /subjects/:id :', err.message);
     res.status(500).json({ error: err.message });
   }
 });
@@ -108,12 +130,21 @@ router.delete('/:id', auth, async (req, res) => {
     const subject = await Subject.findByIdAndDelete(req.params.id);
     if (!subject) return res.status(404).json({ message: 'Sujet non trouvé' });
 
+    // Supprimer le fichier sur Cloudinary
     if (subject.fichier) {
-      const filePath = path.join(__dirname, '../uploads', subject.fichier);
-      if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+      try {
+        const publicId = subject.fichier
+          .split('/').slice(-2).join('/')
+          .replace(/\.[^/.]+$/, '');
+        await cloudinary.uploader.destroy(publicId, { resource_type: 'raw' });
+      } catch (e) {
+        console.error('Erreur suppression Cloudinary:', e.message);
+      }
     }
+
     res.json({ message: 'Sujet supprimé' });
   } catch (err) {
+    console.error('DELETE /subjects/:id :', err.message);
     res.status(500).json({ error: err.message });
   }
 });
