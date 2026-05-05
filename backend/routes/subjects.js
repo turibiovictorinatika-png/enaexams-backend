@@ -15,11 +15,12 @@ cloudinary.config({
 // ─── Multer + Cloudinary Storage ───
 const storage = new CloudinaryStorage({
   cloudinary,
-  params: {
-    folder: 'enaexams',
-    allowed_formats: ['pdf'],
-    resource_type: 'raw', // obligatoire pour les PDF
-  },
+  params: async (req, file) => ({
+  folder: 'enaexams',
+  allowed_formats: ['pdf'],
+  resource_type: 'raw',
+  format: 'pdf', // ← force l'extension .pdf dans l'URL
+}),
 });
 
 const upload = multer({
