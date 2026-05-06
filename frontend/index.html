@@ -1040,7 +1040,7 @@
 </div>
 
 <script>
-const API = '';
+const API = 'https://edudocs-x8gc.onrender.com';
 let subjects = [];
 let etudiantToken = localStorage.getItem('etudiant_token');
 let etudiantInfo = JSON.parse(localStorage.getItem('etudiant_info') || 'null');
@@ -1263,30 +1263,24 @@ function escapeAttr(str) {
   return String(str).replace(/[^a-zA-Z0-9._\-]/g, '');
 }
 
-// ── TÉLÉCHARGEMENT FORCÉ VIA CLOUDINARY fl_attachment ──
+// ── TÉLÉCHARGEMENT VIA CLOUDINARY ──
 function telechargerFichier(btn) {
   const url = btn.getAttribute('data-url');
   if (!url) { alert('Fichier non disponible.'); return; }
 
-  // Transformer l'URL Cloudinary pour forcer le téléchargement
-  // /raw/upload/ → /raw/upload/fl_attachment/
+  // Ajouter fl_attachment pour forcer le téléchargement
   const downloadUrl = url.replace('/upload/', '/upload/fl_attachment/');
 
-  const a = document.createElement('a');
-  a.href = downloadUrl;
-  a.download = 'sujet-ena.pdf';
-  a.style.display = 'none';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
+  // Ouvrir dans un nouvel onglet — fonctionne sur mobile et desktop
+  window.open(downloadUrl, '_blank');
 
   const texteOriginal = btn.textContent;
-  btn.textContent = '✅ Téléchargement…';
+  btn.textContent = '✅ Ouverture…';
   btn.disabled = true;
   setTimeout(() => {
     btn.textContent = texteOriginal;
     btn.disabled = false;
-  }, 3000);
+  }, 2000);
 }
 
 // ── FAQ ──
