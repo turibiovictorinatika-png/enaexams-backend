@@ -1263,26 +1263,30 @@ function escapeAttr(str) {
   return String(str).replace(/[^a-zA-Z0-9._\-]/g, '');
 }
 
-// ── TÉLÉCHARGEMENT DIRECT CLOUDINARY ──
+// ── TÉLÉCHARGEMENT FORCÉ VIA CLOUDINARY fl_attachment ──
 function telechargerFichier(btn) {
   const url = btn.getAttribute('data-url');
   if (!url) { alert('Fichier non disponible.'); return; }
+
+  // Transformer l'URL Cloudinary pour forcer le téléchargement
+  // /raw/upload/ → /raw/upload/fl_attachment/
+  const downloadUrl = url.replace('/upload/', '/upload/fl_attachment/');
+
   const a = document.createElement('a');
-  a.href = url;
-  a.target = '_blank';
-  a.rel = 'noopener noreferrer';
-  a.download = 'sujet.pdf';
+  a.href = downloadUrl;
+  a.download = 'sujet-ena.pdf';
+  a.style.display = 'none';
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
 
   const texteOriginal = btn.textContent;
-  btn.textContent = '✅ Ouverture…';
+  btn.textContent = '✅ Téléchargement…';
   btn.disabled = true;
   setTimeout(() => {
     btn.textContent = texteOriginal;
     btn.disabled = false;
-  }, 2000);
+  }, 3000);
 }
 
 // ── FAQ ──
