@@ -6,28 +6,26 @@ const Subject = require('../models/Subject');
 const auth = require('../middleware/auth');
 
 // ─── Configuration Cloudinary ───
-params: async (req, file) => ({
-  folder: 'enaexams',
-  allowed_formats: ['pdf'],
-  resource_type: 'raw',
-  format: 'pdf',
-  type: 'upload',
-}),
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key:    process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 // ─── Multer + Cloudinary Storage ───
 const storage = new CloudinaryStorage({
   cloudinary,
   params: async (req, file) => ({
-  folder: 'enaexams',
-  allowed_formats: ['pdf'],
-  resource_type: 'raw',
-  format: 'pdf', // ← force l'extension .pdf dans l'URL
-}),
+    folder: 'enaexams',
+    resource_type: 'raw',
+    public_id: `sujet_${Date.now()}`,
+    format: 'pdf',
+  }),
 });
 
 const upload = multer({
   storage,
-  limits: { fileSize: 20 * 1024 * 1024 }, // 20 MB max
+  limits: { fileSize: 20 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
     if (file.mimetype === 'application/pdf') cb(null, true);
     else cb(new Error('Seuls les fichiers PDF sont acceptés'));
@@ -75,7 +73,6 @@ router.post('/', auth, upload.single('fichier'), async (req, res) => {
     if (!titre || !filiere || !niveau || !matiere || !annee)
       return res.status(400).json({ message: 'Champs obligatoires manquants' });
 
-    // fichier = URL complète Cloudinary
     const fichierUrl = req.file ? req.file.path : null;
 
     const subject = await Subject.create({
@@ -96,10 +93,8 @@ router.put('/:id', auth, upload.single('fichier'), async (req, res) => {
     const subject = await Subject.findById(req.params.id);
     if (!subject) return res.status(404).json({ message: 'Sujet non trouvé' });
 
-    // Supprimer l'ancien fichier sur Cloudinary si nouveau fichier uploadé
     if (req.file && subject.fichier) {
       try {
-        // Extraire le public_id depuis l'URL Cloudinary
         const publicId = subject.fichier
           .split('/').slice(-2).join('/')
           .replace(/\.[^/.]+$/, '');
@@ -133,7 +128,6 @@ router.delete('/:id', auth, async (req, res) => {
     const subject = await Subject.findByIdAndDelete(req.params.id);
     if (!subject) return res.status(404).json({ message: 'Sujet non trouvé' });
 
-    // Supprimer le fichier sur Cloudinary
     if (subject.fichier) {
       try {
         const publicId = subject.fichier
