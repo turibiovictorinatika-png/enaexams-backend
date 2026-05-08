@@ -6,11 +6,13 @@ const Subject = require('../models/Subject');
 const auth = require('../middleware/auth');
 
 // ─── Configuration Cloudinary ───
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key:    process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
+params: async (req, file) => ({
+  folder: 'enaexams',
+  allowed_formats: ['pdf'],
+  resource_type: 'raw',
+  format: 'pdf',
+  type: 'upload',
+}),
 
 // ─── Multer + Cloudinary Storage ───
 const storage = new CloudinaryStorage({
