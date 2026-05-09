@@ -36,3 +36,20 @@ mongoose.connect(process.env.MONGO_URI)
     app.listen(PORT, () => console.log(`🚀 Serveur démarré sur http://localhost:${PORT}`));
   })
   .catch(err => { console.error('❌ Erreur MongoDB:', err); process.exit(1); });
+
+// Route de téléchargement proxy
+app.get('/download', async (req, res) => {
+  const { url } = req.query;
+  if (!url || !url.startsWith('https://res.cloudinary.com')) {
+    return res.status(400).json({ message: 'URL invalide' });
+  }
+  try {
+    const response = await fetch(url);
+    const buffer = await response.arrayBuffer();
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'attachment; filename="sujet-ena.pdf"');
+    res.send(Buffer.from(buffer));
+  } catch (err) {
+    res.status(500).json({ message: 'Erreur téléchargement' });
+  }
+});
