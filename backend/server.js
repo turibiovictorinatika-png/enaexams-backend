@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────
-//  EduDocs — Backend API (Node.js + Express)
+//  Enaexams — Backend API (Node.js + Express)
 // ─────────────────────────────────────────────
 const express = require('express');
 const mongoose = require('mongoose');
@@ -35,11 +35,14 @@ app.get('/download', async (req, res) => {
     return res.status(400).json({ message: 'URL invalide' });
   }
   try {
-    const response = await fetch(url);
-    const buffer = await response.arrayBuffer();
-    res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', 'attachment; filename="sujet-ena.pdf"');
-    res.send(Buffer.from(buffer));
+    const https = require('https');
+    https.get(url, (stream) => {
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', 'attachment; filename="sujet-ena.pdf"');
+      stream.pipe(res);
+    }).on('error', (err) => {
+      res.status(500).json({ message: 'Erreur téléchargement' });
+    });
   } catch (err) {
     console.error('Erreur download:', err.message);
     res.status(500).json({ message: 'Erreur téléchargement' });
